@@ -1,0 +1,4 @@
+black
+pandas
+plotly # For interactive charts
+pytest

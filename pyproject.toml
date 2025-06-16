@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "afcharts_py"
+version = "0.1.0"
+description = "A python package to produce charts following UK Government Analysis Function Guidance"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Crown Copyright"}
+]
+maintainers = [
+  {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["plotly", "package", "python"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "OS Independent"
+]
+dependencies = [
+    "pandas",
+    "plotly"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "black",
+]
+docs = [
+  "mkdocs",
+  "mkdocs-material"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Documentation" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Source" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
