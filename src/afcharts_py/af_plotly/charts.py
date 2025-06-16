@@ -10,11 +10,12 @@ from plotly.subplots import make_subplots
 from typing import List, Dict, Optional, Union
 from typeguard import typechecked
 
-from assets.style_colors import (
-    categorical_palette,
-    main_palette,
-    rag_palette,
-    target_palette,
+from afcharts_py.assets.af_colours import (
+    main,
+    sequential,
+    sequential_minus,
+    diverging,
+    af_colour_values,
 )
 
 def create_line_chart(
@@ -683,7 +684,7 @@ def create_variable_chart(
     y_axis_start=None,
     y_axis_end=None,
     unit=None,
-    rag_scale=False
+    rag_scale=False,
 ):
 
     commentary = row["commentary"] if row["commentary"] else None

@@ -12,7 +12,7 @@ af_colour_values = {
     "rag_amber": "#FFC000",
     "rag_red": "#C00000",
 
-    "chart_grids": "#D9D9D9",
+    "chart_features": "#D9D9D9",
     "chart_axes_and_labels": "#595959",
 
     "dark_blue": "#12436D",  # Categorical colour 1 and sequential #1
