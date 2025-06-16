@@ -1,38 +1,39 @@
-from afcharts_py.assets.pio_template import pio
+from afcharts_py.theme_af import theme_af
 import plotly.graph_objects as go
 import pandas as pd
+import plotly.express as px
+
+# Load the gapminder dataset from plotly.express
+df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
 
 
-df = pd.read_csv("test_data/bar_chart.csv")
+top5 = df.nlargest(5, "pop")
 
 fig = go.Figure()
 
 fig.add_trace(
     go.Bar(
-        x=df["Category"],
-        y=df["Value"],  # Repeat the category name for each x value
+        x=top5["country"],
+        y=top5["pop"],  # Repeat the category name for each x value
         name="test bar",  # Use the x value column name as the trace name
     )
 )
 
+# Update layout
 fig.update_layout(
-    template="af_pio",
-    yaxis={"showgrid": True},
+    template=theme_af(grid="y"),
     title=dict(
-        text="Quarterly Sales Report<br><sup>Sales performance of top products</sup>",
-        xref="paper",
-        x=0,
-        xanchor="left",
+        text="The U.S.A. is the most populous country in\nthe Americas",
+        subtitle=dict(text="Population of countries in the Americas, 2007"),
     ),
-    margin=dict(b=100),  # Increase bottom margin to make space for annotation
+    margin=dict(b=70),  # Increase bottom margin to make space for source
     annotations=[
         dict(
-            text="Source: Internal Sales Database",
+            text="Source: Gapminder",
             xref="paper",
             yref="paper",
             x=0,
             y=-0.1,
-            showarrow=False,
             xanchor="left",
         )
     ],

@@ -1,4 +1,3 @@
-from afcharts_py.assets.pio_template import pio
 from afcharts_py.theme_af import theme_af
 import plotly.graph_objects as go
 import pandas as pd
@@ -26,8 +25,7 @@ for country in df["country"].unique():
 
 # Update layout
 fig.update_layout(
-    template=theme_af(),
-    yaxis=dict(showgrid=True),
+    template=theme_af(grid="y"),
     xaxis=dict(
         title="Year",
     ),
@@ -35,7 +33,7 @@ fig.update_layout(
         text="Living Longer",
         subtitle=dict(text="Life Expectancy in the United Kingdom and China 1952-2007"),
     ),
-    margin=dict(b=100),  # Increase bottom margin to make space for source
+    margin=dict(b=70),  # Increase bottom margin to make space for source
     annotations=[
         dict(
             text="Source: Gapminder",
@@ -43,7 +41,6 @@ fig.update_layout(
             yref="paper",
             x=0,
             y=-0.1,
-            showarrow=False,
             xanchor="left",
         )
     ],

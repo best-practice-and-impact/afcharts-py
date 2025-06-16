@@ -88,9 +88,10 @@ def theme_af(
     return go.layout.Template(
         layout={
             "autosize": True,  # Automatically adjusts the scale of the plot based on it's content
-            # "annotationdefaults": {
-            #     "font": {"size": base_size}
-            # },  # Sets default font size for annotation
+            "annotationdefaults": {
+                "font": {"size": base_size},
+                "showarrow": False,
+            },  # Sets default font size for annotation
             "bargap": 0.15,
             "bargroupgap": 0.1,
             "plot_bgcolor": "white",
@@ -179,7 +180,7 @@ def theme_af(
                 # "tickfont": {
                 #     "size": base_size,
                 # },  # Tick label font size
-                "tickwidth": half_line / 2,
+                "tickwidth": 1,
                 "ticks": "outside",  # Removes tick marks
                 "title": {  # Axes title
                     "text": None,  # Removes axes title
@@ -201,7 +202,7 @@ def theme_af(
                 "showgrid": grid_y,
                 "tickcolor": af_colour_values["chart_features"],
                 # "tickfont": {"size": base_size},
-                "tickwidth": half_line / 2,
+                "tickwidth": 1,
                 "ticks": "outside",
                 "title": {
                     "text": None,
