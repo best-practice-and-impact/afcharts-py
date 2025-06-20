@@ -55,21 +55,23 @@ afcharts-py/
 pip install afcharts-py
 ```
 
-## Development
+## Development only
 
-### Create a Python virtual environment and activate it
+### Create a Python virtual environment
+
+#### Activate it
 
 ```bash
 .\.venv\Scripts\Activate.ps1
 ```
 
-install requirements.txt file
+#### install requirements.txt file
 
 ```bash
 pip install -r requirements.txt
 ```
 
-To test the install locally:
+### To test the package locally
 
 ```bash
 pip install -e .
