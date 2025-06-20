@@ -22,6 +22,7 @@ afcharts-py/
 ├── src/
 │   └── afcharts_py/
 │       ├── __init__.py
+│       ├── theme_af.py
 │       └── assets
 │           └── pio_template.py
 │
