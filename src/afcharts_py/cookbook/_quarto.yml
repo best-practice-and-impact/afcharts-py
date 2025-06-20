@@ -1,0 +1,30 @@
+project:
+  type: book
+
+book:
+  title: "afcharts-py cookbook"
+  repo-branch: main
+  description: | 
+    A package to set Analysis function standards in python graphing libraries
+  page-footer: "afcharts-py for Python was written by ."
+  chapters:
+      - index.qmd
+      - text: Getting started
+        href: getting-started.qmd
+      - text: Matplotlib usage
+        href: 01-matplotlib-usage.qmd
+      - text: Seaborn usage
+        href: 02-seaborn-usage.qmd
+      - text: Plotly usage
+        href: 03-plotly-usage.qmd
+      - text: Colours
+        href: 04-colour-palettes.qmd
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-title: "On this page"
+    code-overflow: wrap
+    toc-depth: 4
+
+jupyter: python3

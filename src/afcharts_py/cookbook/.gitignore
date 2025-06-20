@@ -1,0 +1,7 @@
+*.html
+*.md
+.vdoc.*
+
+/.quarto/
+/_site/
+/_book/
