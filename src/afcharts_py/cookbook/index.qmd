@@ -1,0 +1,21 @@
+---
+description-meta: |
+  This book will teach you how to work with geographic data in Python.
+  It's a short and practical open source book in which you'll
+  develop and use geocomputation to solve practical
+  problems and lay the foundations for advanced geospatial applications.
+---
+
+
+::: {.content-visible when-format="html"}
+# Welcome {.unnumbered}
+This cookbook provides examples of the code used to produce various chart types using `afcharts_py`. There are also examples to demonstrate how to apply further customisation to `afcharts_py` charts.
+
+If there is a chart type or task which you think would be useful to include here, please [submit a suggestion](https://github.com/best-practice-and-impact/afcharts-py/issues/new?&labels=documentation&title=Cookbook+suggestion).
+
+## Contents
+- Plotly Usage: A simple example to get started.
+:::
+
+
+
