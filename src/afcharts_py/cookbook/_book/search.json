@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "afcharts-py cookbook",
+    "section": "",
+    "text": "Welcome\nThis cookbook provides examples of the code used to produce various chart types using afcharts_py. There are also examples to demonstrate how to apply further customisation to afcharts_py charts.\nIf there is a chart type or task which you think would be useful to include here, please submit a suggestion.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#contents",
+    "href": "index.html#contents",
+    "title": "afcharts-py cookbook",
+    "section": "Contents",
+    "text": "Contents\n\nPlotly Usage: A simple example to get started.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "getting-started.html",
+    "href": "getting-started.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "To install the package:\npip install 'afcharts_py'\nuse_afcharts  The examples in this cookbook use the afcharts theme and colour functions explicitly, however it may be easier to make use of the use_afcharts() function if your charts all require a similar style. More information on use_afcharts can be found on the homepage.\nNote on use of titles, subtitles and captions  Titles, subtitles and captions have been embedded in the charts in this cookbook for demonstration purposes. However, for accessibility reasons, it is usually preferable to provide titles in the body of the page rather than embedded within the image of the plot.\nThe following packages are required to produce the example charts in this cookbook:\nimport plotly.graph_objects as go\nimport pandas as pd\n\n# Use gapminder data for cookbook charts\nimport plotly.express.data.gapminder",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "01-matplotlib-usage.html",
+    "href": "01-matplotlib-usage.html",
+    "title": "1  Using the package with matplotlib",
+    "section": "",
+    "text": "1.0.1 Example of a bar chart",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Matplotlib usage</span>"
+    ]
+  },
+  {
+    "objectID": "02-seaborn-usage.html",
+    "href": "02-seaborn-usage.html",
+    "title": "2  Using the package with seaborn",
+    "section": "",
+    "text": "2.0.1 Example of a bar chart",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Seaborn usage</span>"
+    ]
+  },
+  {
+    "objectID": "03-plotly-usage.html",
+    "href": "03-plotly-usage.html",
+    "title": "3  Using the package with Plotly",
+    "section": "",
+    "text": "3.0.1 Example of a bar chart\nfrom afcharts_py.theme_af import theme_af\nimport plotly.graph_objects as go\nimport pandas as pd\nimport plotly.express as px\n\n# Load the gapminder dataset from plotly.express\ndf = px.data.gapminder().query(\"year == 2007 & continent == 'Americas'\")\n\n\ntop5 = df.nlargest(5, \"pop\")\n\nfig = go.Figure()\n\nfig.add_trace(\n    go.Bar(\n        x=top5[\"country\"],\n        y=top5[\"pop\"],  # Repeat the category name for each x value\n        name=\"test bar\",  # Use the x value column name as the trace name\n    )\n)\n\n# Update layout\nfig.update_layout(\n    template=theme_af(grid=\"y\"),\n    title=dict(\n        text=\"The U.S.A. is the most populous country in\\nthe Americas\",\n        subtitle=dict(text=\"Population of countries in the Americas, 2007\"),\n    ),\n    margin=dict(b=70),  # Increase bottom margin to make space for source\n    annotations=[\n        dict(\n            text=\"Source: Gapminder\",\n            xref=\"paper\",\n            yref=\"paper\",\n            x=0,\n            y=-0.1,\n            xanchor=\"left\",\n        )\n    ],\n    meta=dict(\n        alt=\"Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units).\"\n    ),\n)\n\nfig.show()\n##/ Example of line chart with duo palette\nimport plotly.graph_objects as go\nimport pandas as pd\nimport plotly.express as px\n\n# AF Package\nfrom afcharts_py.theme_af import theme_af\nfrom afcharts_py.assets.af_colours import duo\n\n# Load the gapminder dataset from plotly.express\ndf = px.data.gapminder()\n\ndf = df[df[\"country\"].isin([\"United Kingdom\", \"China\"])]\n\nfig = go.Figure()\n\n# Add a trace for each continent\nfor country in df[\"country\"].unique():\n    df_country = df[df[\"country\"] == country]\n    fig.add_trace(\n        go.Scatter(\n            x=df_country[\"year\"],\n            y=df_country[\"lifeExp\"],\n            mode=\"lines\",\n            name=country,\n            text=df_country[\"country\"],\n        )\n    )\n\n# Update layout\nfig.update_layout(\n    template=theme_af(grid=\"y\", colour_palette=duo),\n    xaxis=dict(\n        title=\"Year\",\n    ),\n    title=dict(\n        text=\"Living Longer\",\n        subtitle=dict(text=\"Life Expectancy in the United Kingdom and China 1952-2007\"),\n    ),\n    margin=dict(b=70),  # Increase bottom margin to make space for source\n    annotations=[\n        dict(\n            text=\"Source: Gapminder\",\n            xref=\"paper\",\n            yref=\"paper\",\n            x=0,\n            y=-0.1,\n            xanchor=\"left\",\n        )\n    ],\n    meta=dict(\n        alt=\"Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units).\"\n    ),\n)\n\nfig.update_yaxes(range=[0, 82])\n\nfig.show()",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Plotly usage</span>"
+    ]
+  },
+  {
+    "objectID": "04-colour-palettes.html",
+    "href": "04-colour-palettes.html",
+    "title": "4  Government Analysis Function colour palettes",
+    "section": "",
+    "text": "afcharts provides colour palettes as set out by the Government Analysis Function.\nThese palettes have been developed to meet the Web Content Accessibility Guidelines 2.1 for graphical objects. The colours in the main palette for categorical data all have at least a 3:1 colour contrast ratio with white (#ffffff), as well as with adjacent colours in the palette.\nThe main palette is the default for discrete colour/fill functions, and the sequential palette for continuous colour/fill functions.\n\n4.0.1 Using afcharts colour palettes\nThe full list of available palettes can be found by running afcharts_py.assets.af_colour_palettes.\n\n\n4.0.2 Main palette\nThe main palette should be used with categorical data.\nimport pandas as pd\n\ntest_palette = {\n    \"primary\": \"#1f77b4\",\n    \"secondary\": \"#ff7f0e\",\n    \"success\": \"#2ca02c\",\n    \"danger\": \"#d62728\",\n    \"warning\": \"#ffbb78\",\n    \"info\": \"#17becf\",\n}\n\ndf = pd.DataFrame(list(test_palette.items()), columns=[\"Name\", \"Hex Code\"])\ndf\n\ndf[\"Preview\"] = df[\"Hex Code\"].apply(\n    lambda x: f'&lt;span style=\"background-color:{x};padding:5px 20px;display:inline-block;\"&gt;&lt;/span&gt;'\n)\nfrom IPython.display import display, HTML\n\ndisplay(HTML(df.to_html(escape=False)))\nThe duo palette should be used if only two colours are required as the dark blue and orange colours have the best colour contrast with each other. If only two colours are required and another palette from the main family is used, main2 will be used instead.\n\n\n4.0.3 Sequential palette\nThe sequential colour palette should be used for data where the order has some meaning.\n\n\n4.0.4 Focus palette\nThe focus palette should be used to highlight specific elements of a plot.\nThe light grey colour in this palette does not have sufficient colour contrast against a white background and therefore this palette should only be used when it is essential to communicate your message. Follow the advice for using the focus palette in the Government Analysis Function colour guidance when using this palette.\n\n\n4.0.5 Using your own colour palette\nThere may be instances where you’d like to use a different colour palette. If so, this should be carefully considered to ensure it meets accessibility requirements. The Government Analysis Function guidance outlines appropriate steps for choosing your own accessible colour palette and should be used.\nAn example of how to use an alternative colour palette is provided in the cookbook. However, if you use a different palette regularly and feel it would be useful for this to be added to afcharts, please make a suggestion as per the contributing guidance.\n\n\n4.0.6 Things to consider when using colour\nUsing afcharts colour palettes does not guarantee that your charts will be accessible. The Government Analysis Function has published guidance on other steps you should take to ensure the accessible use of colour. afcharts should be used in conjunction with the advice given in these guidance documents.\nThe following are a few key things to consider when using colour in data visualisations:\n\nOnly use colour if absolutely necessary\nDo not rely on colour alone to communicate a message\nUse colour consistently when producing a series of plots\nLimit the number of different colours you use; ideally an absolute maximum of four\nUse colour palettes in the order presented to ensure adjacent colours have sufficient contrast with each other\n\n\n\n4.0.7 Viewing Palettes in Python\nNames and hex codes for available colours and palettes can be viewed by running the following code:\n\nExamples of how to apply these palettes to ggplot2 charts are available in both the cookbook",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Colours</span>"
+    ]
+  }
+]
