@@ -7,7 +7,11 @@ name = "afcharts"
 version = "0.1.0"
 description = "Standardised plotting configuration tools to meet Analysis Function plotting guidelines."
 readme = "README.md"
+license = {file = "LICENSE"}
 authors = [
+    {name = "Crown Copyright"}
+]
+maintainers = [
     { name = "Nick Henden", email = "Nick.Henden@ukhsa.gov.uk" },
     { name = "Peter Brohan"},
     { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
@@ -40,6 +44,11 @@ optional-dependencies.test = [  # install this package's testing dependencies wi
     "pytest-mock",  # Mock wrapper for unit tests
     "pytest-sugar>=1.0.0",  # Prettier pytest terminal output
 ]
+optional-dependencies.docs = [
+    "mkdocs",  # Language agnostic docs building tool (alternative to Sphinx)
+    "mkdocs-material"  # Theme for mkdocs
+]
+
 
 [tool.setuptools.packages.find]
 where = ["src"]  # Packages are located in src/ top level directory
