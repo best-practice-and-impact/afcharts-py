@@ -1,11 +1,57 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "afcharts-py"
+name = "afcharts"
 version = "0.1.0"
 description = "Standardised plotting configuration tools to meet Analysis Function plotting guidelines."
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
+authors = [
+    { name = "Nick Henden", email = "Nick.Henden@ukhsa.gov.uk" },
+    { name = "Peter Brohan"},
+    { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
+    { name = "Stelios Georgiou", email = "Stelios.Georgiou@ukhsa.gov.uk" },
+    # Other contributors, please add your details here
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    # "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+]
+requires-python = ">=3.12"
+
+dependencies = [  # install this package in developer mode with e.g. $ uv pip install -e .
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
 ]
+optional-dependencies.dev = [  # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
+    "ipython>=8.26.0",       # Installing ipython will enable colourised console output/tracebacks
+    "mypy>=1.15.0",  # Mypy static type checker/linter
+    "pre-commit>=3.8.0",  # Used to run pre-commit hook linting and formatting checks
+    "ruff>=0.6.2",  # General python code linting - combines black, flake8 etc. Run linting/formatting fixes with `ruff check --fix`
+    "pandas>=2.2.2",  # Used extensively to manipulate tabular data
+]
+optional-dependencies.test = [  # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
+    "pytest>=8.2.2",  # Unit/regression testing etc.
+    "pytest-cov>=5.0.0",  # Test code coverage
+    "pytest-mock",  # Mock wrapper for unit tests
+    "pytest-sugar>=1.0.0",  # Prettier pytest terminal output
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]  # Packages are located in src/ top level directory
+exclude = ["docs*", "Documentation*", "build"]
+
+[tool.ruff]
+line-length = 120
+[tool.ruff.lint.pydocstyle]
+convention = "google" # Accepts one of {google,numpy,pep257}
+
+[tool.mypy]  # Config for mypy static type checking
+python_version = "3.13"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_ignores = true
