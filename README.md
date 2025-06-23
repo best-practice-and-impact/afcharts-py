@@ -72,7 +72,7 @@ pip install -r requirements.txt
 To test the install locally:
 
 ```bash
-pip install -e .
+pip install -e .[dev,test]
 ```
 
 ## Acknowledgments
