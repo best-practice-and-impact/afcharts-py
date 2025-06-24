@@ -12,6 +12,7 @@ from src.afcharts.assets.af_colours import (
 
 """
 Scope: test using the set color maps in the plotly code 
+ToDo: Enable dynamic colouring so we do not need to specify number of colours 
 """
 
 # A custom color scheme not AF compliant for testing
