@@ -1,4 +1,4 @@
-from afcharts_py.theme_af import theme_af
+from afcharts.theme_af import theme_af
 import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
@@ -42,4 +42,4 @@ fig.update_layout(
     ),
 )
 
-fig.show()
+fig.show(renderer="svg")

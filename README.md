@@ -14,13 +14,13 @@ More information about the package and its functions can be found on the
 [afcharts
 website](https://best-practice-and-impact.github.io/afcharts/).
 
-Basic folder structure
+## Basic folder structure
 
-```
+```plaintext
 afcharts-py/
 │
 ├── src/
-│   └── afcharts_py/
+│   └── afcharts/
 │       ├── __init__.py
 │       ├── theme_af.py
 │       └── assets
@@ -38,7 +38,7 @@ afcharts-py/
 
 ### Explanation of Each Component
 
-- **`src/afcharts_py/`**: Main package folder. All your code should go here. Using a `src` layout helps avoid import issues during development and testing.
+- **`src/afcharts/`**: Main package folder. All your code should go here. Using a `src` layout helps avoid import issues during development and testing.
   - `__init__.py`: Makes the directory a Python package.
 
 - **`tests/`**: Contains unit tests.
@@ -65,16 +65,16 @@ pip install afcharts-py
 .\.venv\Scripts\Activate.ps1
 ```
 
-#### install requirements.txt file
-
-```bash
-pip install -r requirements.txt
-```
-
-### To test the package locally
+### To test the package locally and install dependencies
 
 ```bash
 pip install -e .[dev,test]
+```
+
+### Testing
+
+```bash
+pytest
 ```
 
 ## Acknowledgments

@@ -3,7 +3,7 @@ import plotly.io as pio
 from typing import Literal
 
 # Project
-from afcharts_py.assets.af_colours import (
+from afcharts.assets.af_colours import (
     main,
     sequential,
     sequential_minus,

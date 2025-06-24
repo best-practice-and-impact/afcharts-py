@@ -3,8 +3,8 @@ import pandas as pd
 import plotly.express as px
 
 # AF Package
-from afcharts_py.theme_af import theme_af
-from afcharts_py.assets.af_colours import duo
+from afcharts.theme_af import theme_af
+from afcharts.assets.af_colours import duo
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
