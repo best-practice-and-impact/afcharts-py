@@ -54,4 +54,8 @@ fig.update_layout(
 
 fig.update_yaxes(range=[0, 82])
 
+import plotly.io as pio
+
+pio.renderers.default = "browser"
+
 fig.show()

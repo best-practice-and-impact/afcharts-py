@@ -42,4 +42,8 @@ fig.update_layout(
     ),
 )
 
-fig.show(renderer="svg")
+import plotly.io as pio
+
+pio.renderers.default = "browser"
+
+fig.show()
