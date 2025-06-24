@@ -108,3 +108,7 @@ venv.bak/
 
 # Temporary README files
 README_files/*
+
+# Cookbook temp docs
+.quarto/
+_book/
