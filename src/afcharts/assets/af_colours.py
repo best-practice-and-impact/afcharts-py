@@ -1,4 +1,4 @@
-# For testing taken from 
+# For testing taken from src/afcharts/assets/af_colours.py
 # Government Analysis Function (AF) colours and palettes
 # Source: https://analysisfunction.civilservice.gov.uk/policy-store/
 #   data-visualisation-colours-in-charts/
