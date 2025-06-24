@@ -1,9 +1,6 @@
 ---
 description-meta: |
-  This book will teach you how to work with geographic data in Python.
-  It's a short and practical open source book in which you'll
-  develop and use geocomputation to solve practical
-  problems and lay the foundations for advanced geospatial applications.
+  This cookbook will teach you how to work with afcharts-py Python package.
 ---
 
 
