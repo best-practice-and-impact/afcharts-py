@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -16,6 +16,7 @@ maintainers = [
     { name = "Peter Brohan"},
     { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
     { name = "Stelios Georgiou", email = "Stelios.Georgiou@ukhsa.gov.uk" },
+    { name = "Frederico Rodrigues", email = "fred.rodrigues@defra.gov.uk" },
     # Other contributors, please add your details here
 ]
 classifiers = [
@@ -24,7 +25,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 
 dependencies = [  # install this package in developer mode with e.g. $ uv pip install -e .
     "matplotlib>=3.10.3",
@@ -49,6 +50,11 @@ optional-dependencies.docs = [
     "mkdocs-material"  # Theme for mkdocs
 ]
 
+[project.urls]
+"Homepage" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Documentation" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Source" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]  # Packages are located in src/ top level directory

@@ -27,9 +27,13 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
+*.pyc
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -44,6 +48,7 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+.nox/
 .coverage
 .coverage.*
 .cache
@@ -70,19 +75,36 @@ instance/
 # Sphinx documentation
 docs/_build/
 
-# PyBuilder
+# Spyder / Rope / PyBuilder
+.spyderproject
+.spyproject
+.ropeproject
+.pybuilder/
+target Flask / Django / Scrapy
+instance/
+.webassets-cache
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+.scrapy
 target/
 
-# IPython Notebook
+# Jupyter/IPython
 .ipynb_checkpoints
+profile_default/
+ipython_config.py
 
 # pyenv
 .python-version
 
-# dotenv
+# Environments
 .env
-
-# virtualenv
-.venv
-venv/
+.venv/
+env/
 ENV/
+env.bak/
+venv.bak/
+
+# Temporary README files
+README_files/*
