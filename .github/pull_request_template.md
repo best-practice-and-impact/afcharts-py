@@ -65,6 +65,14 @@
 **Breaking Change Details:**
 <!-- Describe what breaks and how users should adapt -->
 
+## Documentation
+- [ ] Documentation updated
+- [ ] README updated
+- [ ] No documentation changes needed
+
+**Documentation Changes:**
+<!-- List any documentation that was added or modified -->
+
 ## Dependencies
 - [ ] No new dependencies
 - [ ] New dependencies added (list below)
