@@ -7,7 +7,7 @@ name = "afcharts"
 version = "0.1.0"
 description = "A python package to produce charts following UK Government Analysis Function guidance"
 readme = "README.md"
-chorelicense = { file = "LICENSE" }
+license = { file = "LICENSE" }
 authors = [{ name = "Crown Copyright" }]
 maintainers = [
     { name = "Nick Henden", email = "Nick.Henden@ukhsa.gov.uk" },
@@ -18,7 +18,7 @@ maintainers = [
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    # "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
 ]
@@ -52,6 +52,9 @@ optional-dependencies.docs = [
 "Documentation" = "https://github.com/best-practice-and-impact/afcharts-py"
 "Source" = "https://github.com/best-practice-and-impact/afcharts-py"
 "Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" } # Maps package names to their actual file paths.
 
 [tool.setuptools.packages.find]
 where = ["src"]                                # Packages are located in src/ top level directory
