@@ -29,20 +29,23 @@ dependencies = [ # install this package in developer mode with e.g. $ uv pip ins
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
 ]
-optional-dependencies.dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
+
+[dependency-groups]
+dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
     "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
     "mypy>=1.15.0",      # Mypy static type checker/linter
     "pre-commit>=3.8.0", # Used to run pre-commit hook linting and formatting checks
-    "ruff>=0.6.2",       # General python code linting - combines black, flake8 etc. Run linting/formatting fixes with `ruff check --fix`
+    "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
     "pandas>=2.2.2",     # Used extensively to manipulate tabular data
+    "afcharts",          # Install current package in developer mode as workspace package
 ]
-optional-dependencies.test = [ # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
+test = [ # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
     "pytest>=8.2.2",       # Unit/regression testing etc.
     "pytest-cov>=5.0.0",   # Test code coverage
     "pytest-mock",         # Mock wrapper for unit tests
     "pytest-sugar>=1.0.0", # Prettier pytest terminal output
 ]
-optional-dependencies.docs = [
+docs = [
     "mkdocs",          # Language agnostic docs building tool (alternative to Sphinx)
     "mkdocs-material", # Theme for mkdocs
 ]
@@ -52,6 +55,15 @@ optional-dependencies.docs = [
 "Documentation" = "https://github.com/best-practice-and-impact/afcharts-py"
 "Source" = "https://github.com/best-practice-and-impact/afcharts-py"
 "Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
+
+[tool.uv]
+default-groups = [
+    "dev",
+    "test",
+] # `uv sync` will also install dev and test dependencies by default
+
+[tool.uv.sources]
+afcharts = { workspace = true } # Install as editable package (developer mode like pip install -e .) 
 
 [tool.setuptools]
 package-dir = { "" = "src" } # Maps package names to their actual file paths.

@@ -17,8 +17,9 @@ dependencies = [
     { name = "seaborn" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
+    { name = "afcharts" },
     { name = "ipython", version = "8.37.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "ipython", version = "9.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "mypy" },
@@ -39,22 +40,30 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ipython", marker = "extra == 'dev'", specifier = ">=8.26.0" },
     { name = "matplotlib", specifier = ">=3.10.3" },
-    { name = "mkdocs", marker = "extra == 'docs'" },
-    { name = "mkdocs-material", marker = "extra == 'docs'" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.15.0" },
-    { name = "pandas", marker = "extra == 'dev'", specifier = ">=2.2.2" },
     { name = "plotly", specifier = ">=6.1.2" },
-    { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=3.8.0" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=8.2.2" },
-    { name = "pytest-cov", marker = "extra == 'test'", specifier = ">=5.0.0" },
-    { name = "pytest-mock", marker = "extra == 'test'" },
-    { name = "pytest-sugar", marker = "extra == 'test'", specifier = ">=1.0.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6.2" },
     { name = "seaborn", specifier = ">=0.13.2" },
 ]
-provides-extras = ["dev", "test", "docs"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "afcharts", editable = "." },
+    { name = "ipython", specifier = ">=8.26.0" },
+    { name = "mypy", specifier = ">=1.15.0" },
+    { name = "pandas", specifier = ">=2.2.2" },
+    { name = "pre-commit", specifier = ">=3.8.0" },
+    { name = "ruff", specifier = ">=0.6.2" },
+]
+docs = [
+    { name = "mkdocs" },
+    { name = "mkdocs-material" },
+]
+test = [
+    { name = "pytest", specifier = ">=8.2.2" },
+    { name = "pytest-cov", specifier = ">=5.0.0" },
+    { name = "pytest-mock" },
+    { name = "pytest-sugar", specifier = ">=1.0.0" },
+]
 
 [[package]]
 name = "asttokens"
