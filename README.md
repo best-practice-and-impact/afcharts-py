@@ -57,22 +57,33 @@ pip install afcharts-py
 
 ## Development
 
-### Create a Python virtual environment and activate it
+### Installing with `uv`
 
+[`uv`](https://docs.astral.sh/uv/) is a powerful python package and virtual environement management tool that can be used as a stand in replacement for `pip`. It can be installed with `python -m pip install uv`. Familiar `pip` commands can be run with `uv pip <pip command>` e.g. `uv pip install matplotlib`, `uv pip list`.
+
+To create a virtual environment (in `./.venv`), install the recommended version of python and install the `afcharts` package and all it's dependencies run:
 ```bash
-.\.venv\Scripts\Activate.ps1
+uv sync
 ```
 
-install requirements.txt file
+Activate the virtual evironment on linux with
 
 ```bash
-pip install -r requirements.txt
+source .venv/bin/activate
 ```
 
-To test the install locally:
+or on Windows with
 
 ```bash
-pip install -e .[dev,test]
+.venv\Scripts\activate
+```
+
+This should display `(afcharts)` at the start of your terminal prompt, showing the venv is active.
+
+To test the install locally run:
+
+```bash
+pytest
 ```
 
 ## Acknowledgments
