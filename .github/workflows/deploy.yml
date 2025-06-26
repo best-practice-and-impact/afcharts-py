@@ -1,8 +1,11 @@
 name: Render and Deploy Quarto Cookbook
 
 on:
+  # This allows it to be triggered for testing. Should delete in final version?
+  
+  workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, dev, feature-branch]
 
 jobs:
   render-cookbook:
