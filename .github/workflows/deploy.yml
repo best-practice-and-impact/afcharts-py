@@ -1,0 +1,39 @@
+name: Render and Deploy Quarto Cookbook
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  render-cookbook:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install Pandoc (if needed)
+        run: sudo apt-get install -y pandoc
+
+      - name: Render Quarto project
+        run: quarto render
+
+      # Upload the book's HTML as an artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_build/html"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
