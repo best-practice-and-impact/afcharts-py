@@ -1,5 +1,0 @@
-## Using the package with matplotlib
-### Example of a bar chart
-
-```python
-```
