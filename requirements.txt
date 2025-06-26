@@ -1,6 +1,0 @@
-black
-matplotlib
-pandas
-plotly # For interactive charts
-pytest
-seaborn
