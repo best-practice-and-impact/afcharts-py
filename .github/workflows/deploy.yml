@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
   push:
-    branches: [main, dev, feature-branch]
+    branches: [main, dev, fr/testing-cookbook-deploy-action]
 
 jobs:
   render-cookbook:
