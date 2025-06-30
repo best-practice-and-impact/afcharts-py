@@ -68,7 +68,6 @@
 ## Documentation
 - [ ] Documentation updated
 - [ ] README updated
-- [ ] API documentation updated
 - [ ] No documentation changes needed
 
 **Documentation Changes:**
@@ -87,7 +86,7 @@
 <!-- Mark completed items with an "x" -->
 
 ### Code Quality
-- [ ] Code follows the project's style guidelines
+- [ ] Code follows the project's [style guidelines](https://3.basecamp.com/4322319/buckets/25844562/documents/8777425747)
 - [ ] Self-review of code completed
 - [ ] Code is properly commented
 - [ ] No unnecessary console.log/print statements
@@ -98,30 +97,3 @@
 - [ ] Tests added for new functionality
 - [ ] Edge cases considered and tested
 - [ ] Error handling implemented where appropriate
-
-
-
-
-
-
-
-**Github issue link**:  #_\<Enter GitHub issue ref here\>_
-
-## Describe your changes
-
-_\<Enter a description for this PR here\>_
-
-## Checklist before requesting a review
-
-The PR raiser/assignee must ensure that for:
-- All PRs:
-    - [ ] The [**branching strategy**] (branching of the `main` branch) has been followed.
-    - [ ] A **self-review** of the changes has been performed by the author.
-    - [ ] Any **merge conflicts** have been resolved (see bottom of PR).
-    -  All PR **workflow checks** have passed (see outcomes at bottom of PR):
-        - [ ] The [**Conventional Commit**](https://www.conventionalcommits.org/en/v1.0.0) messages format has been followed for the PR title (see README.md).
-        - [ ] All **linting issues** raised by MegaLinter have been resolved.
-        - [ ] All **tests** have passed.
-- New features or bugfixes (less relevant for `doc`,`style`, `chore` etc.):
-    - [ ] Thorough **tests** have been added/updated for modified code.
-    - [ ] Updates to **documentation** have been made as necessary.

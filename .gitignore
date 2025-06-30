@@ -4,6 +4,27 @@
 *.sublime-workspace
 .DS_Store
 
+# Data format
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.json
+*.rds
+*.html
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.zip
+*.tar
+*.tar.gz
+*.gz
+*.html
+*.txt
+*.sqlite3
+*.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -54,7 +75,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-*,cover
+*.cover
 .hypothesis/
 
 # Translations

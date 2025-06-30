@@ -5,15 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "afcharts"
 version = "0.1.0"
-description = "Standardised plotting configuration tools to meet Analysis Function plotting guidelines."
+description = "A python package to produce charts following UK Government Analysis Function guidance"
 readme = "README.md"
-license = {file = "LICENSE"}
-authors = [
-    {name = "Crown Copyright"}
-]
+license = { file = "LICENSE" }
+authors = [{ name = "Crown Copyright" }]
 maintainers = [
     { name = "Nick Henden", email = "Nick.Henden@ukhsa.gov.uk" },
-    { name = "Peter Brohan"},
     { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
     { name = "Stelios Georgiou", email = "Stelios.Georgiou@ukhsa.gov.uk" },
     { name = "Frederico Rodrigues", email = "fred.rodrigues@defra.gov.uk" },
@@ -21,33 +18,36 @@ maintainers = [
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    # "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
 ]
 requires-python = ">=3.10"
 
-dependencies = [  # install this package in developer mode with e.g. $ uv pip install -e .
+dependencies = [ # install this package in developer mode with e.g. $ uv pip install -e .
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
 ]
-optional-dependencies.dev = [  # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
-    "ipython>=8.26.0",       # Installing ipython will enable colourised console output/tracebacks
-    "mypy>=1.15.0",  # Mypy static type checker/linter
-    "pre-commit>=3.8.0",  # Used to run pre-commit hook linting and formatting checks
-    "ruff>=0.6.2",  # General python code linting - combines black, flake8 etc. Run linting/formatting fixes with `ruff check --fix`
-    "pandas>=2.2.2",  # Used extensively to manipulate tabular data
+
+[dependency-groups]
+dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
+    "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
+    "mypy>=1.15.0",      # Mypy static type checker/linter
+    "pre-commit>=3.8.0", # Used to run pre-commit hook linting and formatting checks
+    "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
+    "pandas>=2.2.2",     # Used extensively to manipulate tabular data
+    "afcharts",          # Install current package in developer mode as workspace package
 ]
-optional-dependencies.test = [  # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
-    "pytest>=8.2.2",  # Unit/regression testing etc.
-    "pytest-cov>=5.0.0",  # Test code coverage
-    "pytest-mock",  # Mock wrapper for unit tests
-    "pytest-sugar>=1.0.0",  # Prettier pytest terminal output
+test = [ # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
+    "pytest>=8.2.2",       # Unit/regression testing etc.
+    "pytest-cov>=5.0.0",   # Test code coverage
+    "pytest-mock",         # Mock wrapper for unit tests
+    "pytest-sugar>=1.0.0", # Prettier pytest terminal output
 ]
-optional-dependencies.docs = [
-    "mkdocs",  # Language agnostic docs building tool (alternative to Sphinx)
-    "mkdocs-material"  # Theme for mkdocs
+docs = [
+    "mkdocs",          # Language agnostic docs building tool (alternative to Sphinx)
+    "mkdocs-material", # Theme for mkdocs
 ]
 
 [project.urls]
@@ -56,16 +56,41 @@ optional-dependencies.docs = [
 "Source" = "https://github.com/best-practice-and-impact/afcharts-py"
 "Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
 
+[tool.uv]
+default-groups = [
+    "dev",
+    "test",
+] # `uv sync` will also install dev and test dependencies by default
+
+[tool.uv.sources]
+afcharts = { workspace = true } # Install as editable package (developer mode like pip install -e .) 
+
+[tool.setuptools]
+package-dir = { "" = "src" } # Maps package names to their actual file paths.
+
 [tool.setuptools.packages.find]
-where = ["src"]  # Packages are located in src/ top level directory
+where = ["src"]                                # Packages are located in src/ top level directory
 exclude = ["docs*", "Documentation*", "build"]
 
 [tool.ruff]
 line-length = 120
+target-version = "py313"
+select = [
+    "E",   # pycodestyle
+    "W",   # pycodestyle
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C90", # mccabe cyclomatic complexity
+    "G",   # flake8-logging-format
+]
+exclude = ["migrations/versions/"]
+ignore = []
+
 [tool.ruff.lint.pydocstyle]
 convention = "google" # Accepts one of {google,numpy,pep257}
 
-[tool.mypy]  # Config for mypy static type checking
+[tool.mypy] # Config for mypy static type checking
 python_version = "3.13"
 check_untyped_defs = true
 ignore_missing_imports = true
