@@ -1,0 +1,143 @@
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+import pandas as pd
+
+# Project palettes and colors
+from src.afcharts.assets.af_colours import (
+    main,
+    sequential,
+    sequential_minus,
+    diverging,
+    af_colour_values,
+)
+
+"""
+Scope: test using the set color maps in the plotly code and integrate pandas.
+This implementation first converts to pandas for consistency
+ToDo: Enable dynamic colouring so we do not need to specify number of colours 
+"""
+
+# A custom color scheme not AF compliant for testing
+custom_green_ramp = [
+    [0.0, "#D0EACB"],  # Light green
+    [0.5, "#76C27A"],  # Mid green
+    [1.0, "#2C7744"],  # Dark green
+]
+
+custom_green_interval = [
+    "#D0EACB",  # Light green
+    "#76C27A",  # Mid green
+    "#2C7744",  # Dark green
+]
+
+def create_colormap_from_stops(stops, name='custom_cmap'):
+    """
+    Create a continuous colormap from [position, color] stops.
+
+    Args:
+        stops (list of [float, str]): List of tuples where each tuple contains
+            a float position (0 to 1) and a hex color string.
+        name (str): Name of the colormap.
+
+    Returns:
+        matplotlib.colors.LinearSegmentedColormap: Continuous colormap.
+    """
+    positions, colors = zip(*stops)
+    return LinearSegmentedColormap.from_list(name, list(zip(positions, colors)))
+
+
+def sample_colors_from_cmap(cmap, n_colors):
+    """
+    Sample evenly spaced colors from a continuous colormap.
+
+    Args:
+        cmap (matplotlib.colors.Colormap): Continuous colormap to sample from.
+        n_colors (int): Number of discrete colors to sample.
+
+    Returns:
+        list: List of RGBA color tuples sampled from the colormap.
+    """
+    return [cmap(i / (n_colors - 1)) for i in range(n_colors)]
+
+
+def set_matplotlib_defaults(palette=None, n_colors=6):
+    """
+    Set the default matplotlib color cycle based on the given palette.
+
+    Supports:
+        - List of hex color strings (e.g., `main`).
+        - List of [position, color] stops for gradients (e.g., `sequential`).
+
+    If a sequential palette is provided, samples `n_colors` evenly spaced colors
+    from the continuous gradient.
+
+    Args:
+        palette (list, optional): Color palette to set as default. Defaults to `main`.
+        n_colors (int, optional): Number of colors to sample from gradients. Defaults to 6.
+    """
+    if palette is None:
+        palette = main
+
+    # Detect if palette is gradient stops, then sample colors
+    if isinstance(palette, list) and all(isinstance(c, list) and len(c) == 2 for c in palette):
+        cmap = create_colormap_from_stops(palette)
+        palette_colors = sample_colors_from_cmap(cmap, n_colors)
+    else:
+        palette_colors = palette
+
+    # Set matplotlib default color cycle globally
+    plt.rcParams['axes.prop_cycle'] = plt.cycler(color=palette_colors)
+
+
+
+def to_dataframe(x, y=None) -> pd.DataFrame:
+    """
+    Convert various input formats into a standard pandas DataFrame
+    with columns 'Category' and 'Value'.
+    """
+    if isinstance(x, dict):
+        return pd.DataFrame({'Category': list(x.keys()), 'Value': list(x.values())})
+
+    elif isinstance(x, pd.DataFrame):
+        if isinstance(y, str) and y in x.columns:
+            return pd.DataFrame({'Category': x[x.columns[0]], 'Value': x[y]})
+        else:
+            raise ValueError("For DataFrame input, specify a valid column name for y.")
+
+    elif isinstance(x, list) and isinstance(y, list):
+        if len(x) != len(y):
+            raise ValueError("Lists x and y must be of the same length.")
+        return pd.DataFrame({'Category': x, 'Value': y})
+
+    else:
+        raise TypeError("Unsupported input type. Use dict, two lists, or DataFrame with column name.")
+
+
+def plot_bar(x, y=None, title="Bar Plot", xlabel=None, ylabel=None):
+    """
+    Plot a bar chart from various input types by converting to DataFrame.
+    """
+    df = to_dataframe(x, y)
+    df.plot(kind='bar', x='Category', y='Value', legend=False)
+    plt.title(title)
+    plt.xlabel(xlabel or "Category")
+    plt.ylabel(ylabel or "Value")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+
+# Examples
+
+# From dictionary
+plot_bar({'Apples': 10, 'Bananas': 15, 'Cherries': 7}, title="From Dict")
+
+# From lists
+plot_bar(['Apples', 'Bananas', 'Cherries'], [11, 12, 2], title="From Lists")
+
+# From DataFrame
+df = pd.DataFrame({
+    'Fruit': ['Apples', 'Bananas', 'Cherries'],
+    'Count': [1, 5, 12]
+})
+plot_bar(df, y='Count', title="From DataFrame")
