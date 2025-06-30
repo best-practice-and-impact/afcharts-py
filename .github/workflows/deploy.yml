@@ -31,7 +31,7 @@ jobs:
       #   run: sudo apt-get install -y pandoc
 
       - name: Render Quarto project
-        run: quarto render
+        run: quarto render ./src/afcharts/cookbook
 
   deploy:
     needs: render-cookbook
@@ -59,4 +59,4 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          publish_dir: ./src/afcharts/cookbook/docs
