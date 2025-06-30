@@ -19,11 +19,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-        # with:
-        #   enablement: true
-
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
@@ -32,6 +27,12 @@ jobs:
 
       - name: Render Quarto project
         run: quarto render ./src/afcharts/cookbook
+
+      - name: Upload rendered site
+        uses: actions/upload-artifact@v4
+        with:
+          name: cookbook-site
+          path: ./src/afcharts/cookbook/docs
 
   deploy:
     needs: render-cookbook
@@ -43,19 +44,21 @@ jobs:
 
     environment:
       name: github-pages
-      url: ${{steps.deployment.outputs.page_url}}
+      url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Download rendered site
+        uses: actions/download-artifact@v4
+        with:
+          name: cookbook-site
+          path: ./site
 
-      # Upload the book's HTML as an artifact
-      - name: Upload artifact
+      - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./src/afcharts/cookbook/docs
+          path: ./site
 
       - name: Deploy to GitHub Pages
         id: deployment
