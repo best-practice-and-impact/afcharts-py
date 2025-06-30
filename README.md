@@ -77,6 +77,15 @@ pip install -e .[dev,test]
 pytest
 ```
 
+### Reproduce the cookbook locally
+
+<details>
+You can now reproduce the book (requires quarto to be installed):
+
+```bash
+quarto preview ./src/afcharts/cookbook/
+```
+
 ## Acknowledgments
 
 The afcharts package is based on the
