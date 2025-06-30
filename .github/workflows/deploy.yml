@@ -48,11 +48,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # # Upload the book's HTML as an artifact
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: "_build/html"
+      # Upload the book's HTML as an artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./src/afcharts/cookbook/docs
 
       - name: Deploy to GitHub Pages
         id: deployment
