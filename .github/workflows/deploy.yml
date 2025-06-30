@@ -52,11 +52,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./src/afcharts/cookbook/docs
+          path: ./src/afcharts/cookbook/docs/
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./src/afcharts/cookbook/docs
+          publish_dir: ./src/afcharts/cookbook/docs/
