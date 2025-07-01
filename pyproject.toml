@@ -14,6 +14,7 @@ maintainers = [
     { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
     { name = "Stelios Georgiou", email = "Stelios.Georgiou@ukhsa.gov.uk" },
     { name = "Frederico Rodrigues", email = "fred.rodrigues@defra.gov.uk" },
+    { name = "Peter Brohan", email = "peter.brohan@communities.gov.uk"}
     # Other contributors, please add your details here
 ]
 classifiers = [
@@ -71,6 +72,9 @@ package-dir = { "" = "src" } # Maps package names to their actual file paths.
 [tool.setuptools.packages.find]
 where = ["src"]                                # Packages are located in src/ top level directory
 exclude = ["docs*", "Documentation*", "build"]
+
+[tool.setuptools.package-data]
+afcharts = ["stylelib/*.mplstyle"]
 
 [tool.ruff]
 line-length = 120

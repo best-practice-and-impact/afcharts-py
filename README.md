@@ -3,7 +3,7 @@
 
 afcharts-py is an Python package for creating accessible plots by the Government
 Analysis Function. Currently, functions are available for styling
-plotly plots.
+plotly and basic matplotlib plots.
 
 The package has been developed using the [Government Analysis Function
 Data Visualisation
@@ -54,6 +54,17 @@ afcharts-py/
 ```bash
 pip install afcharts-py
 ```
+
+## Usage
+
+To use the afcharts style in matplotlib, import the package, then simple use the afcharts style with
+```python
+import afcharts
+import matplotlib.pytplot as plt
+plt.style.use('afcharts')
+```
+
+then create your chart as normal.
 
 ## Development only
 
