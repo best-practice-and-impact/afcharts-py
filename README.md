@@ -1,5 +1,5 @@
 
-# afcharts-py <img src="assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
+# afcharts-py <img src="src/afcharts/assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
 
 afcharts-py is an Python package for creating accessible plots by the Government
 Analysis Function. Currently, functions are available for styling
@@ -64,6 +64,7 @@ pip install afcharts-py
 [`uv`](https://docs.astral.sh/uv/) is a powerful python package and virtual environement management tool that can be used as a stand in replacement for `pip`. It can be installed with `python -m pip install uv`. Familiar `pip` commands can be run with `uv pip <pip command>` e.g. `uv pip install matplotlib`, `uv pip list`.
 
 To create a virtual environment (in `./.venv`), install the recommended version of python and install the `afcharts` package and all it's dependencies run:
+
 ```bash
 uv sync
 ```
