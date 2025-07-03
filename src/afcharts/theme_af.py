@@ -12,7 +12,7 @@ from afcharts.assets.af_colours import (
 )
 
 
-def theme_af(
+def af_plotly(
     base_size: int = 14,
     base_line_size: float = None,
     base_rect_size: float = None,
@@ -20,7 +20,7 @@ def theme_af(
     grid: Literal["x", "y", "xy", None] = None,
     axis: Literal["x", "y", "xy", None] = None,
     ticks: Literal["x", "y", "xy", None] = None,
-    legend: Literal["right", "left", "top", "bottom", None] = None,
+    legend: Literal["right", "left", "top", "bottom", None] = "right",
 ):
     """
     Analysis Function theme for Plotly charts.
@@ -54,7 +54,7 @@ def theme_af(
     --------
     >>> import plotly.graph_objects as go
     >>> fig = go.Figure()
-    >>> fig.update_layout(theme=theme_af())
+    >>> fig.update_layout(theme=af_plotly())
     >>> fig.show()
     """
 
@@ -91,9 +91,63 @@ def theme_af(
     ticks_x = ticks in ("x", "xy")
     ticks_y = ticks in ("y", "xy")
 
+    # Relevant ggplot items:
+    # legend.position = legend,
+    # legend.direction = NULL,
+    # legend.box.spacing = ggplot2::unit(2 * half_line, "pt"),
+
+    if legend == "none":
+        legend_x = None
+        legend_xanchor = None
+        legend_y = None
+        legend_yanchor = None
+        legend_orientation = None
+
+    elif legend == "top":  # not working due to title overlap
+        legend_x = 0.5
+        legend_xanchor = "center"
+        legend_y = 1 + (2 * half_line)
+        legend_yanchor = "bottom"
+        legend_orientation = "h"
+
+    elif legend == "bottom":  # not working due to title overlap
+        legend_x = 0.5
+        legend_xanchor = "center"
+        legend_y = -2 * half_line
+        legend_yanchor = "top"
+        legend_orientation = "h"
+
+    elif legend == "left":
+        legend_x = -2 * half_line
+        legend_xanchor = "right"
+        legend_y = 0.5
+        legend_yanchor = "middle"
+        legend_orientation = "v"
+
+    elif legend == "right":
+        legend_x = 1 + 2 * half_line
+        legend_xanchor = "left"
+        legend_y = 0.5
+        legend_yanchor = "middle"
+        legend_orientation = "v"
+
     return go.layout.Template(
         layout={
             "autosize": True,  # Automatically adjusts the scale of the plot based on it's content
+            "annotations": [
+                dict(
+                    templateitemname="source",
+                    text="Source: please insert",
+                    x=0,
+                    xanchor="left",
+                    xref="paper",
+                    y=0,
+                    yanchor="bottom",
+                    yref="paper",
+                    showarrow=False,
+                    visible=True,
+                )
+            ],
             "annotationdefaults": {
                 "font": {"size": base_size},
                 "showarrow": False,
@@ -124,17 +178,23 @@ def theme_af(
             },  # Text size
             "legend_title": None,  # Removes legend title
             "legend": {
-                "borderwidth": 0,
+                "bordercolor": None,  # legend.box = NULL
+                "borderwidth": 0,  # legend.box.margin in ggplot
                 "title": {"text": None},  # Removes legend title
-                "font": {"size": base_size * 1.2},  # Legend font size
-                "bgcolor": "rgba(0,0,0,0)",  # Makes legend background transparent
-                "orientation": "v",  # Legend orientation
-                "x": 1,  # Positions legend (0,0 is the bottom left)
-                "y": 0.5,
+                "font": {
+                    "size": base_size,
+                },  # Legend font size
+                "bgcolor": "rgba(0,0,0,0)",  # legend.box.background = ggplot2::element_blank()
+                "orientation": legend_orientation,  # Legend orientation
+                "x": legend_x,  # Positions legend (0,0 is the bottom left)
+                "xanchor": legend_xanchor,
+                "xref": "paper",
+                "y": legend_y,
+                "yanchor": legend_yanchor,
+                "yref": "paper",
                 "indentation": 0,
                 "itemclick": "toggleothers",  # Change behaviour from hiding trace to showing only this trace
-                "itemwidth": 30,
-                # "itemsizing": "constant",
+                "itemwidth": 30,  # Default
                 "traceorder": "normal",
             },
             "hoverlabel": {
@@ -148,10 +208,7 @@ def theme_af(
             "margin": {  # Set margins around the plot area in pixels
                 "l": half_line,  # Left margin
                 "r": half_line,  # Right margin
-                "t": (base_size * 1.6)
-                + (0.7 * (base_size * 1.6))
-                + half_line
-                + base_size,  # Top margin is the size of the title + subtitle size + title_padding + space between title and subtitle (which is set by default)
+                "t": half_line,
                 "b": half_line,  # Bottom margin
                 "pad": 0,  # Padding between grid lines and the tick labels
             },
@@ -159,6 +216,7 @@ def theme_af(
             "uniformtext_minsize": 8,  # Minimum font size for text elements in the plot
             "uniformtext_mode": "hide",  # Controls visibility of text based on size - hide means that if a text element's size falls below the "uniformtext_minsize" then the text will be hidden
             "title": {
+                "automargin": True,
                 "text": None,
                 "font": {
                     "size": base_size * 1.6,
@@ -171,22 +229,25 @@ def theme_af(
                 },  # Padding above and below title
                 "x": 0,  # Title position horizonatally
                 "xanchor": "left",
-                "xref": "paper",
+                "xref": "container",
                 "y": 1,  # Title position vertically (1 = top of plot)
                 "yanchor": "top",
                 "yref": "container",
+                "subtitle": {
+                    "text": None,
+                },
             },
             "xaxis": {  # Configures the x-axis
                 "automargin": True,  # Automatically adjust margins on axes to fit the content
                 "gridcolor": af_colour_values["chart_features"],  # Grid lines colours
                 "linecolor": af_colour_values["chart_features"],  # Axes line colour
-                "linewidth": 1,
+                "linewidth": base_line_size,
                 "showgrid": grid_x,  # Hide grid lines
                 "tickcolor": af_colour_values["chart_features"],  # Tick mark colours
                 # "tickfont": {
                 #     "size": base_size,
                 # },  # Tick label font size
-                "tickwidth": 1,
+                "tickwidth": base_line_size,
                 "ticks": "outside",  # Removes tick marks
                 "title": {  # Axes title
                     "text": None,  # Removes axes title
@@ -204,11 +265,11 @@ def theme_af(
                 "automargin": True,
                 "gridcolor": af_colour_values["chart_features"],
                 "linecolor": af_colour_values["chart_features"],
-                "linewidth": 1,
+                "linewidth": base_line_size,
                 "showgrid": grid_y,
                 "tickcolor": af_colour_values["chart_features"],
                 # "tickfont": {"size": base_size},
-                "tickwidth": 1,
+                "tickwidth": base_line_size,
                 "ticks": "outside",
                 "title": {
                     "text": None,

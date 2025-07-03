@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # AF Package
-from afcharts.theme_af import theme_af
+from afcharts.theme_af import af_plotly
 from afcharts.assets.af_colours import duo
 
 # Load the gapminder dataset from plotly.express
@@ -28,7 +28,7 @@ for country in df["country"].unique():
 
 # Update layout
 fig.update_layout(
-    template=theme_af(grid="y", colour_palette=duo),
+    template=af_plotly(grid="y", colour_palette=duo, legend="top"),
     xaxis=dict(
         title="Year",
     ),
@@ -37,16 +37,9 @@ fig.update_layout(
         subtitle=dict(text="Life Expectancy in the United Kingdom and China 1952-2007"),
     ),
     margin=dict(b=70),  # Increase bottom margin to make space for source
-    annotations=[
-        dict(
-            text="Source: Gapminder",
-            xref="paper",
-            yref="paper",
-            x=0,
-            y=-0.1,
-            xanchor="left",
-        )
-    ],
+    # annotations=[
+    #     dict(templateitemname="source", text="Source: Gapminder", visible=True)
+    # ],
     meta=dict(
         alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."
     ),

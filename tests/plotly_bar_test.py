@@ -1,11 +1,10 @@
-from afcharts.theme_af import theme_af
+from afcharts.theme_af import af_plotly
 import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
-
 
 top5 = df.nlargest(5, "pop")
 
@@ -21,7 +20,7 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-    template=theme_af(grid="y"),
+    template=af_plotly(grid="y"),
     title=dict(
         text="The U.S.A. is the most populous country in\nthe Americas",
         subtitle=dict(text="Population of countries in the Americas, 2007"),
