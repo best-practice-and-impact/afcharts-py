@@ -14,84 +14,10 @@ More information about the package and its functions can be found on the
 [afcharts
 website](https://best-practice-and-impact.github.io/afcharts/).
 
-## Basic folder structure
-
-```plaintext
-afcharts-py/
-│
-├── src/
-│   └── afcharts/
-│       ├── __init__.py
-│       ├── theme_af.py
-│       └── assets
-│           └── pio_template.py
-│
-├── tests/
-│   ├── conftest.py
-│   └── test_module.py
-│
-├── README.md
-├── pyproject.toml
-├── LICENSE
-└── .gitignore
-```
-
-### Explanation of Each Component
-
-- **`src/afcharts/`**: Main package folder. All your code should go here. Using a `src` layout helps avoid import issues during development and testing.
-  - `__init__.py`: Makes the directory a Python package.
-
-- **`tests/`**: Contains unit tests.
-
-- **`README.md`**: A markdown file describing your package, how to install and use it.
-
-- **`pyproject.toml`**: The modern configuration file for building and packaging Python projects. It replaces `setup.py` and `setup.cfg`.
-
-- **`.gitignore`**: Specifies files and directories to ignore in version control (e.g., `__pycache__/`, `.DS_Store`, etc.).
-
 ## Installation
 
 ```bash
 pip install afcharts-py
-```
-
-## Development only
-
-### Create a Python virtual environment
-
-### Installing with `uv`
-
-[`uv`](https://docs.astral.sh/uv/) is a powerful python package and virtual environement management tool that can be used as a stand in replacement for `pip`. It can be installed with `python -m pip install uv`. Familiar `pip` commands can be run with `uv pip <pip command>` e.g. `uv pip install matplotlib`, `uv pip list`.
-
-To create a virtual environment (in `./.venv`), install the recommended version of python and install the `afcharts` package and all it's dependencies run:
-```bash
-uv sync
-```
-
-Activate the virtual evironment on linux with
-
-```bash
-source .venv/bin/activate
-```
-
-or on Windows with
-
-```bash
-.venv\Scripts\activate
-```
-
-This should display `(afcharts)` at the start of your terminal prompt, showing the venv is active.
-
-### To test the package locally and install dependencies
-
-```bash
-pip install -e .[dev,test]
-```
-
-### Testing
-
-```bash
-pytest
 ```
 
 ## Acknowledgments
