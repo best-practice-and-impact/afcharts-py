@@ -87,7 +87,7 @@ To create a virtual environment (in `./.venv`), install the recommended version 
 uv sync
 ```
 
-Activate the virtual evironment on linux with
+Activate the virtual environment on linux with
 
 ```bash
 source .venv/bin/activate
@@ -101,16 +101,18 @@ or on Windows with
 
 This should display `(afcharts)` at the start of your terminal prompt, showing the venv is active.
 
+`afcharts` will be installed in editable mode (like `pip install -e .`) so that changes to the code will take effect without reinstalling the package.
+
 #### Installing with pip
 
-If you don't want to use `uv`, the package can be installed in developer mode from the root directory of the repository with
+If you don't want to use `uv`, the package can be installed in developer (editable) mode from the root directory of the repository with:
 ```bash
 pip install -e .[dev,test]
 ```
 This assumes you already have a python virtual environment set up with your preferred tool (`conda`/`virtualenv`/`uv` etc.).
 
 ### Testing
-To test your installation, run `pytest` to confirm all unit tests pass successfully in your environment
+To test your installation, run `pytest` to confirm all unit tests pass successfully in your environment:
 ```bash
 pytest
 ```
