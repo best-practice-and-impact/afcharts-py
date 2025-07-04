@@ -142,3 +142,33 @@ git commit --no-verify -m 'feat(SCP-___): my commit message'
 
 ## Contributing
 
+### Conventional commit PR titles
+When you raise a pull request (PR), please ensure the PR title follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) format (see [guidance gist](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13#examples)).
+
+By using conventional commits, commit logs are easier to read and the [`release-please`](https://github.com/googleapis/release-please) github action workflow can automate building of change logs and tagging and increasing of new version numbers.
+
+The `PR Conventional Commit Semantic Title Check` github workflow check will fail at the bottom of your PR if the title doesn't meet the requirements.
+
+Using conventional commit commit PR titles just involves structuring your title in the format:
+`<type>(<optional scope>): <description>`
+where:
+- `<type>` is one of the specific phases given below describing the type of change
+- `(<optional scope>)` provides additional contextual information about the area of the codebase affected. If omitted also leave out the brackets.
+- `<description>` contains a concise description of the change (in the imperative, present tense: "change" not "changed" nor "changes").
+
+#### Common change types
+
+- Changes relevant to the API or UI:
+  - `feat` Commits that add, adjust or remove a new feature to the codebase
+  - `fix` Commits that fix a codebase bug of a preceded `feat` commit
+- `test` Commits that add missing tests or correct existing ones
+- `docs` Commits that exclusively affect documentation
+- `style` Commits that address code style (e.g., white-space, formatting, missing semi-colons) and do not affect application behaviour
+- `refactor` Commits that rewrite or restructure code without altering codebase behaviour
+- `build` Commits that affect build-related components such as build tools, dependencies, project version, CI/CD pipelines, ...
+- `chore` Miscellaneous commits e.g. modifying `.gitignore`, ...
+
+### Major version number increments
+A PR that introduces breaking changes (i.e. affects backwards compatibility) must be indicated by an `!` before the `:` in the subject line e.g. `feat(api)!: change func call signature`.
+This will inform release-please to increment the *major* (e.g. `1.7` -> `2.0`) version number instead of the *minor* version number (e.g. `1.7` -> `1.8`) in the next release.
+Breaking changes should be described in the squash commit footer section, if the commit description isn't sufficiently informative
