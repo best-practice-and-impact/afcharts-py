@@ -1,0 +1,36 @@
+---
+name: Test
+on:
+  pull_request:
+    branches: [main]
+
+permissions: read-all
+
+jobs:
+  run-tests:
+    name: pytest
+    if: github.head_ref != 'release-please--branches--main'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.13"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          if [ -f requirements_test.txt ]; then python3 -m pip install -r requirements_test.txt; fi
+          if [ -f pyproject.toml ]; then python3 -m pip install .[test]; fi
+
+      - name: Run tests with pytest
+        run: |-
+          if [ -d tests ]; then pytest --cov tests/ -vv; fi
