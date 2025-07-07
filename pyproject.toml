@@ -31,7 +31,7 @@ dependencies = [ # install this package in developer mode with e.g. $ uv pip ins
     "typeguard>=4.4.4",
 ]
 
-[dependency-groups]
+[project.optional-dependencies]
 dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
     "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
     "mypy>=1.15.0",      # Mypy static type checker/linter
