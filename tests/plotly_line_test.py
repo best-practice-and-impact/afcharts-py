@@ -1,3 +1,5 @@
+import os
+
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
@@ -7,7 +9,9 @@ from afcharts.assets.af_colours import duo
 # AF Package
 from afcharts.theme_af import theme_af
 
-pio.renderers.default = "browser"
+# Only set the renderer to "browser" if not running in CI
+if not os.environ.get("CI"):
+    pio.renderers.default = "browser"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -55,4 +59,8 @@ fig.update_layout(
 
 fig.update_yaxes(range=[0, 82])
 
-fig.show()
+if not os.environ.get("CI"):
+    fig.show()
+else:
+    if isinstance(fig, go.Figure):
+        pass

@@ -1,10 +1,14 @@
+import os
+
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
 
 from afcharts.theme_af import theme_af
 
-pio.renderers.default = "browser"
+# Only set the renderer to "browser" if not running in CI
+if not os.environ.get("CI"):
+    pio.renderers.default = "browser"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
@@ -43,4 +47,8 @@ fig.update_layout(
     meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
 )
 
-fig.show()
+if not os.environ.get("CI"):
+    fig.show()
+else:
+    if isinstance(fig, go.Figure):
+        pass
