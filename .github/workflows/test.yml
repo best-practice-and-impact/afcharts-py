@@ -32,4 +32,4 @@ jobs:
 
       - name: Run tests with pytest
         run: |-
-          if [ -d tests ]; then pytest --cov tests/ -vv; fi
+          if [ -d tests ]; then PYTHONPATH=src pytest --cov=src -vv; fi
