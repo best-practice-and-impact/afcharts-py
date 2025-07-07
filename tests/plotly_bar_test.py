@@ -1,7 +1,10 @@
-from afcharts.theme_af import theme_af
-import plotly.graph_objects as go
-import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+import plotly.io as pio
+
+from afcharts.theme_af import theme_af
+
+pio.renderers.default = "browser"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
@@ -37,13 +40,7 @@ fig.update_layout(
             xanchor="left",
         )
     ],
-    meta=dict(
-        alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."
-    ),
+    meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
 )
-
-import plotly.io as pio
-
-pio.renderers.default = "browser"
 
 fig.show()

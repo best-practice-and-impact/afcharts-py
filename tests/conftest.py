@@ -1,6 +1,6 @@
 # to use if running pytest
-import sys
 import os
+import sys
 
 sys.path.insert(
     0,

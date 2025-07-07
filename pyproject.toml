@@ -75,7 +75,7 @@ exclude = ["docs*", "Documentation*", "build"]
 [tool.ruff]
 line-length = 120
 target-version = "py313"
-select = [
+lint.select = [
     "E",   # pycodestyle
     "W",   # pycodestyle
     "F",   # pyflakes
@@ -85,7 +85,7 @@ select = [
     "G",   # flake8-logging-format
 ]
 exclude = ["migrations/versions/"]
-ignore = []
+lint.ignore = []
 
 [tool.ruff.lint.pydocstyle]
 convention = "google" # Accepts one of {google,numpy,pep257}
