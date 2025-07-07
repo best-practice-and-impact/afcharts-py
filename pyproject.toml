@@ -28,6 +28,7 @@ dependencies = [ # install this package in developer mode with e.g. $ uv pip ins
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
+    "typeguard>=4.4.4",
 ]
 
 [dependency-groups]
