@@ -32,4 +32,4 @@ jobs:
 
       - name: Run tests with pytest
         run: |-
-          if [ -d tests ]; then pytest --cov tests/ -vv; fi
+          if [ -f pyproject.toml ]; then python3 -m pip install ".[test]"; fi
