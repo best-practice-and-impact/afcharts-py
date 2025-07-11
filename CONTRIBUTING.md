@@ -21,7 +21,7 @@ If you find a bug or have a feature request, please open an issue on GitHub. Whe
 - Any relevant logs, screenshots, or code snippets
 
 ## Code style
-
+- We follow [Python style guide - The GDS Way](https://gds-way.digital.cabinet-office.gov.uk/manuals/programming-languages/python/python.html#python-style-guide)
 - Use meaningful variable and function names.
 - We name variables using few nouns in lowercase, e.g. `mapping_names`
 or `increment`.
