@@ -49,7 +49,7 @@ locations and container parameters.
 8. You may merge the Pull/Merge Request in once you have the sign-off of two
 maintainers.
 9. If you are merging `dev` to `main`, you must increment the version number
-in the VERSION file to the new version that this Pull/Merge Request would
+by merging the automatically created `release-please` PR, which will also produce the change log for the new version release etc.
 represent. The versioning scheme we use is [SemVer](http://semver.org/). <mark>(to review)<mark>
 
 ### Conventional commit PR titles
