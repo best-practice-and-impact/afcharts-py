@@ -43,6 +43,7 @@ locations and container parameters.
 3. Ensure your code follows the coding standards outlined below.
 4. Write or update tests as needed.
 5. Ensure all tests pass.
+6. Ensure all pre-commit checks pass. See the instructions for installing and using pre-commit below
 7. Once you are ready for review please open a pull/merge request to the
 `dev` branch with a clear description of your changes.
 8. You may merge the Pull/Merge Request in once you have the sign-off of two
