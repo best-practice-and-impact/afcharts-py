@@ -45,7 +45,7 @@ locations and container parameters.
 5. Ensure all tests pass.
 6. Ensure all pre-commit checks pass. See the instructions for installing and using pre-commit below
 7. Once you are ready for review please open a pull/merge request to the
-`dev` branch with a clear description of your changes.
+`dev` branch with a clear description of your changes and a title following the conventional-commit format (see below).
 8. You may merge the Pull/Merge Request in once you have the sign-off of two
 maintainers.
 9. If you are merging `dev` to `main`, you must increment the version number
