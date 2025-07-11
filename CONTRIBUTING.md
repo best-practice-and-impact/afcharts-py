@@ -29,8 +29,8 @@ or `increment`.
 `change_values`.
 - Follow PEP 8 style guidelines for Python code. <mark>(to review)<mark>
 - Write clear, concise, and well-documented code. Include comments where necessary to explain complex logic.
-- We use the [numpydoc](https://numpydoc.readthedocs.io/en/latest/format.html)
-format for documenting features using docstrings. <mark>(to review)<mark>
+- We use the [Google](https://google.github.io/styleguide/pyguide.html#383-functions-and-methods)
+format for documenting features using docstrings.
 
 ## Submitting Pull Requests <mark>(to review)<mark>
 
