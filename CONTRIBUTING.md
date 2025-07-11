@@ -101,8 +101,9 @@ afcharts-py/
 │           ├── af_colours.py
 │           └── pio_template.py
 │       └── cookbook/
-│           ├── af_colours.py
-│           └── pio_template.py
+│           ├── _quarto.yml
+│           └── index.qmd
+│           └── getting-started.qmd
 │
 ├── tests/
 │   ├── conftest.py
