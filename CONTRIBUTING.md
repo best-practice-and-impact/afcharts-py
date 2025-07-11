@@ -4,14 +4,14 @@ Thank you for considering contributing to this project! We welcome contributions
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners before making a change.
 
-## Community Guidelines <mark>(to review)<mark>
+## Community Guidelines
 
 - Be respectful and inclusive in all interactions.
 - Provide constructive feedback and be open to receiving it.
 - Help others in the community when possible.
 - Follow the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/).
 
-## Reporting Issues <mark>(to review)<mark>
+## Reporting Issues
 
 If you find a bug or have a feature request, please open an issue on GitHub. When reporting an issue, please include:
 
@@ -27,12 +27,12 @@ If you find a bug or have a feature request, please open an issue on GitHub. Whe
 or `increment`.
 - We name functions using verbs in lowercase, e.g. `map_variables_to_names` or
 `change_values`.
-- Follow PEP 8 style guidelines for Python code. <mark>(to review)<mark>
+- Follow PEP 8 style guidelines for Python code.
 - Write clear, concise, and well-documented code. Include comments where necessary to explain complex logic.
 - We use the [Google](https://google.github.io/styleguide/pyguide.html#383-functions-and-methods)
 format for documenting features using docstrings.
 
-## Submitting Pull Requests <mark>(to review)<mark>
+## Submitting Pull Requests
 
 We welcome pull requests! To submit a pull request:
 
@@ -50,7 +50,7 @@ locations and container parameters.
 maintainers.
 9. If you are merging `dev` to `main`, you must increment the version number
 by merging the automatically created `release-please` PR, which will also produce the change log for the new version release etc.
-represent. The versioning scheme we use is [SemVer](http://semver.org/). <mark>(to review)<mark>
+represent. The versioning scheme we use is [SemVer](http://semver.org/).
 
 ### Conventional commit PR titles
 
