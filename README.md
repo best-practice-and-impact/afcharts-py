@@ -14,41 +14,6 @@ More information about the package and its functions can be found on the
 [afcharts
 website](https://best-practice-and-impact.github.io/afcharts/).
 
-## Basic folder structure
-
-```plaintext
-afcharts-py/
-│
-├── src/
-│   └── afcharts/
-│       ├── __init__.py
-│       ├── theme_af.py
-│       └── assets
-│           └── pio_template.py
-│
-├── tests/
-│   ├── conftest.py
-│   └── test_module.py
-│
-├── README.md
-├── pyproject.toml
-├── LICENSE
-└── .gitignore
-```
-
-### Explanation of Each Component
-
-- **`src/afcharts/`**: Main package folder. All your code should go here. Using a `src` layout helps avoid import issues during development and testing.
-  - `__init__.py`: Makes the directory a Python package.
-
-- **`tests/`**: Contains unit tests.
-
-- **`README.md`**: A markdown file describing your package, how to install and use it.
-
-- **`pyproject.toml`**: The modern configuration file for building and packaging Python projects. It replaces `setup.py` and `setup.cfg`.
-
-- **`.gitignore`**: Specifies files and directories to ignore in version control (e.g., `__pycache__/`, `.DS_Store`, etc.).
-
 ## Installation
 
 ```bash
