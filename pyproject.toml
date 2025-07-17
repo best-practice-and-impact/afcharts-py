@@ -28,9 +28,10 @@ dependencies = [ # install this package in developer mode with e.g. $ uv pip ins
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
+    "typeguard>=4.4.4",
 ]
 
-[dependency-groups]
+[project.optional-dependencies]
 dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
     "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
     "mypy>=1.15.0",      # Mypy static type checker/linter
@@ -75,7 +76,7 @@ exclude = ["docs*", "Documentation*", "build"]
 [tool.ruff]
 line-length = 120
 target-version = "py313"
-select = [
+lint.select = [
     "E",   # pycodestyle
     "W",   # pycodestyle
     "F",   # pyflakes
@@ -85,7 +86,7 @@ select = [
     "G",   # flake8-logging-format
 ]
 exclude = ["migrations/versions/"]
-ignore = []
+lint.ignore = []
 
 [tool.ruff.lint.pydocstyle]
 convention = "google" # Accepts one of {google,numpy,pep257}
