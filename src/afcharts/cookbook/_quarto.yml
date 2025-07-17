@@ -8,7 +8,7 @@ book:
   favicon: images/logo.svg
   description: | 
     afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice
-  page-footer: "afcharts-py for Python was written by ."
+  page-footer: "Find afcharts-py on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
   chapters:
       - index.qmd
       - text: Getting started
