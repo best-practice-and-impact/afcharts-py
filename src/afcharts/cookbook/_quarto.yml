@@ -7,7 +7,7 @@ book:
   repo-branch: main
   favicon: images/logo.svg
   description: | 
-    A package to set Analysis function standards in python graphing libraries
+    afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice
   page-footer: "afcharts-py for Python was written by ."
   chapters:
       - index.qmd
