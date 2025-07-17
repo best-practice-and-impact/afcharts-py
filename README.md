@@ -20,37 +20,6 @@ website](https://best-practice-and-impact.github.io/afcharts/).
 pip install afcharts-py
 ```
 
-## Development only
-
-### Create a Python virtual environment
-
-#### Activate it
-
-```bash
-.\.venv\Scripts\Activate.ps1
-```
-
-### To test the package locally and install dependencies
-
-```bash
-pip install -e .[dev,test]
-```
-
-### Testing
-
-```bash
-pytest
-```
-
-### Reproduce the cookbook locally
-
-<details>
-You can now reproduce the book (requires quarto to be installed):
-
-```bash
-quarto preview ./src/afcharts/cookbook/
-```
-
 ## Acknowledgments
 
 The afcharts package is based on the

@@ -133,3 +133,8 @@ README_files/*
 # Cookbook temp docs
 .quarto/
 _book/
+*.html
+*.md
+.vdoc.*
+docs/
+_site/
