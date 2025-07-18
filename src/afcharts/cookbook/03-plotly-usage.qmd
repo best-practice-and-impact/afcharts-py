@@ -106,3 +106,57 @@ fig.update_yaxes(range=[0, 82])
 
 fig.show()
 ```
+
+##/ Example of scatter chart
+
+```{python}
+import plotly.graph_objects as go
+import pandas as pd
+import plotly.express as px
+
+# AF Package
+from afcharts.theme_af import theme_af
+from afcharts.assets.af_colours import duo
+
+# Load the gapminder dataset from plotly.express
+df = px.data.gapminder()
+
+df = df.query("year == 2007")
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Scatter(
+        x=df["gdpPercap"],
+        y=df["lifeExp"],
+        mode="markers",
+    )
+)
+
+# Update layout
+fig.update_layout(
+    template=theme_af(grid="xy", colour_palette=duo),
+    xaxis=dict(
+        title="GDP (US$, inflation-adjusted)",
+    ),
+    yaxis=dict(
+        title="Life\nExpectancy",
+    ),
+    title=dict(
+        text="The relationship between GDP and Life Expectancy is complex",
+        subtitle=dict(text="GDP and Life Expectancy for all countires, 2007"),
+    ),
+    annotations=[
+        dict(
+            text="Source: Gapminder",
+            xref="paper",
+            yref="paper",
+            x=0,
+            y=-0.1,
+            xanchor="left",
+        )
+    ],
+)
+
+fig.show()
+```

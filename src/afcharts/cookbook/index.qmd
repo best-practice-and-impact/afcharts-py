@@ -5,13 +5,11 @@ description-meta: |
 
 
 ::: {.content-visible when-format="html"}
-# Welcome {.unnumbered}
+# Welcome <img src="../assets/logo.svg" alt="afcharts logo" style="float: right; height: 150px;"> {.unnumbered}
 This cookbook provides example code to produce various chart types using `afcharts-py`. There are also examples to demonstrate how to apply further customisation to `afcharts-py` charts.
 
 If there is a chart type or task which you think would be useful to include here, please [submit a suggestion](https://github.com/best-practice-and-impact/afcharts-py/issues/new?&labels=documentation&title=Cookbook+suggestion).
 
 ## Contents
 :::
-
-
 
