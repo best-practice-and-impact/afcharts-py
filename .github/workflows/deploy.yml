@@ -31,6 +31,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install jupyter nbformat notebook ipykernel matplotlib seaborn plotly
 
+      - name: Install afcharts package
+        run: pip install -e .
+
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
