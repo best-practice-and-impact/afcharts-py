@@ -1,22 +1,24 @@
+from typing import Literal, Optional
+
 import plotly.graph_objects as go
-import plotly.io as pio
-from typing import Literal
+from typeguard import typechecked
 
 # Project
 from afcharts.assets.af_colours import (
+    af_colour_values,
+    diverging,
     main,
     sequential,
     sequential_minus,
-    diverging,
-    af_colour_values,
 )
 
 
+@typechecked
 def theme_af(
     base_size: int = 14,
-    base_line_size: float = None,
-    base_rect_size: float = None,
-    colour_palette: list = None,
+    base_line_size: Optional[float] = None,
+    base_rect_size: Optional[float] = None,
+    colour_palette: Optional[list] = None,
     grid: Literal["x", "y", "xy", None] = None,
     axis: Literal["x", "y", "xy", None] = None,
     ticks: Literal["x", "y", "xy", None] = None,
@@ -87,10 +89,6 @@ def theme_af(
     axis_x = axis in ("x", "xy")
     axis_y = axis in ("y", "xy")
 
-    # Set axis ticks dependent on ticks arg
-    ticks_x = ticks in ("x", "xy")
-    ticks_y = ticks in ("y", "xy")
-
     return go.layout.Template(
         layout={
             "autosize": True,  # Automatically adjusts the scale of the plot based on it's content
@@ -100,13 +98,10 @@ def theme_af(
             },  # Sets default font size for annotation
             "bargap": 0.15,
             "bargroupgap": 0.1,
-            "plot_bgcolor": "white",
             "coloraxis": {
                 "colorbar": {  # Bar chart colours
                     "outlinewidth": 0,  # Width of the outline around the color bar
-                    "tickcolor": af_colour_values[
-                        "chart_features"
-                    ],  # Bar chart tick colour
+                    "tickcolor": af_colour_values["chart_features"],  # Bar chart tick colour
                     "ticklen": 6,  # Bar chart tick length
                     "ticks": "outside",  # Bar chart tick position
                 }
@@ -142,22 +137,22 @@ def theme_af(
                 "font_size": base_size * 0.9,  # Text size of hover
                 "bgcolor": "white",  # Hover box background
             },
-            "hovermode": "x unified",  # How hovering affects the display - x unified shows info for all the data at that point in the x-axis
+            "hovermode": "x unified",  # How hovering affects the display
+            # x unified shows info for all the data at that point in the x-axis
             "paper_bgcolor": "rgba(0,0,0,0)",  # Makes paper (entire area) background transparent
             "plot_bgcolor": "rgba(0,0,0,0)",  # Makes plot area transparent
             "margin": {  # Set margins around the plot area in pixels
                 "l": half_line,  # Left margin
                 "r": half_line,  # Right margin
-                "t": (base_size * 1.6)
-                + (0.7 * (base_size * 1.6))
-                + half_line
-                + base_size,  # Top margin is the size of the title + subtitle size + title_padding + space between title and subtitle (which is set by default)
+                "t": (base_size * 1.6) + (0.7 * (base_size * 1.6)) + half_line + base_size,
+                # Top margin is the size of the title + subtitle size + title_padding
+                # + space between title and subtitle (which is set by default)
                 "b": half_line,  # Bottom margin
                 "pad": 0,  # Padding between grid lines and the tick labels
             },
-            "paper_bgcolor": "white",
             "uniformtext_minsize": 8,  # Minimum font size for text elements in the plot
-            "uniformtext_mode": "hide",  # Controls visibility of text based on size - hide means that if a text element's size falls below the "uniformtext_minsize" then the text will be hidden
+            "uniformtext_mode": "hide",  # Controls visibility of text based on size then the
+            # text will be hidden - hide means that if a text element's size falls below the "uniformtext_minsize"
             "title": {
                 "text": None,
                 "font": {
