@@ -16,12 +16,10 @@ To install the package:
 pip install 'afcharts_py'
 ```
 
-**use_afcharts** <br>
-The examples in this cookbook use the afcharts theme and colour functions explicitly, however it may be easier to make use of the `use_afcharts()` function if your charts all require a similar style. More information on `use_afcharts` can be found on the [homepage](https://best-practice-and-impact.github.io/afcharts/#use-afcharts-as-default).
-
 **Note on use of titles, subtitles and captions** <br>
 Titles, subtitles and captions have been embedded in the charts in this cookbook for demonstration purposes. However, for accessibility reasons, it is usually preferable to provide titles in the body of the page rather than embedded within the image of the plot.
 
+**Dependencies** <br>  
 The following packages are required to produce the example charts in this cookbook:
 
 ```python
@@ -29,7 +27,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 # Use gapminder data for cookbook charts
-import plotly.express.data.gapminder
+import plotly.express as px
 ```
 
 :::

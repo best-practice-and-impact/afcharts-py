@@ -11,7 +11,6 @@ This cookbook provides examples of the code used to produce various chart types 
 If there is a chart type or task which you think would be useful to include here, please [submit a suggestion](https://github.com/best-practice-and-impact/afcharts-py/issues/new?&labels=documentation&title=Cookbook+suggestion).
 
 ## Contents
-- Plotly Usage: A simple example to get started.
 :::
 
 

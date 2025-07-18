@@ -131,10 +131,11 @@ venv.bak/
 README_files/*
 
 # Cookbook temp docs
+src/afcharts/cookbook/*.html
+src/afcharts/cookbook/*.md
+src/afcharts/cookbook/*.ipynb
 .quarto/
 _book/
-*.html
-*.md
 .vdoc.*
 docs/
 _site/

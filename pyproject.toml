@@ -39,6 +39,8 @@ dev = [ # install this package's developer dependencies with e.g. $ uv pip insta
     "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
     "pandas>=2.2.2",     # Used extensively to manipulate tabular data
     "afcharts",          # Install current package in developer mode as workspace package
+    "ipykernel",         # For rendering Quarto
+    "nbclient",          # For rendering Quarto
 ]
 test = [ # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
     "pytest>=8.2.2",       # Unit/regression testing etc.

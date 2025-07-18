@@ -1,7 +1,7 @@
 ## Using the package with Plotly
 ### Example of a bar chart
 
-```python
+```{python}
 from afcharts_py.theme_af import theme_af
 import plotly.graph_objects as go
 import pandas as pd
@@ -51,7 +51,7 @@ fig.show()
 
 ##/ Example of line chart with duo palette
 
-```python
+```{python}
 import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
