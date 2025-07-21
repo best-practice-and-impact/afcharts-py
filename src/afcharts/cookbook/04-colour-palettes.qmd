@@ -16,8 +16,15 @@ The full list of available palettes can be found by running `afcharts_py.assets.
 
 ### af_colour_values dictionary
 ```{python}
+# | echo: false
 import pandas as pd
-from afcharts.assets.af_colours import af_colour_values, main, duo, sequential, diverging
+from afcharts.assets.af_colours import (
+    af_colour_values,
+    main,
+    duo,
+    sequential,
+    diverging,
+)
 
 df = pd.DataFrame(list(af_colour_values.items()), columns=["Name", "Hex Code"])
 
@@ -33,6 +40,7 @@ display(HTML(df.to_html(escape=False)))
 
 The `main` palette should be used with categorical data.
 ```{python}
+#| echo: false
 df = pd.DataFrame(main, columns=["Hex Code"])
 
 # Add HTML preview column
@@ -49,6 +57,7 @@ display(HTML(df.to_html(escape=False, index=False)))
 The `duo` palette should be used if only two colours are required as the dark blue and orange colours have the best colour contrast with each other. 
 
 ```{python}
+#| echo: false
 df = pd.DataFrame(duo, columns=["Hex Code"])
 
 # Add HTML preview column
@@ -65,6 +74,7 @@ display(HTML(df.to_html(escape=False, index=False)))
 The `sequential` colour palette should be used for data where the order has some meaning.
 There is also a reverse alternative `sequential_minus`.
 ```{python}
+#| echo: false
 df = pd.DataFrame(sequential, columns=["Value", "Hex Code"])
 
 # Add HTML preview column
@@ -78,6 +88,7 @@ display(HTML(df.to_html(escape=False, index=False)))
 
 ### diverging palette
 ```{python}
+#| echo: false
 df = pd.DataFrame(diverging, columns=["Value", "Hex Code"])
 
 # Add HTML preview column
