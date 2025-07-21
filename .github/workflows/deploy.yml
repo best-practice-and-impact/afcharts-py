@@ -74,9 +74,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./site
-
+  
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        timeout-minutes: 1  # Increase as needed
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
