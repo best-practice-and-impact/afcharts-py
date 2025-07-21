@@ -107,7 +107,7 @@ fig.update_yaxes(range=[0, 82])
 fig.show()
 ```
 
-##/ Example of scatter chart
+## Example of a scatter chart
 
 ```{python}
 import plotly.graph_objects as go
