@@ -12,27 +12,14 @@ The [main palette](https://best-practice-and-impact.github.io/afcharts/articles/
 
 ### Using afcharts colour palettes
 
-The full list of available palettes can be found by running `afcharts_py.assets.af_colour_palettes`.
+The full list of available palettes can be found by running `afcharts_py.assets.af_colours`.
 
-### Main palette
-
-The `main` palette should be used with categorical data.
-
-
-```python
+### af_colour_values dictionary
+```{python}
 import pandas as pd
+from afcharts.assets.af_colours import af_colour_values, main, duo, sequential, diverging
 
-test_palette = {
-    "primary": "#1f77b4",
-    "secondary": "#ff7f0e",
-    "success": "#2ca02c",
-    "danger": "#d62728",
-    "warning": "#ffbb78",
-    "info": "#17becf",
-}
-
-df = pd.DataFrame(list(test_palette.items()), columns=["Name", "Hex Code"])
-df
+df = pd.DataFrame(list(af_colour_values.items()), columns=["Name", "Hex Code"])
 
 df["Preview"] = df["Hex Code"].apply(
     lambda x: f'<span style="background-color:{x};padding:5px 20px;display:inline-block;"></span>'
@@ -42,15 +29,65 @@ from IPython.display import display, HTML
 display(HTML(df.to_html(escape=False)))
 ```
 
+### main palette
+
+The `main` palette should be used with categorical data.
+```{python}
+df = pd.DataFrame(main, columns=["Hex Code"])
+
+# Add HTML preview column
+df["Preview"] = df["Hex Code"].apply(
+    lambda x: f'<span style="background-color:{x};padding:5px 20px;display:inline-block;border:1px solid #000;"></span>'
+)
+
+# Display the DataFrame with HTML rendering
+display(HTML(df.to_html(escape=False, index=False)))
+```
+
+
+#### duo palette
 The `duo` palette should be used if only two colours are required as the dark blue and orange colours have the best colour contrast with each other. 
-If only two colours are required and another palette from the `main` family is used, `main2` will be used instead.
+
+```{python}
+df = pd.DataFrame(duo, columns=["Hex Code"])
+
+# Add HTML preview column
+df["Preview"] = df["Hex Code"].apply(
+    lambda x: f'<span style="background-color:{x};padding:5px 20px;display:inline-block;border:1px solid #000;"></span>'
+)
+
+# Display the DataFrame with HTML rendering
+display(HTML(df.to_html(escape=False, index=False)))
+```
 
 
-### Sequential palette
-
+### sequential palette
 The `sequential` colour palette should be used for data where the order has some meaning.
+There is also a reverse alternative `sequential_minus`.
+```{python}
+df = pd.DataFrame(sequential, columns=["Value", "Hex Code"])
 
+# Add HTML preview column
+df["Preview"] = df["Hex Code"].apply(
+    lambda x: f'<span style="background-color:{x};padding:5px 40px;display:inline-block;border:1px solid #000;"></span>'
+)
 
+# Display the DataFrame with HTML rendering
+display(HTML(df.to_html(escape=False, index=False)))
+```
+
+### diverging palette
+```{python}
+df = pd.DataFrame(diverging, columns=["Value", "Hex Code"])
+
+# Add HTML preview column
+df["Preview"] = df["Hex Code"].apply(
+    lambda x: f'<span style="background-color:{x};padding:5px 40px;display:inline-block;border:1px solid #000;"></span>'
+)
+
+# Display the DataFrame with HTML rendering
+display(HTML(df.to_html(escape=False, index=False)))
+```
 
 ### Focus palette
 
