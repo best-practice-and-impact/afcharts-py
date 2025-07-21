@@ -53,7 +53,7 @@ display(HTML(df.to_html(escape=False, index=False)))
 ```
 
 
-#### duo palette
+### duo palette
 The `duo` palette should be used if only two colours are required as the dark blue and orange colours have the best colour contrast with each other. 
 
 ```{python}
