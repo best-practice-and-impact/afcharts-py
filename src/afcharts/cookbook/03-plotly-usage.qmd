@@ -47,7 +47,7 @@ fig.update_layout(
 fig.show()
 ```
 
-##/ Example of line chart with duo palette
+## Example of a line chart with duo palette
 
 ```{python}
 import plotly.graph_objects as go
