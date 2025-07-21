@@ -7,7 +7,7 @@ description-meta: |
 ---
 
 ::: {.content-visible when-format="html"}
-## Getting Started {.unnumbered}
+# Getting Started {.unnumbered}
 
 
 To install the package:

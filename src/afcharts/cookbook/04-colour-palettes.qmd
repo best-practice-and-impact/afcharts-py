@@ -1,4 +1,4 @@
-## Government Analysis Function colour palettes
+# Government Analysis Function colour palettes
 
 **This page is a work in progress**
 
@@ -10,7 +10,7 @@ These palettes have been developed to meet the [Web Content Accessibility Guidel
 The [main palette](https://best-practice-and-impact.github.io/afcharts/articles/colours.html#main-palette) is the default for discrete colour/fill functions, and the [sequential palette](https://best-practice-and-impact.github.io/afcharts/articles/colours.html#sequential-palette) for continuous colour/fill functions.
 
 
-### Using afcharts colour palettes
+## Using afcharts colour palettes
 
 The full list of available palettes can be found by running `afcharts_py.assets.af_colours`.
 
