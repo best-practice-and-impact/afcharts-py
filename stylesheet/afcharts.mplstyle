@@ -3,7 +3,7 @@ text.color : (0.2,0.2,0.2)
 # AXES
 axes.titlesize : 28
 axes.labelsize : 22
-axes.edgecolor : (0.1,0.1,0.1) #Normalized RGB colours (from 0 to 1 instead of 0 to 255)
+axes.edgecolor : (0.8,0.8,0.8)
 axes.labelcolor : (0.1,0.1,0.1)
 axes.linewidth : 1
 axes.spines.top : False
@@ -18,7 +18,7 @@ grid.linestyle : -
 grid.linewidth : 0.6
 
 # LINES
-axes.prop_cycle: cycler('color', ['#12436D', '#28A197', '#801650', '#F46A25', '#A285D1', '#6BACE6', '#C00000', '#8ED973', '#FFC000'])
+axes.prop_cycle: "cycler('color', ['#12436D','#28A197','#801650','#F46A25','#A285D1','#6BACE6','#C00000','#8ED973','#FFC000'])"
 lines.linewidth : 1.5
 lines.markeredgewidth : 0.0
 
@@ -27,11 +27,13 @@ scatter.marker : .
 
 # TICKS
 xtick.labelsize : 18
-xtick.color : (0.2,0.2,0.2)
-xtick.direction : in
+xtick.color : (0.8,0.8,0.8)
+xtick.labelcolor : (0.1,0.1,0.1)
+xtick.direction : out
 ytick.labelsize : 18
-ytick.color : (0.2,0.2,0.2)
-ytick.direction : in
+ytick.color : (0.8,0.8,0.8)
+ytick.labelcolor : (0.1,0.1,0.1)
+ytick.direction : out
 
 # FIGURE OUTPUT 
 figure.figsize  : 10, 6
