@@ -5,7 +5,7 @@ project:
 book:
   title: "afcharts-py cookbook"
   repo-branch: main
-  favicon: ../assets/logo.svg
+  favicon: ./assets/logo.svg
   description: | 
     afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice
   page-footer: "Find afcharts-py on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
