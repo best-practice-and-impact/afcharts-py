@@ -13,6 +13,8 @@ axes.spines.left : True
 
 # GRID
 axes.grid : True
+axes.grid.axis : y
+axes.grid.which : major
 grid.alpha : 0.5
 grid.linestyle : -
 grid.linewidth : 0.6
