@@ -1,0 +1,33 @@
+---
+description-meta: |
+  This book will teach you how to work with geographic data in Python.
+  It's a short and practical open source book in which you'll
+  develop and use geocomputation to solve practical
+  problems and lay the foundations for advanced geospatial applications.
+---
+
+::: {.content-visible when-format="html"}
+# Getting Started {.unnumbered}
+
+
+To install the package:
+
+```bash
+pip install 'afcharts_py'
+```
+
+**Note on use of titles, subtitles and captions** <br>
+Titles, subtitles and captions have been embedded in the charts in this cookbook for demonstration purposes. However, for accessibility reasons, it is usually preferable to provide titles in the body of the page rather than embedded within the image of the plot.
+
+**Dependencies** <br>  
+The following packages are required to produce the example charts in this cookbook:
+
+```python
+import plotly.graph_objects as go
+import pandas as pd
+
+# Use gapminder data for cookbook charts
+import plotly.express as px
+```
+
+:::
