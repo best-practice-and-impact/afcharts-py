@@ -74,12 +74,12 @@ where:
 - Changes relevant to the API or UI:
   - `feat` Commits that add, adjust or remove a new feature to the codebase
   - `fix` Commits that fix a codebase bug of a preceded `feat` commit
-- `test` Commits that add missing tests or correct existing ones
-- `docs` Commits that exclusively affect documentation
-- `style` Commits that address code style (e.g., white-space, formatting, missing semi-colons) and do not affect application behaviour
-- `refactor` Commits that rewrite or restructure code without altering codebase behaviour
-- `build` Commits that affect build-related components such as build tools, dependencies, project version, CI/CD pipelines, ...
-- `chore` Miscellaneous commits e.g. modifying `.gitignore`, ...
+  - `test` Commits that add missing tests or correct existing ones
+  - `docs` Commits that exclusively affect documentation
+  - `style` Commits that address code style (e.g., white-space, formatting, missing semi-colons) and do not affect application behaviour
+  - `refactor` Commits that rewrite or restructure code without altering codebase behaviour
+  - `build` Commits that affect build-related components such as build tools, dependencies, project version, CI/CD pipelines, ...
+  - `chore` Miscellaneous commits e.g. modifying `.gitignore`, ...
 
 ### Major version number increments
 
