@@ -1,0 +1,34 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "afcharts-py cookbook"
+  repo-branch: main
+  favicon: ./assets/logo.svg
+  description: | 
+    afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice
+  page-footer: "Find afcharts-py on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
+  chapters:
+      - index.qmd
+      - text: Getting started
+        href: getting-started.qmd
+      - text: Matplotlib usage
+        href: 01-matplotlib-usage.qmd
+      - text: Seaborn usage
+        href: 02-seaborn-usage.qmd
+      - text: Plotly usage
+        href: 03-plotly-usage.qmd
+      - text: Colours
+        href: 04-colour-palettes.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-title: "On this page"
+    code-link: true
+    code-overflow: wrap
+    toc-depth: 3
+
+jupyter: python3

@@ -14,6 +14,7 @@ maintainers = [
     { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
     { name = "Stelios Georgiou", email = "Stelios.Georgiou@ukhsa.gov.uk" },
     { name = "Frederico Rodrigues", email = "fred.rodrigues@defra.gov.uk" },
+    { name = "Peter Brohan", email = "peter.brohan@communities.gov.uk"}
     # Other contributors, please add your details here
 ]
 classifiers = [
@@ -28,9 +29,10 @@ dependencies = [ # install this package in developer mode with e.g. $ uv pip ins
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
+    "typeguard>=4.4.4",
 ]
 
-[dependency-groups]
+[project.optional-dependencies]
 dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
     "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
     "mypy>=1.15.0",      # Mypy static type checker/linter
@@ -38,6 +40,8 @@ dev = [ # install this package's developer dependencies with e.g. $ uv pip insta
     "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
     "pandas>=2.2.2",     # Used extensively to manipulate tabular data
     "afcharts",          # Install current package in developer mode as workspace package
+    "ipykernel",         # For rendering Quarto
+    "nbclient",          # For rendering Quarto
 ]
 test = [ # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
     "pytest>=8.2.2",       # Unit/regression testing etc.
@@ -72,10 +76,13 @@ package-dir = { "" = "src" } # Maps package names to their actual file paths.
 where = ["src"]                                # Packages are located in src/ top level directory
 exclude = ["docs*", "Documentation*", "build"]
 
+[tool.setuptools.package-data]
+afcharts = ["stylelib/*.mplstyle"]
+
 [tool.ruff]
 line-length = 120
 target-version = "py313"
-select = [
+lint.select = [
     "E",   # pycodestyle
     "W",   # pycodestyle
     "F",   # pyflakes
@@ -85,7 +92,7 @@ select = [
     "G",   # flake8-logging-format
 ]
 exclude = ["migrations/versions/"]
-ignore = []
+lint.ignore = []
 
 [tool.ruff.lint.pydocstyle]
 convention = "google" # Accepts one of {google,numpy,pep257}
