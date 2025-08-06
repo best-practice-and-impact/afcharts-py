@@ -1,5 +1,5 @@
 
-# afcharts-py <img src="assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
+# afcharts-py <img src="src/afcharts/assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
 
 afcharts-py is an Python package for creating accessible plots by the Government
 Analysis Function. Currently, functions are available for styling
