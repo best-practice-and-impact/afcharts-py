@@ -74,12 +74,12 @@ where:
 - Changes relevant to the API or UI:
   - `feat` Commits that add, adjust or remove a new feature to the codebase
   - `fix` Commits that fix a codebase bug of a preceded `feat` commit
-- `test` Commits that add missing tests or correct existing ones
-- `docs` Commits that exclusively affect documentation
-- `style` Commits that address code style (e.g., white-space, formatting, missing semi-colons) and do not affect application behaviour
-- `refactor` Commits that rewrite or restructure code without altering codebase behaviour
-- `build` Commits that affect build-related components such as build tools, dependencies, project version, CI/CD pipelines, ...
-- `chore` Miscellaneous commits e.g. modifying `.gitignore`, ...
+  - `test` Commits that add missing tests or correct existing ones
+  - `docs` Commits that exclusively affect documentation
+  - `style` Commits that address code style (e.g., white-space, formatting, missing semi-colons) and do not affect application behaviour
+  - `refactor` Commits that rewrite or restructure code without altering codebase behaviour
+  - `build` Commits that affect build-related components such as build tools, dependencies, project version, CI/CD pipelines, ...
+  - `chore` Miscellaneous commits e.g. modifying `.gitignore`, ...
 
 ### Major version number increments
 
@@ -130,7 +130,7 @@ afcharts-py/
 
 - **`.gitignore`**: Specifies files and directories to ignore in version control (e.g., `__pycache__/`, `.DS_Store`, etc.).
 
-----
+---
 
 ## Development setup
 
@@ -189,8 +189,11 @@ You can now reproduce the book (requires quarto to be installed):
 quarto preview ./src/afcharts/cookbook/
 ```
 
+</details>
+
 ### Installing pre-commit hooks
 
+<details>
 Pre-commit hooks (configured in `.pre-commit-config.yaml`) run automated checks against your changes whenever you commit code. This will:
 
 - Format your code according to agreed formatting guidelines.
@@ -215,3 +218,21 @@ need to manually resolve these before committing again. In some *rare* circumsta
 ```bash
 git commit --no-verify -m 'feat(SCP-___): my commit message'
 ```
+
+</details>
+
+### Ruff
+
+<details>
+Github actions automatically formats code using ruff.
+
+If you are using 'VS Code' IDE ensure that you change your formater in order to reduce style conflicts.
+
+```plain
+# Open the preferences
+'Ctrl+,'
+
+Search for 'Default Formatter' and change it to 'ruff'
+```
+
+</details>
