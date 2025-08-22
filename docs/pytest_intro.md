@@ -1,6 +1,6 @@
 # Introduction to `pytest`
 
-RealPython.org offers great resources on almost any python topic, `pytest` being no exception.Their article [Effective Python Testing With pytest](https://realpython.com/pytest-python-testing/) is a great introduction to `pytest`. The official [pytest docs](https://docs.pytest.org/en/stable/getting-started.html) are also good and definitely worth looking at for details of specific features.
+RealPython.org offers great resources on almost any python topic, `pytest` being no exception. Their article [Effective Python Testing With pytest](https://realpython.com/pytest-python-testing/) is a great introduction to `pytest`. The official [pytest docs](https://docs.pytest.org/en/stable/getting-started.html) are also good and definitely worth looking at for details of specific features.
 
 Pytest makes extensive use of python `@decorator`s, so if you're unfamiliar with these, the Real Python [Primer on Python Decorators](https://realpython.com/primer-on-python-decorators/) on these is very helpful.
 
@@ -163,7 +163,8 @@ class TestHelperFunction2:
 ## VSCode integration
 
 The VSCode python test explorer functionality is very useful for navigating, running and debugging tests. Placing breakpoints in your code and pressing the highlighted debug button in the image below alows you to debug your test functions easily.
-![vscode_test_explorer](images/vscode_test_explorer.png)
+
+![vscode test explorer](images/vscode_test_explorer.png)
 
 ## Types of testing
 `pytest` can be used to integrate a range of different types of tests: unit tests, integration tests, system tests, regression tests etc.
