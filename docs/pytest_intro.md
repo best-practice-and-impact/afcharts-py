@@ -163,7 +163,7 @@ class TestHelperFunction2:
 ## VSCode integration
 
 The VSCode python test explorer functionality is very useful for navigating, running and debugging tests. Placing breakpoints in your code and pressing the highlighted debug button in the image below alows you to debug your test functions easily.
-![vscode_test_explorer](vscode_test_explorer.png)
+![vscode_test_explorer](images/vscode_test_explorer.png)
 
 ## Types of testing
 `pytest` can be used to integrate a range of different types of tests: unit tests, integration tests, system tests, regression tests etc.
