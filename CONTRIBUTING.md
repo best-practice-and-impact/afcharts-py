@@ -180,6 +180,8 @@ To test your installation, run `pytest` to confirm all unit tests pass successfu
 pytest
 ```
 
+See [docs/pytest_intro.md](docs/pytest_intro.md) for guidance on adding unit tests with `pytest`.
+
 ### Reproduce the cookbook locally
 
 <details>
