@@ -1,8 +1,6 @@
 text.color : (0.2,0.2,0.2)
 
 # AXES
-axes.titlesize : 28
-axes.labelsize : 22
 axes.edgecolor : (0.8,0.8,0.8)
 axes.labelcolor : (0.1,0.1,0.1)
 axes.linewidth : 1
