@@ -21,7 +21,7 @@ grid.linewidth : 0.6
 
 # LINES
 axes.prop_cycle: "cycler('color', ['#12436D','#28A197','#801650','#F46A25','#A285D1','#6BACE6','#C00000','#8ED973','#FFC000'])"
-lines.linewidth : 1.5
+lines.linewidth : 2
 lines.markeredgewidth : 0.0
 
 # SCATTER PLOT
