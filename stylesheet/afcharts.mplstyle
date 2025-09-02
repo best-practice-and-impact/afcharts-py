@@ -26,7 +26,6 @@ lines.markeredgewidth : 0.0
 scatter.marker : .
 
 # TICKS
-xtick.labelsize : 18
 xtick.color : (0.8,0.8,0.8)
 xtick.labelcolor : (0.1,0.1,0.1)
 xtick.direction : out
