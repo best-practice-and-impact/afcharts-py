@@ -13,7 +13,7 @@ axes.spines.left : False
 axes.grid : True
 axes.grid.axis : y
 axes.grid.which : major
-grid.alpha : 0.5
+grid.color : '0.8'
 grid.linestyle : -
 grid.linewidth : 0.6
 
