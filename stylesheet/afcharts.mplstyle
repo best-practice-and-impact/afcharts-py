@@ -36,8 +36,6 @@ ytick.direction : out
 
 # FIGURE OUTPUT 
 figure.figsize  : 10, 6
-figure.dpi : 150
-savefig.dpi : 200
 
 # FONT FOR SUBTITLES
 
