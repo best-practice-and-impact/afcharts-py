@@ -29,7 +29,6 @@ scatter.marker : .
 xtick.color : (0.8,0.8,0.8)
 xtick.labelcolor : (0.1,0.1,0.1)
 xtick.direction : out
-ytick.labelsize : 18
 ytick.color : (0.8,0.8,0.8)
 ytick.labelcolor : (0.1,0.1,0.1)
 ytick.direction : out
