@@ -39,7 +39,7 @@ figure.figsize  : 10, 6
 
 # FONT FOR SUBTITLES
 
-font.size : 18
+font.size : 14
 font.family : Arial
 
 
