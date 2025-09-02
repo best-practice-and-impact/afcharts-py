@@ -9,7 +9,7 @@ axes.linewidth : 1
 axes.spines.top : False
 axes.spines.right : False
 axes.spines.bottom : True
-axes.spines.left : True
+axes.spines.left : False
 
 # GRID
 axes.grid : True
