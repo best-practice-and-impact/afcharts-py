@@ -1,0 +1,45 @@
+text.color : (0.2,0.2,0.2)
+
+# AXES
+axes.edgecolor : (0.8,0.8,0.8)
+axes.labelcolor : (0.1,0.1,0.1)
+axes.linewidth : 1
+axes.spines.top : False
+axes.spines.right : False
+axes.spines.bottom : True
+axes.spines.left : False
+
+# GRID
+axes.grid : True
+axes.grid.axis : y
+axes.grid.which : major
+grid.color : '0.8'
+grid.linestyle : -
+grid.linewidth : 0.6
+
+# LINES
+axes.prop_cycle: "cycler('color', ["#12436D","#28A197","#801650", "#F46A25","#3D3D3D","#A285D1"])"
+lines.linewidth : 2
+lines.markeredgewidth : 0.0
+
+# SCATTER PLOT
+scatter.marker : .
+
+# TICKS
+xtick.color : (0.8,0.8,0.8)
+xtick.labelcolor : (0.1,0.1,0.1)
+xtick.direction : out
+ytick.color : (0.8,0.8,0.8)
+ytick.labelcolor : (0.1,0.1,0.1)
+ytick.direction : out
+
+# FIGURE OUTPUT 
+figure.figsize : 6.4, 4.8
+
+# FONT FOR SUBTITLES
+
+font.size : 14
+font.family : Arial
+
+
+
