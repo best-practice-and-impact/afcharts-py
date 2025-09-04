@@ -9,8 +9,9 @@ from afcharts.assets.af_colours import (
     sequential_minus,
 )
 
-# Reference:
+# References:
 # https://plotly.com/python/templates/
+# https://plotly.com/python-api-reference/generated/plotly.graph_objects.layout.template.html
 
 # Use built in sans font
 afcharts_font = "Sans-serif"  # consider using a different font?
