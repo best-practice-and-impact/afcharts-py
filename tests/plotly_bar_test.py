@@ -7,7 +7,7 @@ import plotly.io as pio
 from afcharts.theme_af import theme_af
 
 
-def test_plolty_bar_chart():
+def test_plotly_bar_chart():
     # Only set the renderer to "browser" if not running in CI
     if not os.environ.get("CI"):
         pio.renderers.default = "browser"
