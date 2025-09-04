@@ -3,7 +3,7 @@ name: Render and Deploy Quarto Cookbook
 on: 
   workflow_dispatch:
   push:
-    branches: [main, dev, fr/cookbook_edits]
+    branches: [main, dev]
 
 jobs:
 
