@@ -10,7 +10,8 @@ from afcharts_py.assets.af_colours import (
 
 afcharts_font = "Sans-serif"  # consider using a different font?
 base_size = 14
-
+base_line_size = base_size / 24
+base_rect_size = base_size / 24
 # The half-line (base_size / 2) sets up the basic vertical
 # rhythm of the theme. Most margins will be set to this value.
 # However, when we work with relative sizes, we may want to multiply
@@ -33,7 +34,7 @@ pio.templates["af_pio"] = go.layout.Template(
             "colorbar": {  # Bar chart colours
                 "outlinewidth": 0,  # Width of the outline around the color bar
                 "tickcolor": af_colour_values["chart_features"],  # Bar chart tick colour
-                "ticklen": 6,  # Bar chart tick length
+                "ticklen": half_line / 2,  # Bar chart tick length
                 "ticks": "outside",  # Bar chart tick position
             }
         },
@@ -52,7 +53,7 @@ pio.templates["af_pio"] = go.layout.Template(
         "legend": {
             "borderwidth": 0,
             "title": {"text": None},  # Removes legend title
-            "font": {"size": base_size * 1.2},  # Legend font size
+            "font": {"size": base_size},  # Legend font size
             "bgcolor": "rgba(0,0,0,0)",  # Makes legend background transparent
             "orientation": "v",  # Legend orientation
             "x": 1,  # Positions legend (0,0 is the bottom left)
@@ -90,10 +91,10 @@ pio.templates["af_pio"] = go.layout.Template(
                 "size": base_size * 1.6,
             },  # Title font size and colour
             "pad": {
-                "t": half_line,
-                "l": half_line,
-                "r": half_line,
-                "b": half_line,
+                "t": half_line * 2,
+                "l": half_line * 2,
+                "r": half_line * 2,
+                "b": half_line * 2,
             },  # Padding above and below title
             "x": 0,  # Title position horizonatally
             "xanchor": "left",

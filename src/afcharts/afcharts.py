@@ -102,7 +102,7 @@ def theme_af(
                 "colorbar": {  # Bar chart colours
                     "outlinewidth": 0,  # Width of the outline around the color bar
                     "tickcolor": af_colour_values["chart_features"],  # Bar chart tick colour
-                    "ticklen": 6,  # Bar chart tick length
+                    "ticklen": half_line / 2,  # Bar chart tick length
                     "ticks": "outside",  # Bar chart tick position
                 }
             },
@@ -121,7 +121,7 @@ def theme_af(
             "legend": {
                 "borderwidth": 0,
                 "title": {"text": None},  # Removes legend title
-                "font": {"size": base_size * 1.2},  # Legend font size
+                "font": {"size": base_size},  # Legend font size
                 "bgcolor": "rgba(0,0,0,0)",  # Makes legend background transparent
                 "orientation": "v",  # Legend orientation
                 "x": 1,  # Positions legend (0,0 is the bottom left)
@@ -159,10 +159,10 @@ def theme_af(
                     "size": base_size * 1.6,
                 },  # Title font size and colour
                 "pad": {
-                    "t": half_line,
-                    "l": half_line,
-                    "r": half_line,
-                    "b": half_line,
+                    "t": half_line * 2,
+                    "l": half_line * 2,
+                    "r": half_line * 2,
+                    "b": half_line * 2,
                 },  # Padding above and below title
                 "x": 0,  # Title position horizonatally
                 "xanchor": "left",
