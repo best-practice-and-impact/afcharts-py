@@ -12,6 +12,12 @@ from afcharts.assets.af_colours import (
     sequential_minus,
 )
 
+# Reference:
+# https://plotly.com/python/templates/
+
+# Use built in sans font
+afcharts_font = "Sans-serif"  # consider using a different font?
+
 
 @typechecked
 def theme_af(
@@ -70,8 +76,6 @@ def theme_af(
     if base_rect_size is None:
         base_rect_size = base_size / 24
 
-    afcharts_font = "Sans-serif"  # consider using a different font?
-
     # The half-line (base_size / 2) sets up the basic vertical
     # rhythm of the theme. Most margins will be set to this value.
     # However, when we work with relative sizes, we may want to multiply
@@ -80,6 +84,15 @@ def theme_af(
     # axis titles, `half_size` is too large a distance, and we use `half_size/2`
     # instead.
     half_line = base_size / 2
+
+    # Convert all sizes from pt --> px
+    # R package ggplot uses pt as dimmentions whereas plotly uses px
+    # 1 pt ≈ 1.33 px
+    # So a 12 pt font ≈ 16 px in Plotly
+    base_size: int = base_size * 1.33
+    base_line_size: int = base_line_size * 1.33
+    base_rect_size: int = base_rect_size * 1.33
+    half_line: int = half_line * 1.33
 
     # Set grid lines dependent on grid arg
     grid_x = grid in ("x", "xy")
@@ -129,7 +142,6 @@ def theme_af(
                 "indentation": 0,
                 "itemclick": "toggleothers",  # Change behaviour from hiding trace to showing only this trace
                 "itemwidth": 30,
-                # "itemsizing": "constant",
                 "traceorder": "normal",
             },
             "hoverlabel": {
@@ -185,9 +197,6 @@ def theme_af(
                 "ticks": "outside",  # Removes tick marks
                 "title": {  # Axes title
                     "text": None,  # Removes axes title
-                    # "font": {
-                    #     "size": base_size * 1.4,
-                    # },  # Axes title size
                     "standoff": half_line / 2,  # Position from axes
                 },
                 "fixedrange": True,  # Disables zoom and pan, keeps range fixed
@@ -202,12 +211,11 @@ def theme_af(
                 "linewidth": 1,
                 "showgrid": grid_y,
                 "tickcolor": af_colour_values["chart_features"],
-                # "tickfont": {"size": base_size},
+                "tickfont": {"size": base_size},
                 "tickwidth": 1,
                 "ticks": "outside",
                 "title": {
                     "text": None,
-                    # "font": {"size": base_size * 1.4},
                     "standoff": half_line / 2,  # Position from axes
                 },
                 "fixedrange": True,

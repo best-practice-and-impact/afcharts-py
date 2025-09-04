@@ -9,10 +9,19 @@ from afcharts.assets.af_colours import (
     sequential_minus,
 )
 
+# Reference:
+# https://plotly.com/python/templates/
+
+# Use built in sans font
 afcharts_font = "Sans-serif"  # consider using a different font?
-base_size = 14
+
+# R package ggplot uses pt as dimmentions whereas plotly uses px
+# 1 pt ≈ 1.33 px
+# So a 14 pt font ≈ 18.62 px in Plotly
+base_size = 14 * 1.33
 base_line_size = base_size / 24
 base_rect_size = base_size / 24
+
 # The half-line (base_size / 2) sets up the basic vertical
 # rhythm of the theme. Most margins will be set to this value.
 # However, when we work with relative sizes, we may want to multiply
@@ -62,7 +71,6 @@ pio.templates["theme_af"] = go.layout.Template(
             "indentation": 0,
             "itemclick": "toggleothers",  # Change behaviour from hiding trace to showing only this trace
             "itemwidth": 30,
-            # "itemsizing": "constant",
             "traceorder": "normal",
         },
         "hoverlabel": {
@@ -109,7 +117,6 @@ pio.templates["theme_af"] = go.layout.Template(
             "gridcolor": af_colour_values["chart_features"],  # Grid lines colours
             "linecolor": af_colour_values["chart_features"],  # Axes line colour
             "linewidth": 1,
-            "showgrid": False,  # Hide grid lines
             "tickcolor": af_colour_values["chart_features"],  # Tick mark colours
             "tickfont": {
                 "size": base_size,
@@ -118,13 +125,9 @@ pio.templates["theme_af"] = go.layout.Template(
             "ticks": "outside",  # Removes tick marks
             "title": {  # Axes title
                 "text": None,  # Removes axes title
-                # "font": {
-                #     "size": base_size * 1.4,
-                # },  # Axes title size
                 "standoff": half_line / 2,  # Position from axes
             },
             "fixedrange": True,  # Disables zoom and pan, keeps range fixed
-            "showline": False,  # Line which marks the boundary of the plotting area
             "zeroline": True,  # Makes zeroline visible
             "zerolinecolor": af_colour_values["chart_features"],  # Zero line colour
         },
@@ -133,18 +136,15 @@ pio.templates["theme_af"] = go.layout.Template(
             "gridcolor": af_colour_values["chart_features"],
             "linecolor": af_colour_values["chart_features"],
             "linewidth": 1,
-            "showgrid": False,
             "tickcolor": af_colour_values["chart_features"],
             "tickfont": {"size": base_size},
             "tickwidth": 1,
             "ticks": "outside",
             "title": {
                 "text": None,
-                # "font": {"size": base_size * 1.4},
                 "standoff": half_line / 2,  # Position from axes
             },
             "fixedrange": True,
-            "showline": False,
             "zeroline": True,
             "zerolinecolor": af_colour_values["chart_features"],
         },

@@ -2,15 +2,12 @@ import os
 
 import plotly.express as px
 import plotly.graph_objects as go
-import plotly.io as pio
-
-from afcharts.assets.af_colours import duo
 
 # AF Package
-from afcharts.theme_af import theme_af
+from afcharts.pio_template import pio
 
 
-def test_plotly_line_chart():
+def test_plotly_scatter_chart():
     # Only set the renderer to "browser" if not running in CI
     if not os.environ.get("CI"):
         pio.renderers.default = "browser"
@@ -32,7 +29,7 @@ def test_plotly_line_chart():
 
     # Update layout
     fig.update_layout(
-        template=theme_af(grid="xy", colour_palette=duo),
+        template="theme_af",
         xaxis=dict(
             title="GDP (US$, inflation-adjusted)",
         ),
