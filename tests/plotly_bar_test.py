@@ -2,9 +2,8 @@ import os
 
 import plotly.express as px
 import plotly.graph_objects as go
-import plotly.io as pio
 
-from afcharts.theme_af import theme_af
+from afcharts.pio_template import pio
 
 
 def test_plotly_bar_chart():
@@ -29,7 +28,7 @@ def test_plotly_bar_chart():
 
     # Update layout
     fig.update_layout(
-        template=theme_af(grid="y"),
+        template="theme_af",
         title=dict(
             text="The U.S.A. is the most populous country in\nthe Americas",
             subtitle=dict(text="Population of countries in the Americas, 2007"),

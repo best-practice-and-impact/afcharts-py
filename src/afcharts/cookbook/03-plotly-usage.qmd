@@ -2,14 +2,16 @@
 ## Example of a bar chart
 
 ```{python}
-from afcharts.theme_af import theme_af
-import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+
+# AF Package
+from afcharts.pio_template import pio
+
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
-
 
 top5 = df.nlargest(5, "pop")
 
@@ -25,7 +27,7 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-    template=theme_af(grid="y"),
+        template="theme_af",
     title=dict(
         text="The U.S.A. is the most populous country in\nthe Americas",
         subtitle=dict(text="Population of countries in the Americas, 2007"),
@@ -50,12 +52,12 @@ fig.show()
 ## Example of a line chart with duo palette
 
 ```{python}
-import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 # AF Package
-from afcharts.theme_af import theme_af
+from afcharts.pio_template import pio
 from afcharts.assets.af_colours import duo
 
 # Load the gapminder dataset from plotly.express
@@ -66,7 +68,7 @@ df = df[df["country"].isin(["United Kingdom", "China"])]
 fig = go.Figure()
 
 # Add a trace for each continent
-for country in df["country"].unique():
+for i, country in enumerate(df["country"].unique()):
     df_country = df[df["country"] == country]
     fig.add_trace(
         go.Scatter(
@@ -75,12 +77,13 @@ for country in df["country"].unique():
             mode="lines",
             name=country,
             text=df_country["country"],
+            line=dict(color=duo[i % len(duo)])
         )
     )
 
 # Update layout
 fig.update_layout(
-    template=theme_af(grid="y", colour_palette=duo),
+    template="theme_af",
     xaxis=dict(
         title="Year",
     ),
@@ -110,12 +113,12 @@ fig.show()
 ## Example of a scatter chart
 
 ```{python}
-import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 # AF Package
-from afcharts.theme_af import theme_af
+from afcharts.pio_template import pio
 from afcharts.assets.af_colours import duo
 
 # Load the gapminder dataset from plotly.express
@@ -135,7 +138,7 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-    template=theme_af(grid="xy", colour_palette=duo),
+    template="theme_af",
     xaxis=dict(
         title="GDP (US$, inflation-adjusted)",
     ),

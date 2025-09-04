@@ -2,12 +2,9 @@ import os
 
 import plotly.express as px
 import plotly.graph_objects as go
-import plotly.io as pio
 
 from afcharts.assets.af_colours import duo
-
-# AF Package
-from afcharts.theme_af import theme_af
+from afcharts.pio_template import pio
 
 
 def test_plotly_line_chart():
@@ -23,7 +20,7 @@ def test_plotly_line_chart():
     fig = go.Figure()
 
     # Add a trace for each continent
-    for country in df["country"].unique():
+    for i, country in enumerate(df["country"].unique()):
         df_country = df[df["country"] == country]
         fig.add_trace(
             go.Scatter(
@@ -32,12 +29,13 @@ def test_plotly_line_chart():
                 mode="lines",
                 name=country,
                 text=df_country["country"],
+                line=dict(color=duo[i % len(duo)]),
             )
         )
 
     # Update layout
     fig.update_layout(
-        template=theme_af(grid="y", colour_palette=duo),
+        template="theme_af",
         xaxis=dict(
             title="Year",
         ),

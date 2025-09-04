@@ -97,15 +97,16 @@ afcharts-py/
 ├── src/
 │   └── afcharts/
 │       ├── __init__.py
+│       ├── pio_template.py
 │       ├── theme_af.py
 │       └── assets/
 │           ├── af_colours.py
-│           └── pio_template.py
+│           └── logo.svg
 │       └── cookbook/
 │           ├── _quarto.yml
 │           └── index.qmd
 │           └── getting-started.qmd
-│
+|
 ├── tests/
 │   ├── conftest.py
 │   └── test_module.py
