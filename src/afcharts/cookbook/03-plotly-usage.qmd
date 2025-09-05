@@ -3,7 +3,7 @@
 
 ```{python}
 #| label: bar-charts-1
-#| eval: false
+#| eval: true
 
 import pandas as pd
 import plotly.express as px
@@ -55,7 +55,7 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 
 ```{python}
 #| label: line-charts-2
-#| eval: false
+#| eval: true
 
 import pandas as pd
 import plotly.express as px
