@@ -27,11 +27,7 @@ def test_plotly_bar_chart():
     )
 
     # Update layout
-    fig.update_layout(
-        meta=dict(
-            alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."
-        ),
-    )
+    fig.update_layout(height=300)
 
     if not os.environ.get("CI"):
         fig.show()

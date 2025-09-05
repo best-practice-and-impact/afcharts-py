@@ -38,13 +38,16 @@ def test_plotly_line_chart():
     fig.update_layout(
         xaxis=dict(
             title="Year",
+            showgrid=False,  # Hide x-axis grid lines
         ),
-        meta=dict(
-            alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."
+        yaxis=dict(
+            title="Life Expectancy",
+            range=[0, 82],
+            tickmode="linear",
+            dtick=20,  # Show ticks every 20 units
         ),
+        height=300,
     )
-
-    fig.update_yaxes(range=[0, 82])
 
     if not os.environ.get("CI"):
         fig.show()

@@ -35,6 +35,7 @@ def test_plotly_scatter_chart():
         yaxis=dict(
             title="Life\nExpectancy",
         ),
+        height=300,
     )
 
     if not os.environ.get("CI"):
