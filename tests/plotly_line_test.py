@@ -36,25 +36,9 @@ def test_plotly_line_chart():
 
     # Update layout
     fig.update_layout(
-        template="theme_af",
         xaxis=dict(
             title="Year",
         ),
-        title=dict(
-            text="Living Longer",
-            subtitle=dict(text="Life Expectancy in the United Kingdom and China 1952-2007"),
-        ),
-        margin=dict(b=70),  # Increase bottom margin to make space for source
-        annotations=[
-            dict(
-                text="Source: Gapminder",
-                xref="paper",
-                yref="paper",
-                x=0,
-                y=-0.1,
-                xanchor="left",
-            )
-        ],
         meta=dict(
             alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."
         ),

@@ -3,6 +3,16 @@ description-meta: |
   This cookbook will teach you how to work with afcharts-py Python package.
 ---
 
+<style>
+.chart-subtitle {
+  font-size: 14pt;
+}
+
+.chart-title {
+  font-size: 16pt;
+  font-weight: 700;
+}
+</style>
 
 ::: {.content-visible when-format="html"}
 # Welcome <img src="./assets/logo.svg" alt="afcharts logo" style="float: right; height: 150px;"> {.unnumbered}

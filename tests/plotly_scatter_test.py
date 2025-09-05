@@ -29,27 +29,12 @@ def test_plotly_scatter_chart():
 
     # Update layout
     fig.update_layout(
-        template="theme_af",
         xaxis=dict(
             title="GDP (US$, inflation-adjusted)",
         ),
         yaxis=dict(
             title="Life\nExpectancy",
         ),
-        title=dict(
-            text="The relationship between GDP and Life Expectancy is complex",
-            subtitle=dict(text="GDP and Life Expectancy for all countires, 2007"),
-        ),
-        annotations=[
-            dict(
-                text="Source: Gapminder",
-                xref="paper",
-                yref="paper",
-                x=0,
-                y=-0.1,
-                xanchor="left",
-            )
-        ],
     )
 
     if not os.environ.get("CI"):

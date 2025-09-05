@@ -27,6 +27,9 @@ pip install afcharts-py
 To use the afcharts style in matplotlib, import the package, then simple use the afcharts style with
 
 ```python
+import afcharts
+import matplotlib.pytplot as plt
+plt.style.use('afcharts')
 ```
 
 ### Ploty
@@ -42,6 +45,8 @@ import plotly.graph_objects as go
 # AF Package
 from afcharts.pio_template import pio
 
+# # Set the template
+# pio.templates.default = "theme_af"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
@@ -60,22 +65,6 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-        template="theme_af",
-    title=dict(
-        text="The U.S.A. is the most populous country in\nthe Americas",
-        subtitle=dict(text="Population of countries in the Americas, 2007"),
-    ),
-    margin=dict(b=70),  # Increase bottom margin to make space for source
-    annotations=[
-        dict(
-            text="Source: Gapminder",
-            xref="paper",
-            yref="paper",
-            x=0,
-            y=-0.1,
-            xanchor="left",
-        )
-    ],
     meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
 )
 

@@ -1,7 +1,7 @@
 # Using the package with Plotly
-## Example of a bar chart
+## Bar charts
 
-```{python}
+```{python bar-charts-1, eval = FALSE}
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -27,31 +27,30 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-        template="theme_af",
-    title=dict(
-        text="The U.S.A. is the most populous country in\nthe Americas",
-        subtitle=dict(text="Population of countries in the Americas, 2007"),
-    ),
-    margin=dict(b=70),  # Increase bottom margin to make space for source
-    annotations=[
-        dict(
-            text="Source: Gapminder",
-            xref="paper",
-            yref="paper",
-            x=0,
-            y=-0.1,
-            xanchor="left",
-        )
-    ],
     meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
 )
 
 fig.show()
+
 ```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+
+```{python, echo = FALSE}
+
+<<bar-charts-1>>
+
+```
+
+<div class="chart-source">Source: Gapminder</div>
+
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
 
 ## Example of a line chart with duo palette
 
-```{python}
+```{python line-charts-2, eval = FALSE}
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -83,43 +82,43 @@ for i, country in enumerate(df["country"].unique()):
 
 # Update layout
 fig.update_layout(
-    template="theme_af",
     xaxis=dict(
         title="Year",
     ),
-    title=dict(
-        text="Living Longer",
-        subtitle=dict(text="Life Expectancy in the United Kingdom and China 1952-2007"),
-    ),
-    margin=dict(b=70),  # Increase bottom margin to make space for source
-    annotations=[
-        dict(
-            text="Source: Gapminder",
-            xref="paper",
-            yref="paper",
-            x=0,
-            y=-0.1,
-            xanchor="left",
-        )
-    ],
     meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
 )
 
 fig.update_yaxes(range=[0, 82])
 
 fig.show()
+
 ```
 
-## Example of a scatter chart
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life Expectancy in the United Kingdom and China 1952-2007</div>
 
-```{python}
+```{python, fig.height = 5, echo = FALSE}
+
+<<line-charts-2>>
+
+```
+
+<div class="chart-source">Source: Gapminder</div>
+
+
+This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are two thicker lines showing the life expectancy in the UK and China over time. The line colours are from the main Analysis Function palette - dark blue for China and orange for the UK, denoted by a legend at the bottom of the chart.
+
+Legends should be avoided unless absolutely necessary, as these usually rely on using colour to match labels to data. More information can be found in the Analysis Function [charts guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/#section-11). It is best practice to label lines directly, and an example of this can be found in the [annotations](#annotations) section.
+
+## Example of a scatterplot
+
+```{python scatterplot, eval = FALSE}
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
 # AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import duo
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -138,28 +137,25 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-    template="theme_af",
     xaxis=dict(
         title="GDP (US$, inflation-adjusted)",
     ),
     yaxis=dict(
         title="Life\nExpectancy",
-    ),
-    title=dict(
-        text="The relationship between GDP and Life Expectancy is complex",
-        subtitle=dict(text="GDP and Life Expectancy for all countires, 2007"),
-    ),
-    annotations=[
-        dict(
-            text="Source: Gapminder",
-            xref="paper",
-            yref="paper",
-            x=0,
-            y=-0.1,
-            xanchor="left",
-        )
-    ],
+    )
 )
 
 fig.show()
+
 ```
+
+<div class="chart-title">The relationship between GDP and Life Expectancy is complex</div>
+<div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
+
+```{python, fig.height = 5, echo = FALSE}
+
+<<scatterplot>>
+
+```
+
+<div class="chart-source">Source: Gapminder</div>
