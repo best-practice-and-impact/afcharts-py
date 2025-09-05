@@ -86,9 +86,7 @@ pio.templates["theme_af"] = go.layout.Template(
         "margin": {  # Set margins around the plot area in pixels
             "l": half_line,  # Left margin
             "r": half_line,  # Right margin
-            "t": (base_size * 1.6) + (0.7 * (base_size * 1.6)) + half_line + base_size,
-            # Top margin is the size of the title + subtitle size + title_padding
-            # + space between title and subtitle (which is set by default)
+            "t": half_line,  # Top margin
             "b": half_line,  # Bottom margin
             "pad": 0,  # Padding between grid lines and the tick labels
         },

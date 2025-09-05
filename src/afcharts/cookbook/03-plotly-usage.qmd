@@ -1,9 +1,9 @@
 # Using the package with Plotly
 ## Bar charts
 
-```{python bar-charts-1}
+```{python}
 #| eval: false
-#| lst-label: bar-charts-1
+#| label: bar-charts-1
 
 import pandas as pd
 import plotly.express as px
@@ -55,7 +55,7 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 
 ```{python}
 #| eval: false
-#| lst-label: line-charts-2
+#| label: line-charts-2
 
 import pandas as pd
 import plotly.express as px
@@ -119,9 +119,9 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 
 ## Example of a scatterplot
 
-```{python scatterplot}
+```{python}
 #| eval: false
-#| lst-label: scatterplot
+#| label: scatterplot
 
 
 import pandas as pd

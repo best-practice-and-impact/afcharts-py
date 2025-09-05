@@ -4,6 +4,11 @@ description-meta: |
 ---
 
 <style>
+.chart-source {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
 .chart-subtitle {
   font-size: 14pt;
 }
