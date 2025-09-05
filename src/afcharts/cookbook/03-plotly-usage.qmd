@@ -103,8 +103,9 @@ fig.show()
 <div class="chart-title">Living Longer</div>
 <div class="chart-subtitle">Life Expectancy in the United Kingdom and China 1952-2007</div>
 
-```{python, fig.height = 5}
+```{python}
 #| echo: false
+#| fig-height = 5
 
 <<line-charts-2>>
 
@@ -122,7 +123,6 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 ```{python}
 #| eval: false
 #| label: scatterplot
-
 
 import pandas as pd
 import plotly.express as px
@@ -163,8 +163,9 @@ fig.show()
 <div class="chart-title">The relationship between GDP and Life Expectancy is complex</div>
 <div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
 
-```{python, fig.height = 5}
+```{python}
 #| echo: false
+#| fig-height = 5
 
 <<scatterplot>>
 
