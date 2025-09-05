@@ -1,7 +1,10 @@
 # Using the package with Plotly
 ## Bar charts
 
-```{python bar-charts-1, eval = FALSE}
+```{python bar-charts-1}
+#| eval: false
+#| lst-label: bar-charts-1
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -37,7 +40,8 @@ fig.show()
 <div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
 <div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
 
-```{python, echo = FALSE}
+```{python}
+#| echo: false
 
 <<bar-charts-1>>
 
@@ -49,7 +53,9 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 
 ## Example of a line chart with duo palette
 
-```{python line-charts-2, eval = FALSE}
+```{python}
+#| eval: false
+#| lst-label: line-charts-2
 
 import pandas as pd
 import plotly.express as px
@@ -97,7 +103,8 @@ fig.show()
 <div class="chart-title">Living Longer</div>
 <div class="chart-subtitle">Life Expectancy in the United Kingdom and China 1952-2007</div>
 
-```{python, fig.height = 5, echo = FALSE}
+```{python, fig.height = 5}
+#| echo: false
 
 <<line-charts-2>>
 
@@ -112,7 +119,11 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 
 ## Example of a scatterplot
 
-```{python scatterplot, eval = FALSE}
+```{python scatterplot}
+#| eval: false
+#| lst-label: scatterplot
+
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -152,7 +163,8 @@ fig.show()
 <div class="chart-title">The relationship between GDP and Life Expectancy is complex</div>
 <div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
 
-```{python, fig.height = 5, echo = FALSE}
+```{python, fig.height = 5}
+#| echo: false
 
 <<scatterplot>>
 
