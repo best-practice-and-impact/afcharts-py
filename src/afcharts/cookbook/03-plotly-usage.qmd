@@ -12,28 +12,27 @@ import plotly.graph_objects as go
 # AF Package
 from afcharts.pio_template import pio
 
+def make_bar_chart():
+    # Load the gapminder dataset from plotly.express
+    df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
 
-# Load the gapminder dataset from plotly.express
-df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
+    top5 = df.nlargest(5, "pop")
+    fig = go.Figure()
 
-top5 = df.nlargest(5, "pop")
-
-fig = go.Figure()
-
-fig.add_trace(
-    go.Bar(
-        x=top5["country"],
-        y=top5["pop"],  # Repeat the category name for each x value
-        name="test bar",  # Use the x value column name as the trace name
+    fig.add_trace(
+        go.Bar(
+            x=top5["country"],
+            y=top5["pop"],  # Repeat the category name for each x value
+            name="test bar",  # Use the x value column name as the trace name
+        )
     )
-)
 
-# Update layout
-fig.update_layout(
-    meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
-)
+    # Update layout
+    fig.update_layout(
+        meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
+    )
 
-fig.show()
+    fig.show()
 
 ```
 
@@ -44,6 +43,8 @@ fig.show()
 #| ref-label: bar-charts-1
 #| echo: false
 #| eval: true
+
+make_bar_chart()
 ```
 
 <div class="chart-source">Source: Gapminder</div>
@@ -64,38 +65,38 @@ import plotly.graph_objects as go
 from afcharts.pio_template import pio
 from afcharts.assets.af_colours import duo
 
-# Load the gapminder dataset from plotly.express
-df = px.data.gapminder()
+def make_line_chart():
+    # Load the gapminder dataset from plotly.express
+    df = px.data.gapminder()
 
-df = df[df["country"].isin(["United Kingdom", "China"])]
+    df = df[df["country"].isin(["United Kingdom", "China"])]
+    fig = go.Figure()
 
-fig = go.Figure()
-
-# Add a trace for each continent
-for i, country in enumerate(df["country"].unique()):
-    df_country = df[df["country"] == country]
-    fig.add_trace(
-        go.Scatter(
-            x=df_country["year"],
-            y=df_country["lifeExp"],
-            mode="lines",
-            name=country,
-            text=df_country["country"],
-            line=dict(color=duo[i % len(duo)])
+    # Add a trace for each continent
+    for i, country in enumerate(df["country"].unique()):
+        df_country = df[df["country"] == country]
+        fig.add_trace(
+            go.Scatter(
+                x=df_country["year"],
+                y=df_country["lifeExp"],
+                mode="lines",
+                name=country,
+                text=df_country["country"],
+                line=dict(color=duo[i % len(duo)])
+            )
         )
+
+    # Update layout
+    fig.update_layout(
+        xaxis=dict(
+            title="Year",
+        ),
+        meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
     )
 
-# Update layout
-fig.update_layout(
-    xaxis=dict(
-        title="Year",
-    ),
-    meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
-)
+    fig.update_yaxes(range=[0, 82])
 
-fig.update_yaxes(range=[0, 82])
-
-fig.show()
+    fig.show()
 
 ```
 
@@ -107,6 +108,8 @@ fig.show()
 #| echo: false
 #| eval: true
 #| fig-height: 5
+
+make_line_chart()
 ```
 
 <div class="chart-source">Source: Gapminder</div>
@@ -129,32 +132,34 @@ import plotly.graph_objects as go
 # AF Package
 from afcharts.pio_template import pio
 
-# Load the gapminder dataset from plotly.express
-df = px.data.gapminder()
 
-df = df.query("year == 2007")
+def make_scatterplot():
+    # Load the gapminder dataset from plotly.express
+    df = px.data.gapminder()
 
-fig = go.Figure()
+    df = df.query("year == 2007")
 
-fig.add_trace(
-    go.Scatter(
-        x=df["gdpPercap"],
-        y=df["lifeExp"],
-        mode="markers",
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=df["gdpPercap"],
+            y=df["lifeExp"],
+            mode="markers",
+        )
     )
-)
 
-# Update layout
-fig.update_layout(
-    xaxis=dict(
-        title="GDP (US$, inflation-adjusted)",
-    ),
-    yaxis=dict(
-        title="Life\nExpectancy",
+    # Update layout
+    fig.update_layout(
+        xaxis=dict(
+            title="GDP (US$, inflation-adjusted)",
+        ),
+        yaxis=dict(
+            title="Life\nExpectancy",
+        )
     )
-)
 
-fig.show()
+    fig.show()
 
 ```
 
@@ -166,6 +171,8 @@ fig.show()
 #| echo: true
 #| eval: true
 #| fig-height: 5
+
+make_scatterplot()
 
 ```
 
