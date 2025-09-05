@@ -168,7 +168,7 @@ def make_scatterplot():
 
 ```{python}
 #| ref-label: scatterplot
-#| echo: true
+#| echo: false
 #| eval: true
 #| fig-height: 5
 
