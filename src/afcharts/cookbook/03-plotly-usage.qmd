@@ -41,10 +41,9 @@ fig.show()
 <div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
 
 ```{python}
+#| ref-label: bar-charts-1
 #| echo: false
-
-<<bar-charts-1>>
-
+#| eval: true
 ```
 
 <div class="chart-source">Source: Gapminder</div>
@@ -104,11 +103,10 @@ fig.show()
 <div class="chart-subtitle">Life Expectancy in the United Kingdom and China 1952-2007</div>
 
 ```{python}
+#| ref-label: line-charts-2
 #| echo: false
-#| fig-height = 5
-
-<<line-charts-2>>
-
+#| eval: true
+# #| fig-height = 5
 ```
 
 <div class="chart-source">Source: Gapminder</div>
@@ -164,10 +162,10 @@ fig.show()
 <div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
 
 ```{python}
+#| ref-label: scatterplot
 #| echo: false
+#| eval: true
 #| fig-height = 5
-
-<<scatterplot>>
 
 ```
 
