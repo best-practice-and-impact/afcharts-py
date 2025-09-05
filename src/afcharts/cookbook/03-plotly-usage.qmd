@@ -106,7 +106,7 @@ fig.show()
 #| ref-label: line-charts-2
 #| echo: false
 #| eval: true
-# #| fig-height = 5
+# #| fig-height: 5
 ```
 
 <div class="chart-source">Source: Gapminder</div>
@@ -165,7 +165,7 @@ fig.show()
 #| ref-label: scatterplot
 #| echo: false
 #| eval: true
-#| fig-height = 5
+#| fig-height: 5
 
 ```
 
