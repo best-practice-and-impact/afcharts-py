@@ -2,8 +2,8 @@
 ## Bar charts
 
 ```{python}
-#| eval: false
 #| label: bar-charts-1
+#| eval: false
 
 import pandas as pd
 import plotly.express as px
@@ -53,8 +53,8 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 ## Example of a line chart with duo palette
 
 ```{python}
-#| eval: false
 #| label: line-charts-2
+#| eval: false
 
 import pandas as pd
 import plotly.express as px
@@ -106,7 +106,7 @@ fig.show()
 #| ref-label: line-charts-2
 #| echo: false
 #| eval: true
-# #| fig-height: 5
+#| fig-height: 5
 ```
 
 <div class="chart-source">Source: Gapminder</div>
@@ -119,8 +119,8 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 ## Example of a scatterplot
 
 ```{python}
-#| eval: false
 #| label: scatterplot
+#| eval: true
 
 import pandas as pd
 import plotly.express as px
@@ -163,7 +163,7 @@ fig.show()
 
 ```{python}
 #| ref-label: scatterplot
-#| echo: false
+#| echo: true
 #| eval: true
 #| fig-height: 5
 

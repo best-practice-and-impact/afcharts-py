@@ -3,22 +3,6 @@ description-meta: |
   This cookbook will teach you how to work with afcharts-py Python package.
 ---
 
-<style>
-.chart-source {
-  font-size: 12pt;
-  font-weight: 700;
-}
-
-.chart-subtitle {
-  font-size: 14pt;
-}
-
-.chart-title {
-  font-size: 16pt;
-  font-weight: 700;
-}
-</style>
-
 ::: {.content-visible when-format="html"}
 # Welcome <img src="./assets/logo.svg" alt="afcharts logo" style="float: right; height: 150px;"> {.unnumbered}
 This cookbook provides example code to produce various chart types using `afcharts-py`. There are also examples to demonstrate how to apply further customisation to `afcharts-py` charts.

@@ -30,5 +30,6 @@ format:
     code-link: true
     code-overflow: wrap
     toc-depth: 3
+    css: styles.css
 
 jupyter: python3
