@@ -29,7 +29,6 @@ def make_bar_chart():
 
     # Update layout
     fig.update_layout(
-        meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
         height=300
     )
 
@@ -92,12 +91,16 @@ def make_line_chart():
     fig.update_layout(
         xaxis=dict(
             title="Year",
+            showgrid=False  # Hide x-axis grid lines
         ),
-        meta=dict(alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."),
+        yaxis=dict(
+            title="Life Expectancy",
+            range=[0, 82],
+            tickmode="linear",
+            dtick=20,  # Show ticks every 20 units
+        ),
         height=300
     )
-
-    fig.update_yaxes(range=[0, 82])
 
     fig.show()
 
@@ -159,7 +162,7 @@ def make_scatterplot():
         ),
         yaxis=dict(
             title="Life\nExpectancy",
-        )
+        ),
         height=300
     )
 
@@ -180,3 +183,5 @@ make_scatterplot()
 ```
 
 <div class="chart-source">Source: Gapminder</div>
+
+This scatterplot uses the afcharts theme, and shows life expectancy against GDP for all countries. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.
