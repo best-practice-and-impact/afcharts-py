@@ -9,7 +9,7 @@ import matplotlib as plt
 import plotly.express as px
 df = px.data.gapminder().query("country == 'United Kingdom'")
 
-plt.style.use("afcharts.mplstyle")
+plt.style.use("afcharts.afcharts")
 
 plt.figure(figsize = (10, 6))
 plt.plot(df["year"], df["lifeExp"])
@@ -33,7 +33,7 @@ import plotly.express as px
 df = px.data.gapminder()
 df = df[df["country"].isin(["United Kingdom", "China"])]
 
-plt.style.use("afcharts.mplstyle")
+plt.style.use("afcharts.afcharts")
 
 plt.figure(figsize = (10, 6))
 for country, data in df.groupby("country"):
