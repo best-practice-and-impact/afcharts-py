@@ -15,8 +15,7 @@ plt.style.use("afcharts.afcharts")
 fig = plt.figure(figsize = (8.5, 4.8))
 plt.plot(df["year"], df["lifeExp"])
 
-plt.xlabel("Year")
-plt.xlim([1952, 2007])
+plt.xlim([1950, 2010])
 plt.ylim([0, 85])
 
 plt.show()
