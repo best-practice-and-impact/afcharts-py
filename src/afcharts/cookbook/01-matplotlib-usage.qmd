@@ -14,7 +14,6 @@ plt.style.use("afcharts.afcharts")
 fig = plt.figure(figsize = (8.5, 4.8))
 plt.plot(df["year"], df["lifeExp"])
 
-plt.title("Life expectancy in the United Kingdom 1952-2007")
 plt.xlabel("Year")
 plt.xlim([1952, 2007])
 plt.ylim([0, 85])
