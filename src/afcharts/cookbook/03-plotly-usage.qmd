@@ -94,7 +94,6 @@ for i, country in enumerate(df["country"].unique()):
 # Update layout
 fig.update_layout(
     xaxis=dict(
-        title="Year",
         showgrid=False  # Hide x-axis grid lines
     ),
     yaxis=dict(
