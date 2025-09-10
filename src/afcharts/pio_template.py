@@ -149,5 +149,3 @@ pio.templates["theme_af"] = go.layout.Template(
         },
     }
 )
-
-pio.templates.default = "theme_af"

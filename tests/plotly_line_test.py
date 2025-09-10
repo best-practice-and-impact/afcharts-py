@@ -7,6 +7,9 @@ import plotly.graph_objects as go
 from afcharts.assets.af_colours import duo
 from afcharts.pio_template import pio
 
+# Set default theme
+pio.templates.default = "theme_af"
+
 
 def test_plotly_line_chart():
     # Only set the renderer to "browser" if not running in CI

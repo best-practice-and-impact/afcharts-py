@@ -6,6 +6,9 @@ import plotly.graph_objects as go
 # AF Package
 from afcharts.pio_template import pio
 
+# Set default theme
+pio.templates.default = "theme_af"
+
 
 def test_plotly_scatter_chart():
     # Only set the renderer to "browser" if not running in CI

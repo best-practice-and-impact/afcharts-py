@@ -32,9 +32,9 @@ import matplotlib.pytplot as plt
 plt.style.use('afcharts')
 ```
 
-### Ploty
+### Plotly
 
-Basic exaple of using the plotly pio template to produce charts.
+Basic example of using the plotly pio template to produce charts.
 
 ```python
 
@@ -45,8 +45,9 @@ import plotly.graph_objects as go
 # AF Package
 from afcharts.pio_template import pio
 
-# # Set the template
-# pio.templates.default = "theme_af"
+# Set default theme
+pio.templates.default = "theme_af"
+
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
