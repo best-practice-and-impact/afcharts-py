@@ -23,6 +23,14 @@ plt.show()
 ```
 
 <div class="chart-title">Life expectancy in the United Kingdom 1952-2007</div>
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
 ## Example of a line chart with multiple lines
 
 ```{python}
