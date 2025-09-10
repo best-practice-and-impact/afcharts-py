@@ -11,7 +11,7 @@ df = px.data.gapminder().query("country == 'United Kingdom'")
 
 plt.style.use("afcharts.afcharts")
 
-plt.figure(figsize = (10, 6))
+fig = plt.figure(figsize = (8.5, 4.8))
 plt.plot(df["year"], df["lifeExp"])
 
 plt.title("Life expectancy in the United Kingdom 1952-2007")
