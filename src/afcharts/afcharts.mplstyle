@@ -18,7 +18,7 @@ grid.linestyle : -
 grid.linewidth : 0.6
 
 # LINES
-axes.prop_cycle: "cycler('color', ["#12436D","#28A197","#801650", "#F46A25","#3D3D3D","#A285D1"])"
+axes.prop_cycle: cycler('color', ["#12436D","#28A197","#801650", "#F46A25","#3D3D3D","#A285D1"])
 lines.linewidth : 2
 lines.markeredgewidth : 0.0
 
