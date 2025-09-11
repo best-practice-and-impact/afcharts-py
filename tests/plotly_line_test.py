@@ -40,7 +40,6 @@ def test_plotly_line_chart():
     # Update layout
     fig.update_layout(
         xaxis=dict(
-            title="Year",
             showgrid=False,  # Hide x-axis grid lines
         ),
         yaxis=dict(
