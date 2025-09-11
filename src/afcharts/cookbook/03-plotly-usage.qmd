@@ -71,12 +71,8 @@ from afcharts.assets.af_colours import duo
 # Set default theme
 pio.templates.default = "theme_af"
 
-# Set default theme
-pio.templates.default = "theme_af"
-
-def make_line_chart():
-    # Load the gapminder dataset from plotly.express
-    df = px.data.gapminder()
+# Load the gapminder dataset from plotly.express
+df = px.data.gapminder()
 
 df = df[df["country"].isin(["United Kingdom", "China"])]
 fig = go.Figure()
@@ -152,21 +148,20 @@ import afcharts.pio_template
 # Set default theme
 pio.templates.default = "theme_af"
 
-def make_scatterplot():
-    # Load the gapminder dataset from plotly.express
-    df = px.data.gapminder()
+# Load the gapminder dataset from plotly.express
+df = px.data.gapminder()
 
-    df = df.query("year == 2007")
+df = df.query("year == 2007")
 
-    fig = go.Figure()
+fig = go.Figure()
 
-    fig.add_trace(
-        go.Scatter(
-            x=df["gdpPercap"],
-            y=df["lifeExp"],
-            mode="markers",
-        )
+fig.add_trace(
+    go.Scatter(
+        x=df["gdpPercap"],
+        y=df["lifeExp"],
+        mode="markers",
     )
+)
 
 # Update layout
 fig.update_layout(
