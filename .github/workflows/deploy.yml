@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
   push:
-    branches: [main, dev, nh/fix-mpl-font]
+    branches: [main, dev]
 
 jobs:
 
