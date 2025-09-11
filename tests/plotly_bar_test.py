@@ -2,12 +2,14 @@ import os
 
 import plotly.express as px
 import plotly.graph_objects as go
-import plotly.io as pio
 
-from afcharts.theme_af import theme_af
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "theme_af"
 
 
-def test_plolty_bar_chart():
+def test_plotly_bar_chart():
     # Only set the renderer to "browser" if not running in CI
     if not os.environ.get("CI"):
         pio.renderers.default = "browser"
@@ -28,27 +30,7 @@ def test_plolty_bar_chart():
     )
 
     # Update layout
-    fig.update_layout(
-        template=theme_af(grid="y"),
-        title=dict(
-            text="The U.S.A. is the most populous country in\nthe Americas",
-            subtitle=dict(text="Population of countries in the Americas, 2007"),
-        ),
-        margin=dict(b=70),  # Increase bottom margin to make space for source
-        annotations=[
-            dict(
-                text="Source: Gapminder",
-                xref="paper",
-                yref="paper",
-                x=0,
-                y=-0.1,
-                xanchor="left",
-            )
-        ],
-        meta=dict(
-            alt="Bar chart showing sales of Product A (23 units), Product B (45 units), and Product C (56 units)."
-        ),
-    )
+    fig.update_layout(height=300)
 
     if not os.environ.get("CI"):
         fig.show()
