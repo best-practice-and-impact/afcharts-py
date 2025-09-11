@@ -44,7 +44,7 @@ df = df[df["country"].isin(["United Kingdom", "China"])]
 
 plt.style.use("afcharts.afcharts")
 
-plt.figure(figsize = (8.5, 4.8))
+fig = plt.figure(figsize = (8.5, 4.8))
 for country, data in df.groupby("country"):
     plt.plot(data["year"], data["lifeExp"], label = country)
 
