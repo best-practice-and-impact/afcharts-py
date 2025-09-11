@@ -1,5 +1,65 @@
 # Using the package with matplotlib
-## Example of a bar chart
+## Example of a single line chart
 
 ```{python}
+#| output: false
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# load gapminder dataset from plotly
+import plotly.express as px
+df = px.data.gapminder().query("country == 'United Kingdom'")
+
+plt.style.use("afcharts.afcharts")
+
+fig = plt.figure(figsize = (8.5, 4.8))
+plt.plot(df["year"], df["lifeExp"])
+
+plt.xlim([1950, 2010])
+plt.ylim([0, 85])
+
+plt.show()
+```
+
+<div class="chart-title">Life expectancy in the United Kingdom 1952-2007</div>
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+## Example of a line chart with multiple lines
+
+```{python}
+#| output: false
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# load gapminder dataset from plotly
+import plotly.express as px
+df = px.data.gapminder()
+df = df[df["country"].isin(["United Kingdom", "China"])]
+
+plt.style.use("afcharts.afcharts")
+
+fig = plt.figure(figsize = (8.5, 4.8))
+for country, data in df.groupby("country"):
+    plt.plot(data["year"], data["lifeExp"], label = country)
+
+plt.xlim([1950, 2010])
+plt.ylim([0, 85])
+plt.legend()
+
+plt.show()
+```
+
+<div class="chart-title">Life expectancy in the United Kingdom and China 1952-2007</div>
+
+```{python}
+#| echo: false
+
+fig
+
 ```
