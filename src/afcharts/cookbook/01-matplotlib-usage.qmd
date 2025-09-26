@@ -63,3 +63,41 @@ plt.show()
 fig
 
 ```
+
+## Example of a bar chart
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+# load gapminder data from plotly
+df = px.data.gapminder()
+
+# Filter for Americas in 2007 and get top 5 by population
+pop_bar_data = df[(df["year"] == 2007) & (df["continent"] == "Americas")]
+pop_bar_data = pop_bar_data.nlargest(5, "pop").sort_values("pop", ascending=False)
+
+plt.style.use("afcharts.afcharts")
+
+fig = plt.figure(figsize=(8, 5))
+bars = plt.bar(
+    pop_bar_data["country"],
+    pop_bar_data["pop"] / 1e6,  # Convert to millions
+)
+
+plt.ylim(0, 300)
+plt.yticks([0, 100, 200, 300])
+plt.tight_layout()
+plt.show()
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+
+```{python}
+#| echo: false
+
+fig
+
+```
