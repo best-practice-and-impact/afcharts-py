@@ -106,7 +106,7 @@ fig = go.Figure()
 fig.add_trace(
     go.Bar(
         x=top5["country"],
-        y=top5["pop"],  # Repeat the category name for each x value
+        y=top5["pop"]/1000000,  # Convert to millions
 
     )
 )
