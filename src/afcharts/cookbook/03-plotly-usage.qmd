@@ -158,11 +158,11 @@ df = px.data.gapminder().query("year in [1967, 2007] & country in ['United Kingd
 fig = go.Figure()
 # Add a bar trace for each year
 for i, year in enumerate(sorted(df['year'].unique())):
-    year_data = df.query("year == @year")
+    df_year = df[df["year"] == year]
     fig.add_trace(
         go.Bar(
-            x=year_data['country'],
-            y=year_data['lifeExp'],
+            x=df_year['country'],
+            y=df_year['lifeExp'],
             name=str(year),
             marker_color=duo[i % len(duo)]
         )
@@ -198,9 +198,11 @@ fig.show()
 
 <div class="chart-source">Source: Gapminder</div>
 
-Caution should be taken when producing stacked bar charts. They can quickly become difficult to interpret if plotting non part-to-whole data, and/or if plotting more than two categories per stack. First and last categories in the stack will always be easier to compare across bars than those in the middle. Think carefully about the story you are trying to tell with your chart.
+This grouped bar chart uses the afcharts theme. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the main Analysis Function palette - dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart.
 
-### Grouped bar chart
+### Stacked bar chart
+
+Caution should be taken when producing stacked bar charts. They can quickly become difficult to interpret if plotting non part-to-whole data, and/or if plotting more than two categories per stack. First and last categories in the stack will always be easier to compare across bars than those in the middle. Think carefully about the story you are trying to tell with your chart.
 
 ```{python}
 #| eval: true
@@ -244,7 +246,7 @@ fig = go.Figure()
 for i, category in enumerate(categories):
     percent_col = f"percent of {category}"
     life_exp_data = pivot_df[[percent_col]]
-    print(life_exp_data)
+
     fig.add_trace(
         go.Bar(
             x=life_exp_data.index,
@@ -398,8 +400,9 @@ for i, continent in enumerate(continents):
 
 
 # Customize axes
-fig.update_xaxes(showticklabels=False, showgrid=False)
+fig.update_xaxes(showgrid=False)
 fig.update_yaxes(
+    range=[0, 4.1e9],
     tickvals=[0, 2e9, 4e9],
     ticktext=["0", "2bn", "4bn"],
     showgrid=True
@@ -497,13 +500,10 @@ fig.show()
 
 <div class="chart-source">Source: Gapminder</div>
 
-This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical2 palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by a legend to the right of the pie chart. There is whitespace separating the segments from each other.
+This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by a legend to the right of the pie chart. There is whitespace separating the segments from each other.
 
 ## Focus charts
 ```{python}
-#| eval: true
-#| output: false
-
 #| eval: true
 #| output: false
 
