@@ -37,6 +37,11 @@ duo = [
     af_colour_values["orange"],  # Orange
 ]
 
+focus = [
+    af_colour_values["grey"],  # Grey
+    af_colour_values["dark_blue"],  # Dark blue
+]
+
 # Sequential palette
 sequential = [
     [0, af_colour_values["dark_blue"]],  # Lightest blue
