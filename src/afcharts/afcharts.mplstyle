@@ -8,6 +8,7 @@ axes.spines.top : False
 axes.spines.right : False
 axes.spines.bottom : True
 axes.spines.left : False
+axes.axisbelow : True
 
 # GRID
 axes.grid : True
@@ -37,7 +38,6 @@ ytick.direction : out
 figure.figsize : 6.4, 4.8
 
 # FONT FOR SUBTITLES
-
 font.size : 14
 font.family : sans-serif
 

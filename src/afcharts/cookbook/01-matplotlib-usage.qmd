@@ -21,8 +21,6 @@ plt.ylim([0, 85])
 plt.show()
 ```
 
-<div class="chart-title">Life expectancy in the United Kingdom 1952-2007</div>
-
 ```{python}
 #| echo: false
 
@@ -30,12 +28,21 @@ fig
 
 ```
 
+<div class="chart-title">Life expectancy in the United Kingdom 1952-2007</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt">
+This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data.
+</div>
+
 ## Example of a line chart with multiple lines
 
 ```{python}
 #| output: false
 import pandas as pd
 import matplotlib.pyplot as plt
+
+# Import the duo palette
+from afcharts.assets.af_colours import duo
 
 # load gapminder dataset from plotly
 import plotly.express as px
@@ -45,8 +52,8 @@ df = df[df["country"].isin(["United Kingdom", "China"])]
 plt.style.use("afcharts.afcharts")
 
 fig = plt.figure(figsize = (8.5, 4.8))
-for country, data in df.groupby("country"):
-    plt.plot(data["year"], data["lifeExp"], label = country)
+for i, (country, data) in enumerate(df.groupby("country")):
+    plt.plot(data["year"], data["lifeExp"], label=country, color=duo[i])
 
 plt.xlim([1950, 2010])
 plt.ylim([0, 85])
@@ -55,8 +62,6 @@ plt.legend()
 plt.show()
 ```
 
-<div class="chart-title">Life expectancy in the United Kingdom and China 1952-2007</div>
-
 ```{python}
 #| echo: false
 
@@ -64,12 +69,16 @@ fig
 
 ```
 
+<div class="chart-title">Life expectancy in the United Kingdom and China 1952-2007</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt">
+This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are two thicker lines showing the life expectancy in the UK and China over time. The line colours are from the main Analysis Function palette - dark blue for China and orange for the UK, denoted by a legend at the bottom of the chart.
+</div>
+
 ## Example of a bar chart
 
 ```{python}
 #| output: false
-#| fig-alt: "This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis."
-
 import matplotlib.pyplot as plt
 import plotly.express as px
 
@@ -83,7 +92,7 @@ pop_bar_data = pop_bar_data.nlargest(5, "pop").sort_values("pop", ascending=Fals
 plt.style.use("afcharts.afcharts")
 
 fig = plt.figure(figsize=(8, 5))
-bars = plt.bar(
+plt.bar(
     pop_bar_data["country"],
     pop_bar_data["pop"] / 1e6,  # Convert to millions
 )
@@ -94,9 +103,6 @@ plt.yticks([0, 100, 200, 300])
 plt.show()
 ```
 
-<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
-<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
-<div class="chart-source">Source: Gapminder</div>
 
 ```{python}
 #| echo: false
@@ -104,3 +110,69 @@ plt.show()
 fig
 
 ```
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
+</div>
+
+## Example of a grouped bar chart
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.express as px
+
+# Import the duo palette
+from afcharts.assets.af_colours import duo
+
+# Load gapminder data
+df = px.data.gapminder().query("year in [1967, 2007] and country in ['United Kingdom', 'Ireland', 'France', 'Belgium']")
+
+plt.style.use("afcharts.afcharts")
+
+countries = ['United Kingdom', 'Ireland', 'France', 'Belgium']
+years = [1967, 2007]
+bar_width = 0.35
+x = np.arange(len(countries))
+
+fig = plt.figure(figsize=(8, 5))
+
+for i, year in enumerate(years):
+    data = df[df["year"] == year].set_index("country").reindex(countries)
+    plt.bar(
+        x + i * bar_width,
+        data["lifeExp"],
+        width=bar_width,
+        label=str(year),
+        color=duo[i]
+    )
+
+plt.gca().set_axisbelow(True)
+plt.xticks(x + bar_width / 2, countries)
+plt.yticks(np.arange(0, 101, 20))
+plt.ylabel("Life expectancy")
+plt.xlabel(None)
+plt.legend(
+    loc="lower center",
+    bbox_to_anchor=(0.5, -0.25),
+    ncol=2
+)
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+<div class="chart-title">Life expectancy in selected European countries, 1967 and 2007</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt">
+This grouped bar chart uses the afcharts theme. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the main Analysis Function palette - dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart.
+</div>
