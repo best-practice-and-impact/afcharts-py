@@ -25,15 +25,15 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 
-dependencies = [ # install this package in developer mode with e.g. $ uv pip install -e .
+dependencies = [ # install package dependencies with $ uv sync
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
     "typeguard>=4.4.4",
 ]
 
-[project.optional-dependencies]
-dev = [ # install this package's developer dependencies with e.g. $ uv pip install -e .[dev]
+[dependency-groups]
+dev = [ # package developer dependencies are installed by default with $ uv sync
     "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
     "mypy>=1.15.0",      # Mypy static type checker/linter
     "pre-commit>=3.8.0", # Used to run pre-commit hook linting and formatting checks
@@ -43,13 +43,13 @@ dev = [ # install this package's developer dependencies with e.g. $ uv pip insta
     "ipykernel",         # For rendering Quarto
     "nbclient",          # For rendering Quarto
 ]
-test = [ # install this package's testing dependencies with e.g. $ uv pip install -e .[test]
+test = [ # package testing dependencies are installed by default with $ uv sync
     "pytest>=8.2.2",       # Unit/regression testing etc.
     "pytest-cov>=5.0.0",   # Test code coverage
     "pytest-mock",         # Mock wrapper for unit tests
     "pytest-sugar>=1.0.0", # Prettier pytest terminal output
 ]
-docs = [
+docs = [ # install package docs dependencies with $ uv sync --group docs
     "mkdocs",          # Language agnostic docs building tool (alternative to Sphinx)
     "mkdocs-material", # Theme for mkdocs
 ]
@@ -67,7 +67,7 @@ default-groups = [
 ] # `uv sync` will also install dev and test dependencies by default
 
 [tool.uv.sources]
-afcharts = { workspace = true } # Install as editable package (developer mode like pip install -e .) 
+afcharts = { workspace = true } # Install as editable package (developer mode like pip install -e .)
 
 [tool.setuptools]
 package-dir = { "" = "src" } # Maps package names to their actual file paths.
