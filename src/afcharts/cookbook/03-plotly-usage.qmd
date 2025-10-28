@@ -5,9 +5,9 @@
 ### Line chart with duo palette
 
 ```{python}
-#| label: line-charts-2
-#| eval: true
-#| output: false
+# | label: line-charts-2
+# | eval: true
+# | output: false
 
 import pandas as pd
 import plotly.express as px
@@ -36,7 +36,22 @@ for i, country in enumerate(df["country"].unique()):
             mode="lines",
             name=country,
             text=df_country["country"],
-            line=dict(color=duo[i % len(duo)])
+            line=dict(color=duo[i % len(duo)]),
+        )
+    )
+
+    # Add label at the last point
+    last_year = df_country["year"].max()
+    last_lifeExp = df_country[df_country["year"] == last_year]["lifeExp"].values[0]
+
+    fig.add_annotation(
+        dict(
+            x=last_year,
+            y=last_lifeExp,
+            text=country,
+            showarrow=False,
+            xanchor="left",
+            yanchor="middle",
         )
     )
 
@@ -50,14 +65,8 @@ fig.update_layout(
         tickmode="linear",
         dtick=20,  # Show ticks every 20 units
     ),
-    legend=dict(
-        orientation="h",
-        yanchor="top",
-        y=-0.2,
-        xanchor="center",
-        x=0.5
-    ),
-    height=300
+    showlegend=False,
+    height=300,
 )
 
 fig.show()
