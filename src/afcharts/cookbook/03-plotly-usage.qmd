@@ -58,7 +58,9 @@ for i, country in enumerate(df["country"].unique()):
 # Update layout
 fig.update_layout(
     xaxis=dict(
-        showgrid=False  # Hide x-axis grid lines
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        tick0=1952,  # Make axis start at 1952
     ),
     yaxis=dict(
         range=[0, 82],
