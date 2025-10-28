@@ -94,6 +94,7 @@ pio.templates["theme_af"] = go.layout.Template(
         "uniformtext_mode": "hide",  # Controls visibility of text based on size then the
         # text will be hidden - hide means that if a text element's size falls below the "uniformtext_minsize"
         "title": {
+            "automargin": True,
             "text": None,
             "font": {
                 "size": base_size * 1.6,
@@ -104,12 +105,6 @@ pio.templates["theme_af"] = go.layout.Template(
                 "r": half_line * 2,
                 "b": half_line * 2,
             },  # Padding above and below title
-            "x": 0,  # Title position horizonatally
-            "xanchor": "left",
-            "xref": "paper",
-            "y": 1,  # Title position vertically (1 = top of plot)
-            "yanchor": "top",
-            "yref": "container",
         },
         "xaxis": {  # Configures the x-axis
             "automargin": True,  # Automatically adjust margins on axes to fit the content
