@@ -14,7 +14,8 @@ maintainers = [
     { name = "Tom Farley", email = "tom.farley@ukhsa.gov.uk" },
     { name = "Stelios Georgiou", email = "Stelios.Georgiou@ukhsa.gov.uk" },
     { name = "Frederico Rodrigues", email = "fred.rodrigues@defra.gov.uk" },
-    { name = "Peter Brohan", email = "peter.brohan@communities.gov.uk"}
+    { name = "Peter Brohan", email = "peter.brohan@communities.gov.uk"},
+    { name = "Fahim Hossain", email = "fahim.hossain@ukhsa.gov.uk"}
     # Other contributors, please add your details here
 ]
 classifiers = [
