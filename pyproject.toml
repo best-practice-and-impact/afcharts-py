@@ -31,6 +31,7 @@ dependencies = [ # install package dependencies with $ uv sync
     "plotly>=6.1.2",
     "seaborn>=0.13.2",
     "typeguard>=4.4.4",
+    'PyYAML >= 5.0',
 ]
 
 [dependency-groups]
