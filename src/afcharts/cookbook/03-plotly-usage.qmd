@@ -29,6 +29,7 @@ fig = go.Figure()
 # Add a trace for each continent
 for i, country in enumerate(df["country"].unique()):
     df_country = df[df["country"] == country]
+
     fig.add_trace(
         go.Scatter(
             x=df_country["year"],
@@ -46,14 +47,12 @@ for i, country in enumerate(df["country"].unique()):
 
     fig.add_annotation(
         dict(
-            x=1,
+            x=last_year,
             y=last_lifeExp,
-            xref="paper",
             text=country,
             showarrow=False,
             xanchor="left",
             yanchor="middle",
-            xshift=6,  # shift right by 6 px
         )
     )
 
@@ -63,6 +62,7 @@ fig.update_layout(
         showgrid=False,  # Hide x-axis grid lines
         dtick=10,  # Show ticks every 10 units
         tick0=1952,  # Make axis start at 1952
+        range=[df["year"].min(), df["year"].max()],
     ),
     yaxis=dict(
         range=[0, 82],
