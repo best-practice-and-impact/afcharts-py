@@ -46,12 +46,14 @@ for i, country in enumerate(df["country"].unique()):
 
     fig.add_annotation(
         dict(
-            x=last_year,
+            x=1,
             y=last_lifeExp,
+            xref="paper",
             text=country,
             showarrow=False,
             xanchor="left",
             yanchor="middle",
+            xshift=6,  # shift right by 6 px
         )
     )
 
@@ -69,6 +71,7 @@ fig.update_layout(
     ),
     showlegend=False,
     height=300,
+    margin=dict(r=140),
 )
 
 fig.show()
