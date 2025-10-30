@@ -51,7 +51,7 @@ def af_colours(
     """
     if config_path is None:
         parent_dir = Path(__file__).parent
-        config_path = parent_dir.joinpath("config", "config.yaml")
+        config_path = parent_dir.joinpath("config", "af_colours.yaml")
 
     with open(config_path) as file:
         config = yaml.load(file, Loader=yaml.BaseLoader)
