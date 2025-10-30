@@ -102,6 +102,8 @@ afcharts-py/
 │       └── assets/
 │           ├── af_colours.py
 │           └── logo.svg
+|           └── config/
+|               └── config.yaml
 │       └── cookbook/
 │           ├── _quarto.yml
 │           └── index.qmd
