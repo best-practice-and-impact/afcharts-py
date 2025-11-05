@@ -177,3 +177,58 @@ fig
 <div class="chart-alt">
 This grouped bar chart uses the afcharts theme. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the main Analysis Function palette - dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart.
 </div>
+
+## Example of a scatter plot
+
+```{python}
+#| output: false
+
+import matplotlib.pyplot as plt
+import plotly.express as px
+from matplotlib.ticker import FuncFormatter
+
+# Import the duo palette
+from afcharts.assets.af_colours import duo
+
+# Load gapminder data and filter year 2007
+df = px.data.gapminder()
+df2007 = df[df["year"]== 2007].copy()
+
+plt.style.use("afcharts.afcharts")
+
+fig, ax = plt.subplots(figsize=(8, 5))
+
+ax.scatter(
+    df2007["gdpPercap"],
+    df2007["lifeExp"],
+    color=duo[0],
+    s=50,
+    alpha=0.9,
+    linewidths=0
+)
+
+ax.set_xlabel("GDP (US$, inflation-adjusted)")
+ax.set_ylabel("Life expectancy (years)")
+
+ax.xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{int(x):,}" if x >= 1 else f"{x:.0f}"))
+
+ax.grid(True, axis="both", which="major", color="0.85", linewidth=0.6)
+ax.set_axisbelow(True)
+
+fig.tight_layout()
+```
+
+<div class="chart-title">The relationship between GDP and Life Expectancy is complex</div>
+<div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt">
+This scatterplot uses the afcharts theme, and shows life expectancy against GDP for all countries. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.
+</div>
