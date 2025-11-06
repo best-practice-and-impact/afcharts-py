@@ -276,6 +276,7 @@ This histogram uses the afcharts theme, and shows the distribution of life expec
 #| eval: true
 #| output: false
 import matplotlib.pyplot as plt
+from matplotlib.tickers import StrMethodFormatter
 # Load gapminder dataset from plotly
 from plotly.express.data import gapminder
 
@@ -296,8 +297,14 @@ plt.scatter(df["gdpPercap"],
 # Set axis limits to start at 0
 plt.xlim(0, max(df["gdpPercap"]) + 200)
 plt.ylim(0, max(df["lifeExp"]) + 5)
-plt.xlabel("GDP ($US, inflation-adjusted)")
-plt.ylabel("Life Expectancy")
+plt.xlabel("GDP per capita ($US, inflation-adjusted)")
+plt.ylabel("Life Expectancy (years)")
+
+# Format x-axis with commas
+plt.gca().xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))
+
+# Add vertical gridlines
+plt.grid(True)
 
 fig
 ```
@@ -447,7 +454,7 @@ fig
 </div>
 <div class="chart-source">Source: Gapminder</div>
 <div class="chart-alt" id="pie-desc">
-This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by a legend to the right of the pie chart. There is whitespace separating the segments from each other.</div>
+This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by labels next to each segment. There is whitespace separating the segments from each other.</div>
 
 ## Focus charts
 ```{python}

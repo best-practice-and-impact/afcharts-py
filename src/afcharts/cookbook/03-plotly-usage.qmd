@@ -436,10 +436,10 @@ fig.update_yaxes(rangemode="tozero")
 # Update layout
 fig.update_layout(
     xaxis=dict(
-        title="GDP ($US, inflation-adjusted)",
+        title="GDP per capita ($US, inflation-adjusted)",
     ),
     yaxis=dict(
-        title="Life Expectancy"
+        title="Life Expectancy (years)"
     ),
     height=300
 )
