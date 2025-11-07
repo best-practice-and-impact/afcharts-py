@@ -276,7 +276,7 @@ This histogram uses the afcharts theme, and shows the distribution of life expec
 #| eval: true
 #| output: false
 import matplotlib.pyplot as plt
-from matplotlib.tickers import StrMethodFormatter
+from matplotlib.ticker import StrMethodFormatter
 # Load gapminder dataset from plotly
 from plotly.express.data import gapminder
 
