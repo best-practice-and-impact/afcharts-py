@@ -8,7 +8,7 @@ import yaml
 from pathlib import Path
 
 
-def af_colours(
+def get_af_colours(
     palette: str, colour_format="hex", number_of_colours=6, config_path=None
 ):
     """
