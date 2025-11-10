@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from af_colours import af_colours
+from afcharts.af_colours import get_af_colours
 
 # References:
 # https://plotly.com/python/templates/
@@ -44,11 +44,11 @@ pio.templates["theme_af"] = go.layout.Template(
             }
         },
         "colorscale": {
-            "sequential": af_colours(
-                "sequential"
-            ),  # Sequential colour scale for low to high ranges
+            "sequential": get_af_colours("sequential")[
+                ::-1
+            ]  # reverse to make high = dark  # Sequential colour scale for low to high ranges
         },
-        "colorway": af_colours(
+        "colorway": get_af_colours(
             "categorical"
         ),  # Sequence of colours to be used in plots
         "font": {
