@@ -14,7 +14,9 @@ df = gapminder().query("country == 'United Kingdom'")
 
 plt.style.use("afcharts.afcharts")
 
+# Make the figure wider than the default (6.4, 4.8)
 fig = plt.figure(figsize = (8.5, 4.8))
+
 plt.plot(df["year"], df["lifeExp"])
 
 plt.xlim([1950, 2010])
@@ -23,7 +25,8 @@ plt.ylim([0, 85])
 fig
 ```
 
-<div class="chart-title">Life expectancy in the United Kingdom 1952-2007</div>
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom 1952 to 2007</div>
 <div class="chart" aria-describedby="linechart-1-desc">
 
 ```{python}
@@ -57,19 +60,25 @@ df = df[df["country"].isin(["United Kingdom", "China"])]
 
 plt.style.use("afcharts.afcharts")
 
+# Make the figure wider than the default (6.4, 4.8)
 fig = plt.figure(figsize = (8.5, 4.8))
+
 for i, (country, data) in enumerate(df.groupby("country")):
     plt.plot(data["year"], data["lifeExp"], label=country, color=duo[i])
 
 plt.xlim([1950, 2010])
 plt.ylim([0, 85])
-plt.legend()
+plt.legend(
+    loc="lower center",
+    bbox_to_anchor=(0.5, -0.25),
+    ncol=2
+)
 
 fig
 ```
 
 <div class="chart-title">Living Longer</div>
-<div class="chart-subtitle">Life expectancy in the United Kingdom and China 1952-2007</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom and China 1952 to 2007</div>
 <div class="chart" aria-describedby="linechart-2-desc">
 
 ```{python}
@@ -104,7 +113,8 @@ top5 = df.nlargest(5, "pop")
 
 plt.style.use("afcharts.afcharts")
 
-fig = plt.figure(figsize=(8,5))
+fig = plt.figure()
+
 plt.bar(
     top5["country"],
     top5["pop"] / 1e6,  # Convert to millions
@@ -153,7 +163,7 @@ years = [1967, 2007]
 bar_width = 0.35
 x = np.arange(len(countries))
 
-fig = plt.figure(figsize=(8, 5))
+fig = plt.figure()
 
 for i, year in enumerate(years):
     data = df[df["year"] == year].set_index("country").reindex(countries)
@@ -176,7 +186,7 @@ fig
 ```
 
 <div class="chart-title">Living longer</div>
-<div class="chart-subtitle">Difference in life expectancy, 1967-2007</div>
+<div class="chart-subtitle">Difference in life expectancy, 1967 to 2007</div>
 <div class ="chart" aria-describedby="barchart-2-desc">
 
 ```{python}
@@ -218,7 +228,7 @@ df = gapminder().query("year == 2007")
 df['lifeExpGrouped'] = pd.cut(
     df['lifeExp'],
     bins=[0, 75, float('inf')],
-    labels=["Under 75", "75+"]
+    labels=["Under 75", "75 and over"]
 )
 
 # Group by continent and life expectancy group
@@ -228,9 +238,9 @@ grouped = df.groupby(['continent', 'lifeExpGrouped'], observed=True).size().rese
 pivot_df = grouped.pivot(index='continent', columns='lifeExpGrouped', values='n_countries').fillna(0)
 pivot_df['total'] = pivot_df.sum(axis=1)
 pivot_df['percent of Under 75'] = pivot_df["Under 75"] / pivot_df['total']
-pivot_df['percent of 75+'] = pivot_df["75+"] / pivot_df['total']
+pivot_df['percent of 75 and over'] = pivot_df["75 and over"] / pivot_df['total']
 
-categories = ["Under 75", "75+"]
+categories = ["Under 75", "75 and over"]
 
 fig = plt.figure(figsize=(8, 5))
 
@@ -253,8 +263,8 @@ plt.legend(
 fig
 ```
 
-<div class="chart-title">How life expectancy varies</div>
-<div class="chart-subtitle">Distribution of life expectancy, 2007</div>
+<div class="chart-title">How life expectancy varies across continents</div>
+<div class="chart-subtitle">Percentage of countries by life expectancy band, 2007</div>
 <div class="chart" aria-describedby="barchart-stack-desc">
 
 ```{python}
@@ -417,7 +427,7 @@ df = gapminder().query("continent == 'Europe' and year == 2007")
 df['lifeExpGrouped'] = pd.cut(
     df['lifeExp'],
     bins=[0, 75, float('inf')],
-    labels=["Under 75", "75+"]
+    labels=["Under 75", "75 and over"]
 )
 
 # Count number of countries in each group
