@@ -14,7 +14,9 @@ df = gapminder().query("country == 'United Kingdom'")
 
 plt.style.use("afcharts.afcharts")
 
+# Make the figure wider than the default (6.4, 4.8)
 fig = plt.figure(figsize = (8.5, 4.8))
+
 plt.plot(df["year"], df["lifeExp"])
 
 plt.xlim([1950, 2010])
@@ -57,7 +59,9 @@ df = df[df["country"].isin(["United Kingdom", "China"])]
 
 plt.style.use("afcharts.afcharts")
 
+# Make the figure wider than the default (6.4, 4.8)
 fig = plt.figure(figsize = (8.5, 4.8))
+
 for i, (country, data) in enumerate(df.groupby("country")):
     plt.plot(data["year"], data["lifeExp"], label=country, color=duo[i])
 
@@ -104,7 +108,8 @@ top5 = df.nlargest(5, "pop")
 
 plt.style.use("afcharts.afcharts")
 
-fig = plt.figure(figsize=(8,5))
+fig = plt.figure()
+
 plt.bar(
     top5["country"],
     top5["pop"] / 1e6,  # Convert to millions
@@ -153,7 +158,7 @@ years = [1967, 2007]
 bar_width = 0.35
 x = np.arange(len(countries))
 
-fig = plt.figure(figsize=(8, 5))
+fig = plt.figure()
 
 for i, year in enumerate(years):
     data = df[df["year"] == year].set_index("country").reindex(countries)
