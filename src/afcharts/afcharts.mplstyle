@@ -40,4 +40,3 @@ legend.frameon : False
 
 # FIGURE OUTPUT 
 figure.figsize : 6.4, 4.8
-figure.dpi : 100
