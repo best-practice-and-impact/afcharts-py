@@ -29,6 +29,7 @@ lines.markeredgewidth : 0.0
 
 # SCATTER PLOT
 scatter.marker : .
+lines.markersize : 10
 
 # TICKS
 xtick.color : (0.8,0.8,0.8)
