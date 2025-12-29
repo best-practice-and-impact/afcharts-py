@@ -1,4 +1,8 @@
-text.color : (0.2,0.2,0.2)
+# FONT
+font.size : 14
+font.family : sans-serif
+font.sans-serif : Arial, Helvetica, DejaVu Sans, Bitstream Vera Sans, Computer Modern Sans Serif, Lucida Grande, Verdana, Geneva, Lucid, Avant Garde, sans-serif
+text.color : black
 
 # AXES
 axes.edgecolor : (0.8,0.8,0.8)
@@ -36,10 +40,4 @@ ytick.direction : out
 
 # FIGURE OUTPUT 
 figure.figsize : 6.4, 4.8
-
-# FONT FOR SUBTITLES
-font.size : 14
-font.family : sans-serif
-
-
-
+figure.dpi : 100
