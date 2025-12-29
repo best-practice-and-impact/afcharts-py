@@ -25,7 +25,8 @@ plt.ylim([0, 85])
 fig
 ```
 
-<div class="chart-title">Life expectancy in the United Kingdom 1952-2007</div>
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom 1952 to 2007</div>
 <div class="chart" aria-describedby="linechart-1-desc">
 
 ```{python}
@@ -77,7 +78,7 @@ fig
 ```
 
 <div class="chart-title">Living Longer</div>
-<div class="chart-subtitle">Life expectancy in the United Kingdom and China 1952-2007</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom and China 1952 to 2007</div>
 <div class="chart" aria-describedby="linechart-2-desc">
 
 ```{python}
@@ -185,7 +186,7 @@ fig
 ```
 
 <div class="chart-title">Living longer</div>
-<div class="chart-subtitle">Difference in life expectancy, 1967-2007</div>
+<div class="chart-subtitle">Difference in life expectancy, 1967 to 2007</div>
 <div class ="chart" aria-describedby="barchart-2-desc">
 
 ```{python}
@@ -262,8 +263,8 @@ plt.legend(
 fig
 ```
 
-<div class="chart-title">How life expectancy varies</div>
-<div class="chart-subtitle">Distribution of life expectancy, 2007</div>
+<div class="chart-title">How life expectancy varies across continents</div>
+<div class="chart-subtitle">Percentage of countries by life expectancy band, 2007</div>
 <div class="chart" aria-describedby="barchart-stack-desc">
 
 ```{python}
