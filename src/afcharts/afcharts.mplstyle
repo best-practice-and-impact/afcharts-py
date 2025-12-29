@@ -38,6 +38,9 @@ ytick.color : (0.8,0.8,0.8)
 ytick.labelcolor : (0.1,0.1,0.1)
 ytick.direction : out
 
+# LEGEND
+legend.frameon : False
+
 # FIGURE OUTPUT 
 figure.figsize : 6.4, 4.8
 figure.dpi : 100
