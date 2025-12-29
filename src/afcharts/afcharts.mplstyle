@@ -25,11 +25,10 @@ grid.linewidth : 0.6
 # LINES
 axes.prop_cycle: cycler('color', ["#12436D","#28A197","#801650", "#F46A25","#3D3D3D","#A285D1"])
 lines.linewidth : 2
-lines.markeredgewidth : 0.0
 
 # SCATTER PLOT
 scatter.marker : .
-lines.markersize : 10
+lines.markersize : 8
 
 # TICKS
 xtick.color : (0.8,0.8,0.8)
