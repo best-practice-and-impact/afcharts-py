@@ -1,8 +1,9 @@
-# FONT
+# TEXT
 font.size : 14
 font.family : sans-serif
 font.sans-serif : Arial, Helvetica, DejaVu Sans, Bitstream Vera Sans, Computer Modern Sans Serif, Lucida Grande, Verdana, Geneva, Lucid, Avant Garde, sans-serif
 text.color : black
+axes.titlelocation: left
 
 # AXES
 axes.edgecolor : (0.8,0.8,0.8)
