@@ -9,7 +9,7 @@ The afcharts-py python package helps make accessible Matplotlib and Plotly chart
 - **Chart colours** from the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4).
 - **Example code** for common chart types, such as line charts, bar charts, scatterplots and small multiples.
 
-<img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" height="250" alt="A grouped bar chart in afcharts style showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/scatterplot-matplotlib_afcharts.png" height="250" alt="A scatterplot in afcharts style showing life expectancy against GDP per capita for 142 countries in 2007."/> <img src="docs/images/example_charts/line_chart-matplotlib_afcharts.png" height="250" alt="A line chart in afcharts style showing life expectancy in China and the UK from 1952 to 2007"/>
+<img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="28.1%" alt="A grouped bar chart in afcharts style showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/scatterplot-matplotlib_afcharts.png" width="30%" alt="A scatterplot in afcharts style showing life expectancy against GDP per capita for 142 countries in 2007."/> <img src="docs/images/example_charts/line_chart-matplotlib_afcharts.png" width="37.5%" alt="A line chart in afcharts style showing life expectancy in China and the UK from 1952 to 2007"/>
 
 ## Installation
 
