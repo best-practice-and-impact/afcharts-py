@@ -30,8 +30,8 @@ plt.style.use('afcharts.afcharts')
 
 A [Matplotlib bar chart](https://best-practice-and-impact.github.io/afcharts-py/01-matplotlib-usage.html#grouped-bar-chart), with and without afcharts:
 
-<img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="48%" alt="A grouped bar chart using  afcharts with Matplotlib. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the Analysis Function palette: dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
-<img src="docs/images/example_charts/bar_chart-matplotlib_default.png" width="48%" alt="A grouped bar chart using default Matplotlib formatting. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars: blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
+<img src="/docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="48%" alt="A grouped bar chart using  afcharts with Matplotlib. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the Analysis Function palette: dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
+<img src="/docs/images/example_charts/bar_chart-matplotlib_default.png" width="48%" alt="A grouped bar chart using default Matplotlib formatting. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars: blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
 
 ### Plotly
 
@@ -44,8 +44,8 @@ pio.templates.default = "theme_af"
 
 A [Plotly bar chart](https://best-practice-and-impact.github.io/afcharts-py/03-plotly-usage.html#grouped-bar-chart), with and without afcharts:
 
-<img src="docs/images/example_charts/bar_chart-plotly_afcharts.png" width="48%" alt="A grouped bar chart using  afcharts with Plotly. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the Analysis Function palette: dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
-<img src="docs/images/example_charts/bar_chart-plotly_default.png" width="48%" alt="A grouped bar chart using default Plotly formatting. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars: blue for 1967 and red for 2007, denoted by a legend at the bottom of the chart."/>
+<img src="/docs/images/example_charts/bar_chart-plotly_afcharts.png" width="48%" alt="A grouped bar chart using  afcharts with Plotly. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the Analysis Function palette: dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
+<img src="/docs/images/example_charts/bar_chart-plotly_default.png" width="48%" alt="A grouped bar chart using default Plotly formatting. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars: blue for 1967 and red for 2007, denoted by a legend at the bottom of the chart."/>
 
 ### Colours
 
