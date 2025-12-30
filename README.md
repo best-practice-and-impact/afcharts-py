@@ -28,9 +28,20 @@ import matplotlib.pyplot as plt
 plt.style.use('afcharts.afcharts')
 ```
 
-A [Matplotlib bar chart](https://best-practice-and-impact.github.io/afcharts-py/01-matplotlib-usage.html#grouped-bar-chart), with and without afcharts:
+Example: A [Matplotlib bar chart](https://best-practice-and-impact.github.io/afcharts-py/01-matplotlib-usage.html#grouped-bar-chart) with and without afcharts:
 
 <img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="40%" alt="A grouped bar chart using  afcharts with Matplotlib. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the Analysis Function palette: dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/> <img src="docs/images/example_charts/bar_chart-matplotlib_default.png" width="40%" alt="A grouped bar chart using default Matplotlib formatting. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars: blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart."/>
+
+
+| Matplotlib + afcharts | Default Matplotlib |
+|:---------------:|:------------------:|
+| <img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> | <img src="docs/images/example_charts/bar_chart-matplotlib_default.png" alt="Grouped bar chart (default Matplotlib) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, orange for 2007."/> |
+
+
+| Matplotlib + afcharts | Default Matplotlib |
+|:---------------:|:------------------:|
+| ![Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007.](docs/images/example_charts/bar_chart-matplotlib_afcharts.png) | ![Grouped bar chart (default Matplotlib) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, orange for 2007](docs/images/example_charts/bar_chart-matplotlib_default.png) |
+
 
 ### Plotly
 
