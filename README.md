@@ -1,11 +1,15 @@
 
 # afcharts-py <img src="src/afcharts/assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
 
-afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice. Currently, the package supports plots made in Matplotlib or Plotly.
+## Overview
 
-The package has been developed using the [Government Analysis Function Data Visualisation
-guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/).
-afcharts-py should be used in conjunction with these guidance documents.
+The afcharts-py python package helps make accessible Matplotlib and Plotly charts following [Government Analysis Function Data Visualisation guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/):
+
+- **Automatic chart formatting** with pre-built style sheets for Matplotlib and Plotly.
+- **Chart colours** from the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4).
+- **Example code** for common chart types, such as line charts, bar charts, scatterplots and small multiples.
+
+<img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" height="250" alt="A grouped bar chart in afcharts style showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/scatterplot-matplotlib_afcharts.png" height="250" alt="A scatterplot in afcharts style showing life expectancy against GDP per capita for 142 countries in 2007."/> <img src="docs/images/example_charts/line_chart-matplotlib_afcharts.png" height="250" alt="A line chart in afcharts style showing life expectancy in China and the UK from 1952 to 2007"/>
 
 ## Installation
 
@@ -17,7 +21,7 @@ pip install afcharts-py
 
 Analysis Function **formatting** can be applied to any Matplotlib or Plotly chart using the built-in style sheets. afcharts-py also provides easy access to the Analysis Function recommended **colour palettes**.
 
-See the [afcharts-py cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for extensive code examples for many common chart types.
+See the [afcharts-py cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for a Getting Started guide and extensive code examples for common chart types.
 
 ### Matplotlib
 
