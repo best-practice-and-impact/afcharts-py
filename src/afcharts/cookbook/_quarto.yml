@@ -13,11 +13,9 @@ book:
       - index.qmd
       - text: Getting started
         href: getting-started.qmd
-      - text: Matplotlib usage
+      - text: Matplotlib examples
         href: 01-matplotlib-usage.qmd
-      - text: Seaborn usage
-        href: 02-seaborn-usage.qmd
-      - text: Plotly usage
+      - text: Plotly examples
         href: 03-plotly-usage.qmd
       - text: Colours
         href: 04-colour-palettes.qmd
