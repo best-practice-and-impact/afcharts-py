@@ -5,14 +5,15 @@
 
 The afcharts-py python package helps make accessible Matplotlib and Plotly charts following [Government Analysis Function Data Visualisation guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/):
 
-- **Automatic chart formatting** with pre-built style sheets for Matplotlib and Plotly.
-- **Chart colours** from the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4).
-- **Example code** for common chart types, such as line charts, bar charts, scatterplots and small multiples.
+- **Automatic chart formatting** with pre-built style sheets for Matplotlib and Plotly
+- **Chart colours** from the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4)
+- **Example code** for common chart types in the [afcharts-py cookbook](https://best-practice-and-impact.github.io/afcharts-py/)
 
 <img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="28.1%" alt="A grouped bar chart in afcharts style showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/scatterplot-matplotlib_afcharts.png" width="30%" alt="A scatterplot in afcharts style showing life expectancy against GDP per capita for 142 countries in 2007."/> <img src="docs/images/example_charts/line_chart-matplotlib_afcharts.png" width="37.5%" alt="A line chart in afcharts style showing life expectancy in China and the UK from 1952 to 2007"/>
 
 ## Installation
 
+afcharts-py is available at the Python Package Index (PyPI).
 ```bash
 pip install afcharts-py
 ```
@@ -21,7 +22,7 @@ pip install afcharts-py
 
 Analysis Function **formatting** can be applied to any Matplotlib or Plotly chart using the built-in style sheets. afcharts-py also provides easy access to the Analysis Function recommended **colour palettes**.
 
-See the [afcharts-py cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for a Getting Started guide and extensive code examples for common chart types.
+See the [afcharts-py cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for the [Getting Started](https://best-practice-and-impact.github.io/afcharts-py/getting-started.html) guide and extensive code examples for common chart types.
 
 ### Matplotlib
 
@@ -36,10 +37,6 @@ Example: A [Matplotlib bar chart](https://best-practice-and-impact.github.io/afc
 
 <img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/bar_chart-matplotlib_default.png" width="34.7%" alt="Grouped bar chart (default Matplotlib) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, orange for 2007."/>
 
-<!-- | Matplotlib + afcharts | Default Matplotlib |
-|:---------------:|:------------------:|
-| <img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> | <img src="docs/images/example_charts/bar_chart-matplotlib_default.png" alt="Grouped bar chart (default Matplotlib) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, orange for 2007."/> | -->
-
 ### Plotly
 
 ```python
@@ -49,13 +46,13 @@ from afcharts.pio_template import pio
 pio.templates.default = "theme_af"
 ```
 
-Example: A [Plotly bar chart](https://best-practice-and-impact.github.io/afcharts-py/03-plotly-usage.html#grouped-bar-chart), with afcharts (left) and without (right)
+Example: A [Plotly bar chart](https://best-practice-and-impact.github.io/afcharts-py/03-plotly-usage.html#grouped-bar-chart) with afcharts (left) and without (right)
 
 <img src="docs/images/example_charts/bar_chart-plotly_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/bar_chart-plotly_default.png" width="35%" alt="Grouped bar chart (default Plotly) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, red for 2007."/>
 
 ### Colours
 
-Easily return a list of colours from the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4) with the `af_colours()` function:
+Easily return a list of colours from any of the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4) with the `af_colours()` function:
 
 ```python
 from py_af_colours import af_colours
@@ -63,8 +60,8 @@ from py_af_colours import af_colours
 # Get the duo colour palette hex codes
 duo = af_colours("duo")
 
-# Get a five colour categorical palette as rgb codes
-cat5 = af_colours("categorical", "rgb", 5)
+# Get four hex codes from the categorical palette
+cat4 = af_colours("categorical", "rgb", 5)
 ```
 
 ## Getting help
