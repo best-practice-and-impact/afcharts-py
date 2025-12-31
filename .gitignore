@@ -137,5 +137,5 @@ src/afcharts/cookbook/*.ipynb
 .quarto/
 _book/
 .vdoc.*
-docs/
+src/afcharts/cookbook/docs/
 _site/
