@@ -1,33 +1,248 @@
----
-description-meta: |
-  This book will teach you how to work with geographic data in Python.
-  It's a short and practical open source book in which you'll
-  develop and use geocomputation to solve practical
-  problems and lay the foundations for advanced geospatial applications.
----
+
 
 ::: {.content-visible when-format="html"}
-# Getting Started {.unnumbered}
+# Getting Started
 
+This page will teach you how to install and use afcharts-py to easily create accessible charts in the Analysis Function style.
 
-To install the package:
+Check out the rest of the cookbook for more detailed code examples and further guidance.
+
+## Installation
+
+afcharts-py is available at the Python Package Index (PyPI). Python and `pip` are required for installation (see [Installing Packages (python.org)](https://packaging.python.org/en/latest/tutorials/installing-packages/)). To install afcharts-py, open a terminal and execute:
+```bash
+pip install afcharts-py
+```
+
+Alternatively, clone the [Git repository](https://github.com/best-practice-and-impact/afcharts-py) and, from the root directory, install afcharts-py with `pip` or `uv`:
+```bash
+# with pip
+pip install .
+```
 
 ```bash
-pip install 'afcharts_py'
+# with uv (creates a new virtual environment)
+uv sync
 ```
 
-**Note on use of titles, subtitles and captions** <br>
-Titles, subtitles and captions have been embedded in the charts in this cookbook for demonstration purposes. However, for accessibility reasons, it is usually preferable to provide titles in the body of the page rather than embedded within the image of the plot.
+## Matplotlib
+afcharts includes a Matplotlib style sheet that automatically applies most of the formatting recommended by the Analysis Function guidance.
 
-**Dependencies** <br>  
-The following packages are required to produce the example charts in this cookbook:
+To apply the afcharts style to **all** Matplotlib plots:
+```{python}
+#| eval: false
+import matplotlib.pyplot as plt
 
-```python
-import plotly.graph_objects as go
+# Apply the afcharts style to all Matplotlib plots
+plt.style.use('afcharts.afcharts')
+```
+
+To apply the afcharts style to a **single** Matplotlib plot:
+```{python}
+#| eval: false
+import matplotlib.pyplot as plt
+
+# Apply the afcharts style to the following plot only
+with plt.style.context('afcharts.afcharts'):
+    # <plotting code>
+```
+
+
+### Example: Matplotlib line chart
+
+This Matplotlib chart uses the afcharts style sheet and colour palettes to format the colours, fonts, axes and grid lines to match Analysis Function best practice.
+
+See [Matplotlib examples](01-matplotlib-usage.qmd) for many more examples.
+
+```{python}
+#| output: false
+#| code-fold: true
+#| code-summary: "Show the code"
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# Use gapminder data for cookbook charts
-import plotly.express as px
+# Import the categorical palette
+from afcharts.assets.af_colours import main
+
+# Load gapminder dataset from plotly
+from plotly.express.data import gapminder
+
+df = gapminder()
+df = df[df["country"].isin(["Uruguay", "Cuba", "Venezuela", "Colombia", "Honduras"])]
+
+# Apply the afcharts style sheet to all charts
+plt.style.use("afcharts.afcharts")
+
+fig = plt.figure(figsize = (8.5, 4.8))
+
+for i, (country, data) in enumerate(df.groupby("country")):
+    plt.plot(data["year"], data["lifeExp"], label=country, color=main[i])
+
+plt.xlim([1950, 2010])
+plt.ylim([0, 85])
+plt.legend(
+    loc="lower center",
+    bbox_to_anchor=(0.5, -0.3),
+    ncol=3
+)
+
+fig
 ```
+
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in South American countries, 1952 to 2007</div>
+<div class="chart">
+
+```{python}
+#| echo: false
+#| fig-alt: "Source: Gapminder. Description: This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are five thicker lines showing the life expectancy in Uruguay, Cuba, Venezuela, Colombia and Honduras over time. The line colours are from the categorical Analysis Function palette, denoted by a legend at the bottom of the chart."
+
+fig
+
+```
+
+</div>
+
+Note: By default, Matplotlib will use colours from the categorical palette. For demonstration purposes, the example code explicitly passes the categorical colour palette to `plt.plot()`.
+
+
+## Plotly
+afcharts includes a Plotly template that automatically applies most of the formatting recommended by the Analysis Function guidance.
+
+To apply the afcharts style to **all** Plotly plots:
+```{python}
+#| eval: false
+
+# Import the afcharts template
+from afcharts.pio_template import pio
+
+# Apply the afcharts style to all Plotly plots
+pio.templates.default = "theme_af"
+
+```
+
+To apply the afcharts style to a **single** Plotly graph object figure:
+```{python}
+#| eval: false
+import plotly.graph_objects as go
+
+# Import the afcharts template
+import afcharts.pio_template
+
+fig = go.Figure()
+
+# Apply the afcharts style to this figure only
+fig.update_layout(template="theme_af")
+
+```
+
+Or, for Plotly express functions, use the `template` argument. For example:
+```{python}
+#| eval: false
+import plotly.express as px
+
+# Import the afcharts template
+import afcharts.pio_template
+
+df = px.data.gapminder().query("year==2007")
+
+fig = px.scatter(df, x="gdpPercap", y="lifeExp", 
+                 template="theme_af")
+
+```
+
+### Example: Plotly line chart
+
+This Plotly chart uses the afcharts template and colour palettes to format the colours, fonts, axes and grid lines to match Analysis Function best practice.
+
+See [Plotly examples](03-plotly-usage.qmd) for many more examples.
+
+```{python}
+#| output: false
+#| code-fold: true
+#| code-summary: "Show the code"
+
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+# AF Package
+from afcharts.pio_template import pio
+from afcharts.assets.af_colours import main
+
+# Set default theme
+pio.templates.default = "theme_af"
+
+# Load the gapminder dataset from plotly.express
+df = px.data.gapminder()
+df = df[df["country"].isin(["Uruguay", "Cuba", "Venezuela", "Colombia", "Honduras"])]
+
+# Create figure
+fig = go.Figure()
+
+# Add a trace for each continent
+for i, country in enumerate(df["country"].unique()):
+    df_country = df[df["country"] == country]
+
+    fig.add_trace(
+        go.Scatter(
+            x=df_country["year"],
+            y=df_country["lifeExp"],
+            mode="lines",
+            name=country,
+            text=df_country["country"],
+            line=dict(color=main[i]),
+        )
+    )
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        tick0=1952,  # Make axis start at 1952
+        range=[df["year"].min(), df["year"].max()],
+    ),
+    yaxis=dict(
+        range=[0, 82],
+        tickmode="linear",
+        dtick=20,  # Show ticks every 20 units
+    ),
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5
+    ),
+    height=400,
+    margin=dict(
+        t=0,
+        b=0,
+        l=20,
+        r=10
+    ),
+)
+
+fig.show()
+```
+
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in South American countries, 1952 to 2007</div>
+<div class = "chart">
+
+```{python}
+#| echo: false
+#| fig-alt: "Source: Gapminder. Description: This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are five thicker lines showing the life expectancy in Uruguay, Cuba, Venezuela, Colombia and Honduras over time. The line colours are from the categorical Analysis Function palette, denoted by a legend at the bottom of the chart."
+
+fig.show()
+
+```
+
+</div>
+
+<br>
+
+Note: By default, Plotly will use colours from the categorical palette. For demonstration purposes, the example code explicitly passes the categorical colour palette to Plotly.
 
 :::

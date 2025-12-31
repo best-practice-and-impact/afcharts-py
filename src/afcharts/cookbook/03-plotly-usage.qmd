@@ -291,7 +291,7 @@ fig.show()
 ```
 
 <div class="chart-title">Living longer</div>
-<div class="chart-subtitle">Difference in life expectancy, 1967-2007</div>
+<div class="chart-subtitle">Life expectancy (years) in 1967 and 2007</div>
 <div class="chart" aria-describedby="barchart-2-desc">
 
 ```{python}
@@ -461,7 +461,7 @@ fig.show()
 </div>
 <div class="chart-source">Source: Gapminder</div>
 <div class="chart-alt" id="scatter-desc">
-This scatterplot uses the afcharts theme, and shows life expectancy against GDP for all countries. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.
+This scatterplot uses the afcharts theme, and shows life expectancy against GDP per capita for 142 countries in 2007. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.
 </div>
 
 ## Small multiples
