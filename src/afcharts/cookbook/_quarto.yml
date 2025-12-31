@@ -10,6 +10,11 @@ book:
   description: | 
     Python charts with Analysis Function best practice
   page-footer: "Find afcharts-py on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
+  sidebar:
+    tools:
+      - icon: bar-chart-line-fill
+        text: View the Analysis Function Data Visualisation Guidance
+        href: https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/
   chapters:
       - index.qmd
       - text: Getting started
