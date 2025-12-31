@@ -92,7 +92,6 @@ pio.templates["theme_af"] = go.layout.Template(
         "uniformtext_mode": "hide",  # Controls visibility of text based on size then the
         # text will be hidden - hide means that if a text element's size falls below the "uniformtext_minsize"
         "title": {
-            "automargin": True,
             "text": None,
             "font": {
                 "size": base_size * 1.6,
@@ -141,5 +140,11 @@ pio.templates["theme_af"] = go.layout.Template(
             "zeroline": True,
             "zerolinecolor": af_colour_values["chart_features"],
         },
+    },
+    data={
+        "scatter": [{
+            "marker": {"size": 12},
+            "line": {"width": 2.5}
+        }]
     }
 )
