@@ -81,8 +81,6 @@ pio.templates["theme_af"] = go.layout.Template(
         },
         "hovermode": "x unified",  # How hovering affects the display
         # x unified shows info for all the data at that point in the x-axis
-        "paper_bgcolor": "rgba(0,0,0,0)",  # Makes paper (entire area) background transparent
-        "plot_bgcolor": "rgba(0,0,0,0)",  # Makes plot area transparent
         "margin": {  # Set margins around the plot area in pixels
             "l": half_line,  # Left margin
             "r": half_line,  # Right margin
