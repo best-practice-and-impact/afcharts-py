@@ -100,7 +100,7 @@ pio.templates["theme_af"] = go.layout.Template(
             'x': 0, 'xref': 'paper',  # Title alignment
             "pad": {
                 "t": half_line * 2,
-                "l": half_line * 2,
+                "l": 0,
                 "r": half_line * 2,
                 "b": half_line * 2,
             },  # Padding above and below title
