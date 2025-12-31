@@ -97,6 +97,7 @@ pio.templates["theme_af"] = go.layout.Template(
             "font": {
                 "size": base_size * 1.6,
             },  # Title font size and colour
+            'x': 0, 'xref': 'paper',  # Title alignment
             "pad": {
                 "t": half_line * 2,
                 "l": half_line * 2,
