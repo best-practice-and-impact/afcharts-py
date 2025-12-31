@@ -291,7 +291,7 @@ fig.show()
 ```
 
 <div class="chart-title">Living longer</div>
-<div class="chart-subtitle">Difference in life expectancy, 1967-2007</div>
+<div class="chart-subtitle">Life expectancy (years) in 1967 and 2007</div>
 <div class="chart" aria-describedby="barchart-2-desc">
 
 ```{python}

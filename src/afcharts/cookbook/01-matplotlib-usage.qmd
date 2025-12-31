@@ -175,7 +175,6 @@ for i, year in enumerate(years):
         color=duo[i]
     )
 plt.xticks(x + bar_width / 2, countries)
-plt.ylabel("Life expectancy")
 plt.legend(
     loc="lower center",
     bbox_to_anchor=(0.5, -0.25),
@@ -186,7 +185,7 @@ fig
 ```
 
 <div class="chart-title">Living longer</div>
-<div class="chart-subtitle">Difference in life expectancy, 1967 to 2007</div>
+<div class="chart-subtitle">Life expectancy (years) in 1967 and 2007</div>
 <div class ="chart" aria-describedby="barchart-2-desc">
 
 ```{python}
