@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
   push:
-    branches: [main, dev, nh/fix-mpl-style-sheet-not-found]
+    branches: [main, dev]
 
 jobs:
 
