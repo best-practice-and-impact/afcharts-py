@@ -98,10 +98,10 @@ pio.templates["theme_af"] = go.layout.Template(
             },  # Title font size and colour
             'x': 0, 'xref': 'paper',  # Title alignment
             "pad": {
-                "t": half_line * 2,
+                "t": half_line,
                 "l": 0,
-                "r": half_line * 2,
-                "b": half_line * 2,
+                "r": half_line,
+                "b": half_line,
             },  # Padding above and below title
         },
         "xaxis": {  # Configures the x-axis
