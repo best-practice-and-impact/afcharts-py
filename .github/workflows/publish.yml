@@ -1,7 +1,7 @@
 
 name: Publish to TestPyPI
 
-# ensures workflow runs only when you officially publish a release
+# Runs only when you officially publish a release
 on:
   release:
     types: [published]
@@ -9,27 +9,34 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      # Required for OIDC (Trusted Publisher)
+      id-token: write
+      # actions/checkout needs this implicitly; you can keep minimal scope
+      contents: read
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Install build tools
         run: |
-          pip install build twine
+          python -m pip install --upgrade pip
+          pip install build
 
       - name: Build package
         run: |
           python -m build
 
-      - name: Publish to TestPyPI
-        run: |
-          twine upload --repository testpypi dist/*
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      - name: Publish to TestPyPI via Trusted Publisher (no token)
+        uses: pypa/gh-action-pypi-publish@v1.9.0
+        with:
+          # Publish to TestPyPI (legacy upload endpoint)
+          repository-url: https://test.pypi.org/legacy/
+          # Optionally increase verbosity for debugging:
+          # verbose: true
