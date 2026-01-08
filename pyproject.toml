@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "afcharts"
-version = "0.1.1"
+version = "0.1.2"
 description = "A python package to produce charts following UK Government Analysis Function guidance"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -77,7 +77,7 @@ where = ["src"]                                # Packages are located in src/ to
 exclude = ["docs*", "Documentation*", "build"]
 
 [tool.setuptools.package-data]
-afcharts = ["*.mplstyle"]
+afcharts = ["*.mplstyle", "logo.svg"]
 
 [tool.ruff]
 line-length = 120
