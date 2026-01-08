@@ -7,36 +7,48 @@ on:
     types: [published]
 
 jobs:
-  build-and-publish:
+  build-package:
     runs-on: ubuntu-latest
-    permissions:
-      # Required for OIDC (Trusted Publisher)
-      id-token: write
-      # actions/checkout needs this implicitly; you can keep minimal scope
-      contents: read
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Install build tools
         run: |
-          python -m pip install --upgrade pip
           pip install build
 
       - name: Build package
         run: |
           python -m build
 
-      - name: Publish to TestPyPI via Trusted Publisher (no token)
-        uses: pypa/gh-action-pypi-publish@v1.9.0
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v5
         with:
-          # Publish to TestPyPI (legacy upload endpoint)
-          repository-url: https://test.pypi.org/legacy/
-          # Optionally increase verbosity for debugging:
-          # verbose: true
+          name: python-package-distributions
+          path: dist/
+
+  publish-to-pypi:
+    name: Publish Python 🐍 distribution 📦 to PyPI
+    needs:
+      - build-package
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/afcharts  # Replace <package-name> with your PyPI project name
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v6
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish to TestPyPI via Trusted Publisher (no token)
+      uses: pypa/gh-action-pypi-publish@release/v1
