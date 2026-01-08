@@ -39,9 +39,6 @@ jobs:
     needs:
       - build-package
     runs-on: ubuntu-latest
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/project/afcharts  # Replace <package-name> with your PyPI project name
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:
