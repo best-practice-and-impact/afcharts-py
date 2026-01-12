@@ -35,7 +35,8 @@ jobs:
           path: dist/
 
   publish-to-testpypi:
-    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    if: ${{ github.event.release.target_commitish != 'main' }}
+    name: Publish Python 🐍 distribution 📦 to TestPyPI via Trusted Publisher (no token)
     needs:
       - build-package
     runs-on: ubuntu-latest
@@ -53,29 +54,30 @@ jobs:
         with:
           name: python-package-distributions
           path: dist/
-      - name: Publish to TestPyPI via Trusted Publisher (no token)
+      - name: Publish distribution to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
 
-  # publish-to-pypi:
-  #   name: >-
-  #     Publish Python 🐍 distribution 📦 to PyPI
+  publish-to-pypi:
+    if: ${{ github.event.release.prerelease == false && github.event.release.target_commitish == 'main' }} for PyPi
+    name: Publish Python 🐍 distribution 📦 to PyPI via Trusted Publisher (no token)
+    needs:
+      - build
+    runs-on: ubuntu-latest
 
-  #   needs:
-  #     - build
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: pypi
-  #     url: https://pypi.org/p/afcharts  # Replace <package-name> with your PyPI project name
-  #   permissions:
-  #     id-token: write  # IMPORTANT: mandatory for trusted publishing
+    environment:
+      name: pypi
+      url: https://pypi.org/p/afcharts  # Replace <package-name> with your PyPI project name
 
-  #   steps:
-  #     - name: Download all the dists
-  #       uses: actions/download-artifact@v6
-  #       with:
-  #         name: python-package-distributions
-  #         path: dist/
-  #     - name: Publish distribution 📦 to PyPI
-  #       uses: pypa/gh-action-pypi-publish@release/v1
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing (OIDC)
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v6
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
