@@ -50,7 +50,7 @@ Example: A [Plotly bar chart](https://best-practice-and-impact.github.io/afchart
 
 <img src="docs/images/example_charts/bar_chart-plotly_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/bar_chart-plotly_default.png" width="35%" alt="Grouped bar chart (default Plotly) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, red for 2007."/>
 
-**Note on embedded titles** <br>
+<br> **Note on embedded titles** <br>
 Titles have been embedded in the charts above. However, for accessibility reasons, it is usually preferable to provide titles in the body of the page rather than embedded within the image of the plot. See the [cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for plenty of examples.
 
 ## Getting help
