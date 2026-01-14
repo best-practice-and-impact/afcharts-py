@@ -26,6 +26,8 @@ base_rect_size = base_size / 24
 # instead.
 half_line = base_size / 2
 
+af_chart_feature_colour = "#D6D6D6"
+
 pio.templates["theme_af"] = go.layout.Template(
     layout={
         "autosize": True,  # Automatically adjusts the scale of the plot based on it's content
@@ -38,7 +40,7 @@ pio.templates["theme_af"] = go.layout.Template(
         "coloraxis": {
             "colorbar": {  # Bar chart colours
                 "outlinewidth": 0,  # Width of the outline around the color bar
-                "tickcolor": "#D6D6D6",  # Bar chart tick colour
+                "tickcolor": af_chart_feature_colour,  # Bar chart tick colour
                 "ticklen": half_line / 2,  # Bar chart tick length
                 "ticks": "outside",  # Bar chart tick position
             }
@@ -104,10 +106,10 @@ pio.templates["theme_af"] = go.layout.Template(
         },
         "xaxis": {  # Configures the x-axis
             "automargin": True,  # Automatically adjust margins on axes to fit the content
-            "gridcolor": "#D6D6D6",  # Grid lines colours
-            "linecolor": "#D6D6D6",  # Axes line colour
+            "gridcolor": af_chart_feature_colour,  # Grid lines colours
+            "linecolor": af_chart_feature_colour,  # Axes line colour
             "linewidth": 1,
-            "tickcolor": "#D6D6D6",  # Tick mark colours
+            "tickcolor": af_chart_feature_colour,  # Tick mark colours
             "tickfont": {
                 "size": base_size,
             },  # Tick label font size
@@ -119,14 +121,14 @@ pio.templates["theme_af"] = go.layout.Template(
             },
             "fixedrange": True,  # Disables zoom and pan, keeps range fixed
             "zeroline": True,  # Makes zeroline visible
-            "zerolinecolor": "#D6D6D6",  # Zero line colour
+            "zerolinecolor": af_chart_feature_colour,  # Zero line colour
         },
         "yaxis": {  # Configures the y-axis (as with the x-axis above)
             "automargin": True,
-            "gridcolor": "#D6D6D6",
-            "linecolor": "#D6D6D6",
+            "gridcolor": af_chart_feature_colour,
+            "linecolor": af_chart_feature_colour,
             "linewidth": 1,
-            "tickcolor": "#D6D6D6",
+            "tickcolor": af_chart_feature_colour,
             "tickfont": {"size": base_size},
             "tickwidth": 1,
             "ticks": "outside",
@@ -136,7 +138,7 @@ pio.templates["theme_af"] = go.layout.Template(
             },
             "fixedrange": True,
             "zeroline": True,
-            "zerolinecolor": "#D6D6D6",
+            "zerolinecolor": af_chart_feature_colour,
         },
     }
 )
