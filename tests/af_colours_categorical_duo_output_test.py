@@ -1,5 +1,5 @@
 """
-Unit tests for the `af_colours` function in the afcharts package.
+Unit tests for the `get_af_colours` function in the afcharts package.
 
 These tests verify behaviour when the categorical palette is asked to return 2 colours.
 The expected behaviour is that the `categorical` palette should fall back to the
@@ -9,7 +9,7 @@ We test this behaviour for both HEX and RGB output formats.
 """
 
 import pytest
-from afcharts.af_colours import af_colours
+from afcharts.af_colours import get_af_colours
 
 
 @pytest.mark.parametrize(
@@ -20,14 +20,14 @@ from afcharts.af_colours import af_colours
             "duo",
             "hex",
             2,
-            af_colours("duo", "hex", 2),
+            get_af_colours("duo", "hex", 2),
         ),
         # Requesting 2 colours from CATEGORICAL palette should match DUO result
         (
             "categorical",
             "hex",
             2,
-            af_colours("duo", "hex", 2),
+            get_af_colours("duo", "hex", 2),
         ),
     ],
 )
@@ -38,7 +38,7 @@ def test_palette_fallback_to_duo_hex(
     Test that requesting 2 HEX colours from the categorical palette
     returns the same values as the duo palette (fallback behaviour).
     """
-    assert af_colours(palette, colour_format, number_of_colours) == expected
+    assert get_af_colours(palette, colour_format, number_of_colours) == expected
 
 
 @pytest.mark.parametrize(
@@ -49,14 +49,14 @@ def test_palette_fallback_to_duo_hex(
             "duo",
             "rgb",
             2,
-            af_colours("duo", "rgb", 2),
+            get_af_colours("duo", "rgb", 2),
         ),
         # CATEGORICAL palette should match DUO when requesting 2 RGB colours
         (
             "categorical",
             "rgb",
             2,
-            af_colours("duo", "rgb", 2),
+            get_af_colours("duo", "rgb", 2),
         ),
     ],
 )
@@ -67,4 +67,4 @@ def test_palette_fallback_to_duo_rgb(
     Test that requesting 2 RGB colours from the categorical palette
     returns the same values as the duo palette (fallback behaviour).
     """
-    assert af_colours(palette, colour_format, number_of_colours) == expected
+    assert get_af_colours(palette, colour_format, number_of_colours) == expected

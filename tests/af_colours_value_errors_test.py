@@ -1,5 +1,5 @@
 """
-Tests for validating error handling in the `af_colours` function.
+Tests for validating error handling in the `get_af_colours` function.
 
 These tests ensure that the function raises `ValueError` when invalid input
 parameters are provided, including:
@@ -13,7 +13,7 @@ invalid user input.
 """
 
 import pytest
-from afcharts.af_colours import af_colours
+from afcharts.af_colours import get_af_colours
 
 
 def test_invalid_palette_value():
@@ -21,7 +21,7 @@ def test_invalid_palette_value():
     Verify an invalid colour palette name triggers a ValueError.
     """
     with pytest.raises(ValueError):
-        af_colours("wrong_palette", "hex")
+        get_af_colours("wrong_palette", "hex")
 
 
 def test_invalid_colour_format_value():
@@ -29,7 +29,7 @@ def test_invalid_colour_format_value():
     Verify an unsupported colour format triggers a ValueError.
     """
     with pytest.raises(ValueError):
-        af_colours("duo", "wrong_format")
+        get_af_colours("duo", "wrong_format")
 
 
 def test_invalid_low_number_of_colours_value():
@@ -37,7 +37,7 @@ def test_invalid_low_number_of_colours_value():
     Verify requesting zero colours triggers a ValueError.
     """
     with pytest.raises(ValueError):
-        af_colours("categorical", "hex", 0)
+        get_af_colours("categorical", "hex", 0)
 
 
 def test_invalid_high_number_of_colours_value():
@@ -45,4 +45,4 @@ def test_invalid_high_number_of_colours_value():
     Verify requesting more colours than the palette supports triggers a ValueError.
     """
     with pytest.raises(ValueError):
-        af_colours("categorical", "hex", 7)
+        get_af_colours("categorical", "hex", 7)

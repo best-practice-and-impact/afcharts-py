@@ -1,5 +1,5 @@
 """
-Unit tests for `af_colours` function in the afcharts package.
+Unit tests for `get_af_colours` function in the afcharts package.
 
 This test verifies that requesting N colours from the categorical palette
 returns exactly N colours. It ensures the function respects the requested
@@ -11,7 +11,7 @@ for sizes 1 through 6.
 """
 
 import pytest
-from afcharts.af_colours import af_colours
+from afcharts.af_colours import get_af_colours
 
 
 @pytest.mark.parametrize(
@@ -33,7 +33,7 @@ def test_categorical_list_length(palette, colour_format, number_of_colours):
     For each input combination (palette, format, N colours),
     verify that the resulting colour list length equals `number_of_colours`.
     """
-    result = af_colours(palette, colour_format, number_of_colours)
+    result = get_af_colours(palette, colour_format, number_of_colours)
     assert len(result) == number_of_colours, (
         f"Expected {number_of_colours} colours but got {len(result)} for "
         f"palette='{palette}', format='{colour_format}'"
