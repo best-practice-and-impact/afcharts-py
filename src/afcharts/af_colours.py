@@ -8,11 +8,11 @@ import yaml
 from pathlib import Path
 
 
-def af_colours(
+def get_af_colours(
     palette: str, colour_format="hex", number_of_colours=6, config_path=None
 ):
     """
-    af_colours is the top level function in py_af_colours. This returns
+    get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
     For the categorical palette, this can be a chosen number of colours
     up to 6.
