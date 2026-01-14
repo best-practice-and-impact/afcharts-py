@@ -2,14 +2,13 @@
 
 
 ## Line charts
-### Line chart with duo palette
+### Single line chart
 
 ```{python}
-#| label: line-charts-2
-#| eval: true
-#| output: false
+# | label: line-charts-1
+# | eval : true
+# | output: false
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -22,13 +21,103 @@ pio.templates.default = "theme_af"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
+df = df[df["country"] == "United Kingdom"]
 
+# Create figure
+fig = go.Figure()
+
+# Add a trace
+fig.add_trace(
+    go.Scatter(
+        x=df["year"],
+        y=df["lifeExp"],
+        mode="lines",
+        name="United Kingdom",
+        text=df["country"],
+        line=dict(color=duo[0]),
+    )
+)
+
+# Add label at the last point
+last_year = df["year"].max()
+last_lifeExp = df[df["year"] == last_year]["lifeExp"].values[0]
+
+fig.add_annotation(
+    dict(
+        x=last_year,
+        y=last_lifeExp,
+        text="United Kingdom",
+        showarrow=False,
+        xanchor="left",
+        yanchor="middle",
+    )
+)
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        tick0=1952,  # Make axis start at 1952
+        range=[df["year"].min(), df["year"].max()],
+    ),
+    yaxis=dict(
+        range=[0, 82],
+        tickmode="linear",
+        dtick=20,  # Show ticks every 20 units
+    ),
+    showlegend=False,
+    height=300,
+    margin=dict(r=140),
+)
+
+fig.show()
+```
+
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life Expectancy in the United Kingdom 1952-2007</div>
+<div class="chart" aria-describedby="linechart-1-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id = "linechart-1-desc">
+This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data.
+</div>
+
+### Line chart with duo palette
+
+```{python}
+# | label: line-charts-2
+# | eval: true
+# | output: false
+
+import plotly.express as px
+import plotly.graph_objects as go
+
+# AF Package
+from afcharts.pio_template import pio
+from afcharts.assets.af_colours import duo
+
+# Set default theme
+pio.templates.default = "theme_af"
+
+# Load the gapminder dataset from plotly.express
+df = px.data.gapminder()
 df = df[df["country"].isin(["United Kingdom", "China"])]
+
+# Create figure
 fig = go.Figure()
 
 # Add a trace for each continent
 for i, country in enumerate(df["country"].unique()):
     df_country = df[df["country"] == country]
+
     fig.add_trace(
         go.Scatter(
             x=df_country["year"],
@@ -36,36 +125,49 @@ for i, country in enumerate(df["country"].unique()):
             mode="lines",
             name=country,
             text=df_country["country"],
-            line=dict(color=duo[i % len(duo)])
+            line=dict(color=duo[i % len(duo)]),
+        )
+    )
+
+    # Add label at the last point
+    last_year = df_country["year"].max()
+    last_lifeExp = df_country[df_country["year"] == last_year]["lifeExp"].values[0]
+
+    fig.add_annotation(
+        dict(
+            x=last_year,
+            y=last_lifeExp,
+            text=country,
+            showarrow=False,
+            xanchor="left",
+            yanchor="middle",
         )
     )
 
 # Update layout
 fig.update_layout(
     xaxis=dict(
-        showgrid=False  # Hide x-axis grid lines
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        tick0=1952,  # Make axis start at 1952
+        range=[df["year"].min(), df["year"].max()],
     ),
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
         dtick=20,  # Show ticks every 20 units
     ),
-    legend=dict(
-        orientation="h",
-        yanchor="top",
-        y=-0.2,
-        xanchor="center",
-        x=0.5
-    ),
-    height=300
+    showlegend=False,
+    height=300,
+    margin=dict(r=140),
 )
 
 fig.show()
-
 ```
 
 <div class="chart-title">Living Longer</div>
 <div class="chart-subtitle">Life Expectancy in the United Kingdom and China 1952-2007</div>
+<div class = "chart" aria-describedby="linechart-2-desc">
 
 ```{python}
 #| echo: false
@@ -74,12 +176,13 @@ fig.show()
 
 ```
 
+</div>
 <div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="linechart-2-desc">
+This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are two thicker lines showing the life expectancy in the UK and China over time. The line colours are from the main Analysis Function palette - dark blue for China and orange for the UK, with labels for each line on the right hand side.
+</div>
 
-
-This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are two thicker lines showing the life expectancy in the UK and China over time. The line colours are from the main Analysis Function palette - dark blue for China and orange for the UK, denoted by a legend at the bottom of the chart.
-
-Legends should be avoided unless absolutely necessary, as these usually rely on using colour to match labels to data. More information can be found in the Analysis Function [charts guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/#section-11). It is best practice to label lines directly, and an example of this can be found in the [annotations](#annotations) section.
+Legends should be avoided unless absolutely necessary, as these usually rely on using colour to match labels to data. More information can be found in the Analysis Function [charts guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/#section-11). It is best practice to label lines directly.
 
 ## Bar charts
 
@@ -87,7 +190,6 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 #| eval: true
 #| output: false
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -106,7 +208,7 @@ fig = go.Figure()
 fig.add_trace(
     go.Bar(
         x=top5["country"],
-        y=top5["pop"]/1000000,  # Convert to millions
+        y=top5["pop"]/1e6,  # Convert to millions
 
     )
 )
@@ -117,12 +219,11 @@ fig.update_layout(
 )
 
 fig.show()
-
 ```
 
 <div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
 <div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
-
+<div class="chart" aria-describedby="barchart-1-desc">
 
 ```{python}
 #| echo: false
@@ -131,9 +232,11 @@ fig.show()
 
 ```
 
+</div>
 <div class="chart-source">Source: Gapminder</div>
-
+<div class="chart-alt" id="barchart-1-desc">
 This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
+</div>
 
 ### Grouped bar chart
 
@@ -141,7 +244,6 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 #| eval: true
 #| output: false
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -182,12 +284,11 @@ fig.update_layout(
 )
 
 fig.show()
-
 ```
 
 <div class="chart-title">Living longer</div>
 <div class="chart-subtitle">Difference in life expectancy, 1967-2007</div>
-
+<div class="chart" aria-describedby="barchart-2-desc">
 
 ```{python}
 #| echo: false
@@ -196,9 +297,11 @@ fig.show()
 
 ```
 
+</div>
 <div class="chart-source">Source: Gapminder</div>
-
+<div class ="chart-alt" id = "barchart-2-desc">
 This grouped bar chart uses the afcharts theme. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the main Analysis Function palette - dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart.
+</div>
 
 ### Stacked bar chart
 
@@ -277,7 +380,7 @@ fig.show()
 
 <div class="chart-title">How life expectancy varies</div>
 <div class="chart-subtitle">Distribution of life expectancy, 2007</div>
-
+<div class="chart" aria-describedby="barchart-stack-desc">
 
 ```{python}
 #| echo: false
@@ -286,9 +389,11 @@ fig.show()
 
 ```
 
+</div>
 <div class="chart-source">Source: Gapminder</div>
-
+<div class="chart-alt" id="barchart-stack-desc">
 This histogram uses the afcharts theme, and shows the distribution of life expectancy by number of countries. There are pale grey grid lines extending out from the y axis. The bars are dark blue with white space between each.
+</div>
 
 ## Scatterplots
 
@@ -296,12 +401,11 @@ This histogram uses the afcharts theme, and shows the distribution of life expec
 #| eval: true
 #| output: false
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
 # AF Package
-import afcharts.pio_template
+from afcharts.pio_template import pio
 
 # Set default theme
 pio.templates.default = "theme_af"
@@ -321,20 +425,26 @@ fig.add_trace(
     )
 )
 
+# Axes should start from 0
+fig.update_yaxes(rangemode="tozero")
+
 # Update layout
 fig.update_layout(
     xaxis=dict(
-        title="GDP (US$, inflation-adjusted)",
+        title="GDP per capita ($US, inflation-adjusted)",
+    ),
+    yaxis=dict(
+        title="Life Expectancy (years)"
     ),
     height=300
 )
 
 fig.show()
-
 ```
 
 <div class="chart-title">The relationship between GDP and Life Expectancy is complex</div>
 <div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
+<div class="chart" aria-describedby="scatter-desc">
 
 ```{python}
 #| echo: false
@@ -343,23 +453,24 @@ fig.show()
 
 ```
 
+</div>
 <div class="chart-source">Source: Gapminder</div>
-
+<div class="chart-alt" id="scatter-desc">
 This scatterplot uses the afcharts theme, and shows life expectancy against GDP for all countries. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.
+</div>
 
 ## Small multiples
 ```{python}
 #| eval: true
 #| output: false
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # AF Package
 from afcharts.assets.af_colours import main
-import afcharts.pio_template
+from afcharts.pio_template import pio
 
 # Set default theme
 pio.templates.default = "theme_af"
@@ -442,7 +553,7 @@ import plotly.graph_objects as go
 from afcharts.assets.af_colours import duo
 
 # AF Package
-import afcharts.pio_template
+from afcharts.pio_template import pio
 
 # Set default theme
 pio.templates.default = "theme_af"
@@ -457,7 +568,6 @@ df['lifeExpGrouped'] = pd.cut(
     bins=[0, 75, float('inf')],
     labels=["Under 75", "75+"]
 )
-
 
 # Count number of countries in each group
 group_counts = df['lifeExpGrouped'].value_counts().sort_index()
@@ -485,11 +595,11 @@ fig.update_layout(
 )
 
 fig.show()
-
 ```
 
 <div class="chart-title">How life expectancy varies in Europe</div>
 <div class="chart-subtitle">Percentage of countries by life expectancy band, 2007</div>
+<div class="chart" aria-describedby="pie-desc">
 
 ```{python}
 #| echo: false
@@ -498,16 +608,17 @@ fig.show()
 
 ```
 
+</div>
 <div class="chart-source">Source: Gapminder</div>
-
+<div class="chart-alt" id="pie-desc">
 This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by a legend to the right of the pie chart. There is whitespace separating the segments from each other.
+</div>
 
 ## Focus charts
 ```{python}
 #| eval: true
 #| output: false
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -546,7 +657,6 @@ fig.update_layout(
 )
 
 fig.show()
-
 ```
 
 <div class="chart-title">Brazil has the second highest population in the Americas</div>
