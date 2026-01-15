@@ -5,8 +5,8 @@
 ### Single line chart
 
 ```{python}
-# | label: line-charts-1
-# | eval : true
+# | label: line-charts-2
+# | eval: true
 # | output: false
 
 import plotly.express as px
@@ -87,6 +87,7 @@ fig.show()
 <div class="chart-alt" id = "linechart-1-desc">
 This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data.
 </div>
+
 ### Line chart with duo palette
 
 ```{python}
@@ -208,7 +209,8 @@ fig = go.Figure()
 fig.add_trace(
     go.Bar(
         x=top5["country"],
-        y=top5["pop"] / 1e6,  # Convert to millions
+        y=top5["pop"]/1e6,  # Convert to millions
+
     )
 )
 
@@ -234,6 +236,7 @@ fig.show()
 <div class="chart-alt" id="barchart-1-desc">
 This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
 </div>
+
 ### Grouped bar chart
 
 ```{python}
@@ -400,8 +403,8 @@ This histogram uses the afcharts theme, and shows the distribution of life expec
 ## Scatterplots
 
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
@@ -435,10 +438,8 @@ fig.update_layout(
     xaxis=dict(
         title="GDP per capita ($US, inflation-adjusted)",
     ),
-    yaxis=dict(
-        title="Life Expectancy (years)"
-    ),
-    height=300
+    yaxis=dict(title="Life Expectancy (years)"),
+    height=300,
 )
 
 fig.show()

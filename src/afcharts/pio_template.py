@@ -79,8 +79,6 @@ pio.templates["theme_af"] = go.layout.Template(
         },
         "hovermode": "x unified",  # How hovering affects the display
         # x unified shows info for all the data at that point in the x-axis
-        "paper_bgcolor": "rgba(0,0,0,0)",  # Makes paper (entire area) background transparent
-        "plot_bgcolor": "rgba(0,0,0,0)",  # Makes plot area transparent
         "margin": {  # Set margins around the plot area in pixels
             "l": half_line,  # Left margin
             "r": half_line,  # Right margin
@@ -92,16 +90,16 @@ pio.templates["theme_af"] = go.layout.Template(
         "uniformtext_mode": "hide",  # Controls visibility of text based on size then the
         # text will be hidden - hide means that if a text element's size falls below the "uniformtext_minsize"
         "title": {
-            "automargin": True,
             "text": None,
             "font": {
                 "size": base_size * 1.6,
             },  # Title font size and colour
+            'x': 0, 'xref': 'paper',  # Title alignment
             "pad": {
-                "t": half_line * 2,
-                "l": half_line * 2,
-                "r": half_line * 2,
-                "b": half_line * 2,
+                "t": half_line,
+                "l": 0,
+                "r": half_line,
+                "b": half_line,
             },  # Padding above and below title
         },
         "xaxis": {  # Configures the x-axis
@@ -140,5 +138,11 @@ pio.templates["theme_af"] = go.layout.Template(
             "zeroline": True,
             "zerolinecolor": af_chart_feature_colour,
         },
+    },
+    data={
+        "scatter": [{
+            "marker": {"size": 12},
+            "line": {"width": 2.5}
+        }]
     }
 )
