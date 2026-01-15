@@ -5,7 +5,7 @@
 ### Single line chart
 
 ```{python}
-# | label: line-charts-2
+# | label: line-charts-1
 # | eval: true
 # | output: false
 
