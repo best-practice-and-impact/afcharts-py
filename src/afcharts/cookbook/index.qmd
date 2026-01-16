@@ -7,7 +7,7 @@ description-meta: |
 # Welcome {.unnumbered}
 <img src="./assets/logo.svg" alt="afcharts logo" style="float: right; height: 150px;">
 
-The afcharts-py python package helps make accessible Matplotlib and Plotly charts that meet [Government Analysis Function best practice](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/).
+The afcharts python package helps make accessible Matplotlib and Plotly charts that meet [Government Analysis Function best practice](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/).
 
 This cookbook includes a [Getting Started](getting-started.qmd) guide and example code for various chart types in [Matplotlib](01-matplotlib-usage.qmd) and [Plotly](03-plotly-usage.qmd).
 

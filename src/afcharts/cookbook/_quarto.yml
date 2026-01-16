@@ -9,7 +9,7 @@ book:
   favicon: ./assets/logo.svg
   description: | 
     Python charts in the Analysis Function style
-  page-footer: "Find afcharts-py on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
+  page-footer: "Find the afcharts python package on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
   sidebar:
     tools:
       - icon: bar-chart-line-fill
