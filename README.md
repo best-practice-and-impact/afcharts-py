@@ -1,5 +1,5 @@
 
-# afcharts-py <img src="src/afcharts/assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
+# afcharts-py <img src="docs/images/logo.svg" alt="afcharts logo" align="right" height="150"/>
 
 ## Overview
 
