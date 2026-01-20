@@ -55,16 +55,16 @@ Example: A [Plotly bar chart](https://best-practice-and-impact.github.io/afchart
 
 ### Colours
 
-Easily return a list of colours from any of the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4) with the `af_colours()` function:
+Easily return a list of colours from any of the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4) with the `get_af_colours()` function:
 
 ```python
-from py_af_colours import af_colours
+from py_af_colours import get_af_colours
 
 # Get the duo colour palette hex codes
-duo = af_colours("duo")
+duo = get_af_colours("duo")
 
 # Get four hex codes from the categorical palette
-cat4 = af_colours("categorical", "rgb", 5)
+cat4 = get_af_colours("categorical", "rgb", 5)
 ```
 
 ## Getting help
