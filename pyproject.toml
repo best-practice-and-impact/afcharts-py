@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "afcharts"
-version = "0.1.0"
+version = "0.1.6"
 description = "A python package to produce charts following UK Government Analysis Function guidance"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -58,7 +58,7 @@ docs = [ # install package docs dependencies with $ uv sync --group docs
 
 [project.urls]
 "Homepage" = "https://github.com/best-practice-and-impact/afcharts-py"
-"Documentation" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Documentation" = "https://best-practice-and-impact.github.io/afcharts-py/"
 "Source" = "https://github.com/best-practice-and-impact/afcharts-py"
 "Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
 

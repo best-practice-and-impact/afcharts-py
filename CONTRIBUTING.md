@@ -87,53 +87,36 @@ A PR that introduces breaking changes (i.e. affects backwards compatibility) mus
 This will inform release-please to increment the *major* (e.g. `1.7` -> `2.0`) version number instead of the *minor* version number (e.g. `1.7` -> `1.8`) in the next release.
 Breaking changes should be described in the squash commit footer section, if the commit description isn't sufficiently informative
 
----
-
 ## Basic folder structure
 
 ```plaintext
 afcharts-py/
 │
+├── .github/                            # Github templates and workflows
+│
+├── docs/
+│   └── images/                         # Image files
+│
 ├── src/
-│   └── afcharts/
+│   └── afcharts/                       # Main package folder
 │       ├── __init__.py
-│       ├── pio_template.py
-│       ├── theme_af.py
-│       └── assets/
-│           ├── af_colours.py
-│           └── logo.svg
-|           └── config/
-|               └── config.yaml
+│       ├── pio_template.py             # Plotly template
+│       ├── afcharts.mplstyle           # Matplotlib stylesheet
 │       └── cookbook/
 │           ├── _quarto.yml
 │           └── index.qmd
 │           └── getting-started.qmd
 |
-├── tests/
-│   ├── conftest.py
-│   └── test_module.py
+├── tests/                              # Unit tests
 │
 ├── README.md
 ├── CONTRIBUTING.md
 ├── LICENSE.md
 ├── pyproject.toml
 └── .gitignore
+└── .pre-commit-config.yaml
 ```
 
-### Explanation of Each Component
-
-- **`src/afcharts/`**: Main package folder. All your code should go here. Using a `src` layout helps avoid import issues during development and testing.
-  - `__init__.py`: Makes the directory a Python package.
-
-- **`tests/`**: Contains unit tests.
-
-- **`README.md`**: A markdown file describing your package, how to install and use it.
-
-- **`pyproject.toml`**: The modern configuration file for building and packaging Python projects. It replaces `setup.py` and `setup.cfg`.
-
-- **`.gitignore`**: Specifies files and directories to ignore in version control (e.g., `__pycache__/`, `.DS_Store`, etc.).
-
----
 
 ## Development setup
 

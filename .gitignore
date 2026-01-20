@@ -134,8 +134,9 @@ README_files/*
 src/afcharts/cookbook/*.html
 src/afcharts/cookbook/*.md
 src/afcharts/cookbook/*.ipynb
+src/afcharts/cookbook/.gitignore
 .quarto/
 _book/
 .vdoc.*
-docs/
+src/afcharts/cookbook/docs/
 _site/
