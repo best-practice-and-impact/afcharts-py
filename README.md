@@ -15,7 +15,7 @@ pip install afcharts
 
 ## Usage
 
-See the [afcharts cookbook](https://best-practice-and-impact.github.io/afcharts/) for examples of many different types of chart.
+See the [afcharts cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for examples of many different types of chart.
 
 ### Matplotlib
 

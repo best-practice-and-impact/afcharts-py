@@ -92,7 +92,7 @@ Breaking changes should be described in the squash commit footer section, if the
 ## Basic folder structure
 
 ```plaintext
-afcharts/
+afcharts-py/
 │
 ├── src/
 │   └── afcharts/

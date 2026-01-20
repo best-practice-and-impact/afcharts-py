@@ -55,10 +55,10 @@ docs = [ # install package docs dependencies with $ uv sync --group docs
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/best-practice-and-impact/afcharts"
-"Documentation" = "https://github.com/best-practice-and-impact/afcharts"
-"Source" = "https://github.com/best-practice-and-impact/afcharts"
-"Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts/issues"
+"Homepage" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Documentation" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Source" = "https://github.com/best-practice-and-impact/afcharts-py"
+"Issue Tracker" = "https://github.com/best-practice-and-impact/afcharts-py/issues"
 
 [tool.uv]
 default-groups = [
