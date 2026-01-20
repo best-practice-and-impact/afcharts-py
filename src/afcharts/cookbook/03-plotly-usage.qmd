@@ -646,7 +646,7 @@ top5 = df.nlargest(5, "pop")
 
 colors = {}
 for country in top5["country"].unique():
-    colors[country] = focus[1] if country == "Brazil" else focus[0]
+    colors[country] = focus[0] if country == "Brazil" else focus[1]
 
 # Map colors to bar order
 bar_colors = [colors[country] for country in top5["country"]]
