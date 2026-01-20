@@ -1,5 +1,5 @@
 
-name: Publish to TestPyPI
+name: Publish to PyPI or TestPyPI
 
 # Runs only when you officially publish a release
 on:
