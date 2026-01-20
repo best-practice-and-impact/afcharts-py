@@ -62,9 +62,6 @@ from py_af_colours import get_af_colours
 
 # Get the duo colour palette hex codes
 duo = get_af_colours("duo")
-
-# Get four hex codes from the categorical palette
-cat4 = get_af_colours("categorical", "rgb", 5)
 ```
 
 ## Getting help
