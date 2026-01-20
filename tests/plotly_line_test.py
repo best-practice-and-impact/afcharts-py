@@ -3,7 +3,6 @@ import os
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 

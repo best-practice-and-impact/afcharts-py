@@ -12,7 +12,6 @@
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 
 # Set default theme
@@ -98,7 +97,6 @@ This line chart uses the afcharts theme. There are pale grey grid lines extendin
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
@@ -194,7 +192,6 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 
 # Set default theme
@@ -246,7 +243,6 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
@@ -313,7 +309,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
@@ -409,7 +404,6 @@ This histogram uses the afcharts theme, and shows the distribution of life expec
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 
 # Set default theme
@@ -471,7 +465,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-# AF Package
 from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
@@ -556,7 +549,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
@@ -629,7 +621,6 @@ This pie chart uses the afcharts theme, showing the proportions of European coun
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 

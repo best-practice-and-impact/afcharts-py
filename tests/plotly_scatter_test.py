@@ -3,7 +3,6 @@ import os
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 
 # Set default theme
