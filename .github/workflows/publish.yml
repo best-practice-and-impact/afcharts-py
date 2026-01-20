@@ -63,7 +63,7 @@ jobs:
     if: ${{ github.event.release.target_commitish == 'main' }}
     name: Publish Python 🐍 distribution 📦 to PyPI via Trusted Publisher (no token)
     needs:
-      - build
+      - build-package
     runs-on: ubuntu-latest
 
     environment:
