@@ -3,18 +3,18 @@
 ::: {.content-visible when-format="html"}
 # Getting Started
 
-This page will teach you how to install and use afcharts-py to easily create accessible charts in the Analysis Function style.
+This page will teach you how to install and use the afcharts python package to easily create accessible charts in the Analysis Function style.
 
 Check out the rest of the cookbook for more detailed code examples and further guidance.
 
 ## Installation
 
-afcharts-py is available at the Python Package Index (PyPI). Python and `pip` are required for installation (see [Installing Packages (python.org)](https://packaging.python.org/en/latest/tutorials/installing-packages/)). To install afcharts-py, open a terminal and execute:
+afcharts is available at the Python Package Index (PyPI). Python and `pip` are required for installation (see [Installing Packages (python.org)](https://packaging.python.org/en/latest/tutorials/installing-packages/)). To install afcharts, open a terminal and execute:
 ```bash
-pip install afcharts-py
+pip install afcharts
 ```
 
-Alternatively, clone the [Git repository](https://github.com/best-practice-and-impact/afcharts-py) and, from the root directory, install afcharts-py with `pip` or `uv`:
+Alternatively, clone the [Git repository](https://github.com/best-practice-and-impact/afcharts-py) and, from the root directory, install afcharts with `pip` or `uv`:
 ```bash
 # with pip
 pip install .
