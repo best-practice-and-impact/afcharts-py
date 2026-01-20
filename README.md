@@ -1,21 +1,21 @@
 
-# afcharts-py <img src="src/afcharts/assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
+# afcharts <img src="src/afcharts/assets/logo.svg" alt="afcharts logo" align="right" height="150"/>
 
-afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice. Currently, the package supports plots made in Matplotlib or Plotly.
+afcharts is a Python package for creating accessible charts following Government Analysis Function best practice. Currently, the package supports plots made in Matplotlib or Plotly.
 
 The package has been developed using the [Government Analysis Function Data Visualisation
 guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/).
-afcharts-py should be used in conjunction with these guidance documents.
+afcharts should be used in conjunction with these guidance documents.
 
 ## Installation
 
 ```bash
-pip install afcharts-py
+pip install afcharts
 ```
 
 ## Usage
 
-See the [afcharts-py cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for examples of many different types of chart.
+See the [afcharts cookbook](https://best-practice-and-impact.github.io/afcharts/) for examples of many different types of chart.
 
 ### Matplotlib
 
@@ -40,7 +40,7 @@ Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING
 
 ## Acknowledgments
 
-The afcharts-py package is based on the
+The afcharts package is based on the
 [afcharts](https://github.com/best-practice-and-impact/afcharts.git) R package and the [py-af-colours](https://github.com/best-practice-and-impact/py-af-colours) package.
 
 ## License

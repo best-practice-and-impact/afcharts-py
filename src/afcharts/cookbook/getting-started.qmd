@@ -13,7 +13,7 @@ description-meta: |
 To install the package:
 
 ```bash
-pip install 'afcharts_py'
+pip install 'afcharts'
 ```
 
 **Note on use of titles, subtitles and captions** <br>
