@@ -61,8 +61,10 @@ See [Matplotlib examples](01-matplotlib-usage.qmd) for many more examples.
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import the categorical palette
-from afcharts.assets.af_colours import main
+from afcharts.af_colours import get_af_colours
+
+# Get the categorical colour palette
+categorical = get_af_colours("categorical")
 
 # Load gapminder dataset from plotly
 from plotly.express.data import gapminder
@@ -76,7 +78,7 @@ plt.style.use("afcharts.afcharts")
 fig = plt.figure(figsize = (8.5, 4.8))
 
 for i, (country, data) in enumerate(df.groupby("country")):
-    plt.plot(data["year"], data["lifeExp"], label=country, color=main[i])
+    plt.plot(data["year"], data["lifeExp"], label=country, color=categorical[i])
 
 plt.xlim([1950, 2010])
 plt.ylim([0, 85])
@@ -166,12 +168,14 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import main
+from afcharts.af_colours import get_af_colours
 
 # Set default theme
 pio.templates.default = "theme_af"
+
+# Get the categorical colour palette
+categorical = get_af_colours("categorical")
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -191,7 +195,7 @@ for i, country in enumerate(df["country"].unique()):
             mode="lines",
             name=country,
             text=df_country["country"],
-            line=dict(color=main[i]),
+            line=dict(color=categorical[i]),
         )
     )
 
