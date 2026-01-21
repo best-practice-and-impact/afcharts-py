@@ -79,6 +79,8 @@ df["Preview"] = df["Hex Code"].apply(
 display(HTML(df.to_html(escape=False, index=False)))
 ```
 
+<br>
+Note: It is best practice to limit charts to a maximum of four categories where possible to avoid clutter.
 
 ### Duo palette
 The `duo` palette should be used if only two colours are required. It contains the two colours from the categorical palette with the highest contrast ratio.
