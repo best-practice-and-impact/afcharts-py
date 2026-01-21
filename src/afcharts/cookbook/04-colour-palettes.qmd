@@ -101,8 +101,6 @@ display(HTML(df.to_html(escape=False, index=False)))
 ### Sequential palette
 The `sequential` colour palette should be used for data where the order has some meaning, such as age groups.
 
-There is also a reverse alternative, `sequential_minus`.
-
 ```{python}
 #| echo: false
 
