@@ -63,17 +63,15 @@ def get_af_colours(
 
     if palette not in ["categorical", "duo", "sequential", "focus"]:
         raise ValueError(
-            "palette value of "
-            + palette
-            + " is incorrect, must be categorical, duo, sequential, "
-            + "or focus as a string."
+            "palette must be one of 'categorical', 'duo', 'sequential' " +
+            f"or 'focus', not {palette}."
         )
     if colour_format not in ["hex", "rgb"]:
         raise ValueError(
             f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
     if number_of_colours < 1:
-        raise ValueError("Choose a number of colours greater than 0.")
+        raise ValueError("number_of_colours must be greater than 0.")
 
     elif palette == "sequential":
         chosen_colours_list = sequential_colours(sequential_hex_list, colour_format)
