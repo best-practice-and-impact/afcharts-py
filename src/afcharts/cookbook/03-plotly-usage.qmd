@@ -39,17 +39,6 @@ fig.add_trace(
 last_year = df["year"].max()
 last_lifeExp = df[df["year"] == last_year]["lifeExp"].values[0]
 
-fig.add_annotation(
-    dict(
-        x=last_year,
-        y=last_lifeExp,
-        text="United Kingdom",
-        showarrow=False,
-        xanchor="left",
-        yanchor="middle",
-    )
-)
-
 # Update layout
 fig.update_layout(
     xaxis=dict(
@@ -64,8 +53,7 @@ fig.update_layout(
         dtick=10,  # Show ticks every 20 units
     ),
     showlegend=False,
-    height=350,
-    margin=dict(r=140),
+    height=420
 )
 
 fig.show()
