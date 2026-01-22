@@ -329,7 +329,7 @@ df = px.data.gapminder().query("year == 2007")
 df['lifeExpGrouped'] = pd.cut(
     df['lifeExp'],
     bins=[0, 75, float('inf')],
-    labels=["Under 75", "75+"]
+    labels=["Under 75", "75 and over"]
 )
 
 # Group by continent and life expectancy group
@@ -339,9 +339,9 @@ grouped = df.groupby(['continent', 'lifeExpGrouped'], observed=True).size().rese
 pivot_df = grouped.pivot(index='continent', columns='lifeExpGrouped', values='n_countries').fillna(0)
 pivot_df['total'] = pivot_df.sum(axis=1)
 pivot_df['percent of Under 75'] = pivot_df["Under 75"] / pivot_df['total']
-pivot_df['percent of 75+'] = pivot_df["75+"] / pivot_df['total']
+pivot_df['percent of 75 and over'] = pivot_df["75 and over"] / pivot_df['total']
 
-categories = ["Under 75", "75+"]
+categories = ["Under 75", "75 and over"]
 
 fig = go.Figure()
 
@@ -566,7 +566,7 @@ df = px.data.gapminder().query("continent == 'Europe' and year == 2007")
 df['lifeExpGrouped'] = pd.cut(
     df['lifeExp'],
     bins=[0, 75, float('inf')],
-    labels=["Under 75", "75+"]
+    labels=["Under 75", "75 and over"]
 )
 
 # Count number of countries in each group
@@ -577,21 +577,17 @@ fig = go.Figure(
         labels=group_counts.index,
         values=group_counts.values,
         marker=dict(colors=duo, line=dict(color='white', width=2)),
-        sort=False
+        sort=False,
+        textinfo='label+percent',
+        textposition='inside',
+        texttemplate='%{label}<br>(%{percent:.0%})'
     )]
 )
 
 # Update layout
 fig.update_layout(
     height=400,
-    legend=dict(
-        title="Life Expectancy",
-        orientation="h",
-        yanchor="top",
-        y=-0.05,
-        xanchor="center",
-        x=0.5
-    ),
+    showlegend=False
 )
 
 fig.show()
