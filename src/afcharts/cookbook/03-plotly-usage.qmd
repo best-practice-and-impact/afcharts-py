@@ -67,7 +67,7 @@ fig.update_layout(
         dtick=10,  # Show ticks every 20 units
     ),
     showlegend=False,
-    height=300,
+    height=350,
     margin=dict(r=140),
 )
 
@@ -158,7 +158,7 @@ fig.update_layout(
         dtick=10,  # Show ticks every 20 units
     ),
     showlegend=False,
-    height=300,
+    height=350,
     margin=dict(r=140),
 )
 
@@ -215,7 +215,7 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-    height=300
+    height=420
 )
 
 fig.show()
@@ -273,7 +273,7 @@ for i, year in enumerate(sorted(df['year'].unique())):
 # Update layout
 fig.update_layout(
     barmode='group',
-    height=300,
+    height=420,
     legend=dict(
         orientation="h",
         yanchor="top",
@@ -362,7 +362,7 @@ for i, category in enumerate(categories):
 # Update layout
 fig.update_layout(
     barmode='stack',
-    height=300,
+    height=420,
     yaxis=dict(tickformat=".0%"),
     legend=dict(
         title="Life Expectancy",
@@ -436,7 +436,7 @@ fig.update_layout(
     yaxis=dict(
         title="Life Expectancy (years)"
     ),
-    height=300
+    height=420
 )
 
 fig.show()
@@ -653,7 +653,7 @@ fig.add_trace(
 
 # Update layout
 fig.update_layout(
-    height=300
+    height=420
 )
 
 fig.show()
