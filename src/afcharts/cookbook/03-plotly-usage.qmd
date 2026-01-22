@@ -6,15 +6,13 @@
 
 ```{python}
 # | label: line-charts-1
-# | eval : true
+# | eval: true
 # | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import duo
 
 # Set default theme
 pio.templates.default = "theme_af"
@@ -34,7 +32,6 @@ fig.add_trace(
         mode="lines",
         name="United Kingdom",
         text=df["country"],
-        line=dict(color=duo[0]),
     )
 )
 
@@ -100,12 +97,14 @@ This line chart uses the afcharts theme. There are pale grey grid lines extendin
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import duo
+from afcharts.af_colours import get_af_colours
 
 # Set default theme
 pio.templates.default = "theme_af"
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -187,13 +186,12 @@ Legends should be avoided unless absolutely necessary, as these usually rely on 
 ## Bar charts
 
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 
 # Set default theme
@@ -214,9 +212,7 @@ fig.add_trace(
 )
 
 # Update layout
-fig.update_layout(
-    height=300
-)
+fig.update_layout(height=300)
 
 fig.show()
 ```
@@ -241,46 +237,44 @@ This bar chart uses the afcharts theme, and shows the populations of the five mo
 ### Grouped bar chart
 
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import duo
+from afcharts.af_colours import get_af_colours
 
 # Set default theme
 pio.templates.default = "theme_af"
 
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
 # Load the gapminder dataset from plotly.express
-df = px.data.gapminder().query("year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']")
+df = px.data.gapminder().query(
+    "year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']"
+)
 
 fig = go.Figure()
 # Add a bar trace for each year
-for i, year in enumerate(sorted(df['year'].unique())):
+for i, year in enumerate(sorted(df["year"].unique())):
     df_year = df[df["year"] == year]
     fig.add_trace(
         go.Bar(
-            x=df_year['country'],
-            y=df_year['lifeExp'],
+            x=df_year["country"],
+            y=df_year["lifeExp"],
             name=str(year),
-            marker_color=duo[i % len(duo)]
+            marker_color=duo[i % len(duo)],
         )
     )
 
 # Update layout
 fig.update_layout(
-    barmode='group',
+    barmode="group",
     height=300,
-    legend=dict(
-        orientation="h",
-        yanchor="top",
-        y=-0.2,
-        xanchor="center",
-        x=0.5
-    ),
+    legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5),
 )
 
 fig.show()
@@ -308,38 +302,44 @@ This grouped bar chart uses the afcharts theme. It shows the life expectancy in 
 Caution should be taken when producing stacked bar charts. They can quickly become difficult to interpret if plotting non part-to-whole data, and/or if plotting more than two categories per stack. First and last categories in the stack will always be easier to compare across bars than those in the middle. Think carefully about the story you are trying to tell with your chart.
 
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import duo
+from afcharts.af_colours import get_af_colours
 
 # Set default theme
 pio.templates.default = "theme_af"
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007")
 
 # Create life expectancy groups
-df['lifeExpGrouped'] = pd.cut(
-    df['lifeExp'],
-    bins=[0, 75, float('inf')],
-    labels=["Under 75", "75+"]
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75+"]
 )
 
 # Group by continent and life expectancy group
-grouped = df.groupby(['continent', 'lifeExpGrouped'], observed=True).size().reset_index(name='n_countries')
+grouped = (
+    df.groupby(["continent", "lifeExpGrouped"], observed=True)
+    .size()
+    .reset_index(name="n_countries")
+)
 
 # Pivot to get proportions
-pivot_df = grouped.pivot(index='continent', columns='lifeExpGrouped', values='n_countries').fillna(0)
-pivot_df['total'] = pivot_df.sum(axis=1)
-pivot_df['percent of Under 75'] = pivot_df["Under 75"] / pivot_df['total']
-pivot_df['percent of 75+'] = pivot_df["75+"] / pivot_df['total']
+pivot_df = grouped.pivot(
+    index="continent", columns="lifeExpGrouped", values="n_countries"
+).fillna(0)
+pivot_df["total"] = pivot_df.sum(axis=1)
+pivot_df["percent of Under 75"] = pivot_df["Under 75"] / pivot_df["total"]
+pivot_df["percent of 75+"] = pivot_df["75+"] / pivot_df["total"]
 
 categories = ["Under 75", "75+"]
 
@@ -355,13 +355,13 @@ for i, category in enumerate(categories):
             x=life_exp_data.index,
             y=life_exp_data[percent_col],
             name=str(category),
-            marker_color=duo[i % len(duo)]
+            marker_color=duo[i % len(duo)],
         )
     )
 
 # Update layout
 fig.update_layout(
-    barmode='stack',
+    barmode="stack",
     height=300,
     yaxis=dict(tickformat=".0%"),
     legend=dict(
@@ -370,7 +370,7 @@ fig.update_layout(
         yanchor="top",
         y=-0.2,
         xanchor="center",
-        x=0.5
+        x=0.5,
     ),
 )
 
@@ -398,13 +398,12 @@ This histogram uses the afcharts theme, and shows the distribution of life expec
 ## Scatterplots
 
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
 
 # Set default theme
@@ -433,10 +432,8 @@ fig.update_layout(
     xaxis=dict(
         title="GDP per capita ($US, inflation-adjusted)",
     ),
-    yaxis=dict(
-        title="Life Expectancy (years)"
-    ),
-    height=300
+    yaxis=dict(title="Life Expectancy (years)"),
+    height=300,
 )
 
 fig.show()
@@ -461,15 +458,14 @@ This scatterplot uses the afcharts theme, and shows life expectancy against GDP 
 
 ## Small multiples
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-# AF Package
-from afcharts.assets.af_colours import main
+from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Set default theme
@@ -478,13 +474,17 @@ pio.templates.default = "theme_af"
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
 
+# Get the categorical colour palette
+categorical = get_af_colours("categorical")
 
 # Filter out Oceania and aggregate population by continent and year
-df_filtered = df[df['continent'] != 'Oceania']
-df_grouped = df_filtered.groupby(['continent', 'year'], observed=True)['pop'].sum().reset_index()
+df_filtered = df[df["continent"] != "Oceania"]
+df_grouped = (
+    df_filtered.groupby(["continent", "year"], observed=True)["pop"].sum().reset_index()
+)
 
 # Define the continents to plot
-continents = df_grouped['continent'].unique()
+continents = df_grouped["continent"].unique()
 
 
 # Create a 2x2 subplot layout
@@ -494,19 +494,19 @@ fig = make_subplots(rows=2, cols=2, subplot_titles=continents, shared_yaxes=True
 for i, continent in enumerate(continents):
     row = i // 2 + 1
     col = i % 2 + 1
-    data = df_grouped[df_grouped['continent'] == continent]
+    data = df_grouped[df_grouped["continent"] == continent]
     fig.add_trace(
         go.Scatter(
-            x=data['year'],
-            y=data['pop'],
-            fill='tozeroy',
-            mode='none',
+            x=data["year"],
+            y=data["pop"],
+            fill="tozeroy",
+            mode="none",
             name=continent,
             showlegend=False,
-            fillcolor=main[i % len(main)]
+            fillcolor=categorical[i % len(categorical)],
         ),
         row=row,
-        col=col
+        col=col,
     )
 
 
@@ -516,13 +516,11 @@ fig.update_yaxes(
     range=[0, 4.1e9],
     tickvals=[0, 2e9, 4e9],
     ticktext=["0", "2bn", "4bn"],
-    showgrid=True
+    showgrid=True,
 )
 
 # Update layout
-fig.update_layout(
-    height=550
-)
+fig.update_layout(height=550)
 
 fig.show()
 
@@ -544,41 +542,42 @@ This chart uses the afcharts theme. It contains four subplots in a two by two gr
 
 ## Pie charts
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from afcharts.assets.af_colours import duo
 
-# AF Package
+from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Set default theme
 pio.templates.default = "theme_af"
 
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("continent == 'Europe' and year == 2007")
 
-
 # Create life expectancy groups
-df['lifeExpGrouped'] = pd.cut(
-    df['lifeExp'],
-    bins=[0, 75, float('inf')],
-    labels=["Under 75", "75+"]
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75+"]
 )
 
 # Count number of countries in each group
-group_counts = df['lifeExpGrouped'].value_counts().sort_index()
+group_counts = df["lifeExpGrouped"].value_counts().sort_index()
 
 fig = go.Figure(
-    data=[go.Pie(
-        labels=group_counts.index,
-        values=group_counts.values,
-        marker=dict(colors=duo, line=dict(color='white', width=2)),
-        sort=False
-    )]
+    data=[
+        go.Pie(
+            labels=group_counts.index,
+            values=group_counts.values,
+            marker=dict(colors=duo, line=dict(color="white", width=2)),
+            sort=False,
+        )
+    ]
 )
 
 # Update layout
@@ -590,7 +589,7 @@ fig.update_layout(
         yanchor="top",
         y=-0.05,
         xanchor="center",
-        x=0.5
+        x=0.5,
     ),
 )
 
@@ -616,15 +615,17 @@ This pie chart uses the afcharts theme, showing the proportions of European coun
 
 ## Focus charts
 ```{python}
-#| eval: true
-#| output: false
+# | eval: true
+# | output: false
 
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
+from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import focus
+
+# Get the focus colour palette
+focus = get_af_colours("focus")
 
 # Set default theme
 pio.templates.default = "theme_af"
@@ -636,7 +637,7 @@ top5 = df.nlargest(5, "pop")
 
 colors = {}
 for country in top5["country"].unique():
-    colors[country] = focus[1] if country == "Brazil" else focus[0]
+    colors[country] = focus[0] if country == "Brazil" else focus[1]
 
 # Map colors to bar order
 bar_colors = [colors[country] for country in top5["country"]]
@@ -647,14 +648,12 @@ fig.add_trace(
     go.Bar(
         x=top5["country"],
         y=top5["pop"],  # Repeat the category name for each x value
-        marker_color=bar_colors
+        marker_color=bar_colors,
     )
 )
 
 # Update layout
-fig.update_layout(
-    height=300
-)
+fig.update_layout(height=300)
 
 fig.show()
 ```

@@ -1,0 +1,4 @@
+categorical_hex_list: ["#12436D","#28A197","#801650", "#F46A25","#3D3D3D","#A285D1"]
+duo_hex_list: ["#12436D","#F46A25"]
+sequential_hex_list: ["#12436D", "#2073BC", "#6BACE6"]
+focus_hex_list: ["#12436D","#BFBFBF"]

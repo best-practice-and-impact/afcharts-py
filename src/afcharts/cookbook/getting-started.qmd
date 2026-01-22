@@ -25,6 +25,24 @@ pip install .
 uv sync
 ```
 
+## Colours
+
+Use `get_af_colours()` to get a list of colours from any of the [Analysis Function colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/codes-for-accessible-colours/). For example:
+```{python}
+#| eval: false
+from afcharts.af_colours import get_af_colours
+
+# Get the categorical palette hex codes
+cat = get_af_colours("categorical")
+
+# Get the sequential palette hex codes
+seq = get_af_colours("sequential")
+```
+
+See the [available colour palettes](04-colour-palettes.qmd#available-colour-palettes) and more information on using afcharts colours in [Colours](04-colour-palettes.qmd).
+
+Pass the list of colours to your plotting function as demonstrated in [Matplotlib examples](01-matplotlib-usage.qmd), [Plotly examples](03-plotly-usage.qmd) and the examples below.
+
 ## Matplotlib
 afcharts includes a Matplotlib style sheet that automatically applies most of the formatting recommended by the Analysis Function guidance.
 
@@ -61,8 +79,10 @@ See [Matplotlib examples](01-matplotlib-usage.qmd) for many more examples.
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import the categorical palette
-from afcharts.assets.af_colours import main
+from afcharts.af_colours import get_af_colours
+
+# Get the categorical colour palette
+categorical = get_af_colours("categorical")
 
 # Load gapminder dataset from plotly
 from plotly.express.data import gapminder
@@ -76,7 +96,7 @@ plt.style.use("afcharts.afcharts")
 fig = plt.figure(figsize = (8.5, 4.8))
 
 for i, (country, data) in enumerate(df.groupby("country")):
-    plt.plot(data["year"], data["lifeExp"], label=country, color=main[i])
+    plt.plot(data["year"], data["lifeExp"], label=country, color=categorical[i])
 
 plt.xlim([1950, 2010])
 plt.ylim([0, 85])
@@ -166,12 +186,14 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
 from afcharts.pio_template import pio
-from afcharts.assets.af_colours import main
+from afcharts.af_colours import get_af_colours
 
 # Set default theme
 pio.templates.default = "theme_af"
+
+# Get the categorical colour palette
+categorical = get_af_colours("categorical")
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -191,7 +213,7 @@ for i, country in enumerate(df["country"].unique()):
             mode="lines",
             name=country,
             text=df_country["country"],
-            line=dict(color=main[i]),
+            line=dict(color=categorical[i]),
         )
     )
 
