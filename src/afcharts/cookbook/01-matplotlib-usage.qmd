@@ -5,7 +5,6 @@
 
 ```{python}
 #| output: false
-import pandas as pd
 import matplotlib.pyplot as plt
 
 from plotly.express.data import gapminder
@@ -46,7 +45,6 @@ This line chart uses the afcharts theme. There are pale grey grid lines extendin
 
 ```{python}
 #| output: false
-import pandas as pd
 import matplotlib.pyplot as plt
 
 # Import the duo palette
