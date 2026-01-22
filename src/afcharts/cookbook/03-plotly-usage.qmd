@@ -64,7 +64,7 @@ fig.update_layout(
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
-        dtick=20,  # Show ticks every 20 units
+        dtick=10,  # Show ticks every 20 units
     ),
     showlegend=False,
     height=300,
@@ -155,7 +155,7 @@ fig.update_layout(
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
-        dtick=20,  # Show ticks every 20 units
+        dtick=10,  # Show ticks every 20 units
     ),
     showlegend=False,
     height=300,
