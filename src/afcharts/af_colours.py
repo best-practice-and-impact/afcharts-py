@@ -3,9 +3,9 @@
 #   data-visualisation-colours-in-charts/
 # Py-af-colours source: https://github.com/best-practice-and-impact/py-af-colours
 
-import warnings
-import yaml
 from pathlib import Path
+
+import yaml
 
 
 def get_af_colours(
@@ -63,51 +63,30 @@ def get_af_colours(
 
     if palette not in ["categorical", "duo", "sequential", "focus"]:
         raise ValueError(
-            "palette value of "
-            + palette
-            + " is incorrect, must be categorical, duo, sequential, "
-            + "or focus as a string."
+            "palette must be one of 'categorical', 'duo', 'sequential' " +
+            f"or 'focus', not {palette}."
         )
-    if colour_format.lower() not in ["hex", "rgb"]:
+    if colour_format not in ["hex", "rgb"]:
         raise ValueError(
-            "colour_format value of "
-            + colour_format
-            + " is incorrect, must be hex or rgb as a string."
-        )
+            f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
+
     if number_of_colours < 1:
-        raise ValueError("Choose a number of colours greater than 0.")
+        raise ValueError("number_of_colours must be greater than 0.")
 
     elif palette == "sequential":
         chosen_colours_list = sequential_colours(sequential_hex_list, colour_format)
-        warnings.warn(
-            "This palette should only be used for sequential "
-            + "data. For bar charts, please ensure bars have a "
-            + "dark blue outline (hex code #12436D).",
-            stacklevel=2,
-        )
+
     elif palette == "focus":
         chosen_colours_list = focus_colours(focus_hex_list, colour_format)
-        warnings.warn(
-            "This palette should only be used to highlight "
-            + "specific elements to help users understand the "
-            + "information.",
-            stacklevel=2,
-        )
 
     elif palette == "duo":
         chosen_colours_list = duo_colours(duo_hex_list, colour_format)
+
     elif palette == "categorical":
         chosen_colours_list = categorical_colours(
             categorical_hex_list, duo_hex_list, colour_format, number_of_colours
         )
 
-    if len(chosen_colours_list) > 4:
-        warnings.warn(
-            "It is best practice to limit graphs to four "
-            + "categories where possible to avoid graphs "
-            + "becoming cluttered.",
-            stacklevel=2,
-        )
     return chosen_colours_list
 
 
@@ -146,18 +125,25 @@ def categorical_colours(
         categorical_colours_list
 
     """
+
     if number_of_colours > 6:
         raise ValueError(
             "number_of_colours must not be more than 6 for the categorical palette."
         )
+
     if number_of_colours == 2:
         categorical_colours_list = duo_colours(duo_hex_list, colour_format)
         return categorical_colours_list
 
     elif colour_format == "hex":
         full_categorical_colours_list = categorical_hex_list
+
     elif colour_format == "rgb":
         full_categorical_colours_list = hex_to_rgb(categorical_hex_list)
+
+    else:
+        raise ValueError(
+            f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
     categorical_colours_list = full_categorical_colours_list[0:number_of_colours]
 
@@ -190,6 +176,9 @@ def duo_colours(duo_hex_list, colour_format="hex"):
         duo_colours_list = duo_hex_list
     elif colour_format == "rgb":
         duo_colours_list = hex_to_rgb(duo_hex_list)
+    else:
+        raise ValueError(
+            f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
     return duo_colours_list
 
@@ -218,6 +207,9 @@ def sequential_colours(sequential_hex_list, colour_format="hex"):
         sequential_colours_list = sequential_hex_list
     elif colour_format == "rgb":
         sequential_colours_list = hex_to_rgb(sequential_hex_list)
+    else:
+        raise ValueError(
+            f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
     return sequential_colours_list
 
@@ -246,6 +238,9 @@ def focus_colours(focus_hex_list, colour_format="hex"):
         focus_colours_list = focus_hex_list
     elif colour_format == "rgb":
         focus_colours_list = hex_to_rgb(focus_hex_list)
+    else:
+        raise ValueError(
+            f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
     return focus_colours_list
 
@@ -271,7 +266,7 @@ def hex_to_rgb(hex_colours):
         converted_list
 
     """
-    if type(hex_colours) != list:
+    if type(hex_colours) is not list:
         raise TypeError("hex_colours must be a list.")
 
     hex_colours_new = [i.lstrip("#") for i in hex_colours]
