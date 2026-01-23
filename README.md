@@ -46,7 +46,7 @@ Example: A [Matplotlib bar chart](https://best-practice-and-impact.github.io/afc
 from afcharts.pio_template import pio
 
 # Apply the afcharts style to all Plotly plots
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 ```
 
 Example: A [Plotly bar chart](https://best-practice-and-impact.github.io/afcharts-py/03-plotly-usage.html#grouped-bar-chart) with afcharts (left) and without (right)
