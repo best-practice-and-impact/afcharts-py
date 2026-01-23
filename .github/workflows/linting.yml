@@ -2,8 +2,7 @@ name: Lint and Type Check
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main, dev]
 
 permissions:
   contents: read
