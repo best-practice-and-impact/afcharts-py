@@ -28,7 +28,7 @@ half_line = base_size / 2
 
 af_chart_feature_colour = "#D6D6D6"
 
-pio.templates["theme_af"] = go.layout.Template(
+pio.templates["afcharts"] = go.layout.Template(
     layout={
         "autosize": True,  # Automatically adjusts the scale of the plot based on it's content
         "annotationdefaults": {
