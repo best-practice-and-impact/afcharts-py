@@ -50,9 +50,7 @@ pio.templates["theme_af"] = go.layout.Template(
                 ::-1
             ]  # reverse to make high = dark  # Sequential colour scale for low to high ranges
         },
-        "colorway": get_af_colours(
-            "categorical"
-        ),  # Sequence of colours to be used in plots
+        "colorway": get_af_colours("categorical"),  # Sequence of colours to be used in plots
         "font": {
             "color": "black",  # Text colour
             "family": afcharts_font,  # Font
@@ -94,7 +92,8 @@ pio.templates["theme_af"] = go.layout.Template(
             "font": {
                 "size": base_size * 1.6,
             },  # Title font size and colour
-            'x': 0, 'xref': 'paper',  # Title alignment
+            "x": 0,
+            "xref": "paper",  # Title alignment
             "pad": {
                 "t": half_line,
                 "l": 0,
@@ -139,10 +138,5 @@ pio.templates["theme_af"] = go.layout.Template(
             "zerolinecolor": af_chart_feature_colour,
         },
     },
-    data={
-        "scatter": [{
-            "marker": {"size": 12},
-            "line": {"width": 2.5}
-        }]
-    }
+    data={"scatter": [{"marker": {"size": 12}, "line": {"width": 2.5}}]},
 )

@@ -11,6 +11,7 @@ for sizes 1 through 6.
 """
 
 import pytest
+
 from afcharts.af_colours import get_af_colours
 
 
@@ -35,6 +36,5 @@ def test_categorical_list_length(palette, colour_format, number_of_colours):
     """
     result = get_af_colours(palette, colour_format, number_of_colours)
     assert len(result) == number_of_colours, (
-        f"Expected {number_of_colours} colours but got {len(result)} for "
-        f"palette='{palette}', format='{colour_format}'"
+        f"Expected {number_of_colours} colours but got {len(result)} for palette='{palette}', format='{colour_format}'"
     )

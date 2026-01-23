@@ -9,6 +9,7 @@ We test this behaviour for both HEX and RGB output formats.
 """
 
 import pytest
+
 from afcharts.af_colours import get_af_colours
 
 
@@ -31,9 +32,7 @@ from afcharts.af_colours import get_af_colours
         ),
     ],
 )
-def test_palette_fallback_to_duo_hex(
-    palette, colour_format, number_of_colours, expected
-):
+def test_palette_fallback_to_duo_hex(palette, colour_format, number_of_colours, expected):
     """
     Test that requesting 2 HEX colours from the categorical palette
     returns the same values as the duo palette (fallback behaviour).
@@ -60,9 +59,7 @@ def test_palette_fallback_to_duo_hex(
         ),
     ],
 )
-def test_palette_fallback_to_duo_rgb(
-    palette, colour_format, number_of_colours, expected
-):
+def test_palette_fallback_to_duo_rgb(palette, colour_format, number_of_colours, expected):
     """
     Test that requesting 2 RGB colours from the categorical palette
     returns the same values as the duo palette (fallback behaviour).
