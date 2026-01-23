@@ -49,15 +49,10 @@ locations and container parameters.
 `dev` branch with a clear description of your changes and a title following the conventional-commit format (see below).
 8. You may merge the Pull/Merge Request in once you have the sign-off of two
 maintainers.
-9. If you are merging `dev` to `main`, you must increment the version number
-by merging the automatically created `release-please` PR, which will also produce the change log for the new version release etc.
-represent. The versioning scheme we use is [SemVer](http://semver.org/).
 
 ### Conventional commit PR titles
 
 When you raise a pull request (PR), please ensure the PR title follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) format (see [guidance gist](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13#examples)).
-
-By using conventional commits, commit logs are easier to read and the [`release-please`](https://github.com/googleapis/release-please) github action workflow can automate building of change logs and tagging and increasing of new version numbers.
 
 The `PR Conventional Commit Semantic Title Check` github workflow check will fail at the bottom of your PR if the title doesn't meet the requirements.
 
@@ -80,12 +75,6 @@ where:
   - `refactor` Commits that rewrite or restructure code without altering codebase behaviour
   - `build` Commits that affect build-related components such as build tools, dependencies, project version, CI/CD pipelines, ...
   - `chore` Miscellaneous commits e.g. modifying `.gitignore`, ...
-
-### Major version number increments
-
-A PR that introduces breaking changes (i.e. affects backwards compatibility) must be indicated by an `!` before the `:` in the subject line e.g. `feat(api)!: change func call signature`.
-This will inform release-please to increment the *major* (e.g. `1.7` -> `2.0`) version number instead of the *minor* version number (e.g. `1.7` -> `1.8`) in the next release.
-Breaking changes should be described in the squash commit footer section, if the commit description isn't sufficiently informative
 
 ## Basic folder structure
 
