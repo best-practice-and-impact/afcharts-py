@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 
 def test_plotly_scatter_chart():

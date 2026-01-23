@@ -137,7 +137,7 @@ To apply the afcharts style to **all** Plotly plots:
 from afcharts.pio_template import pio
 
 # Apply the afcharts style to all Plotly plots
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 ```
 
@@ -152,7 +152,7 @@ import afcharts.pio_template
 fig = go.Figure()
 
 # Apply the afcharts style to this figure only
-fig.update_layout(template="theme_af")
+fig.update_layout(template="afcharts")
 
 ```
 
@@ -167,7 +167,7 @@ import afcharts.pio_template
 df = px.data.gapminder().query("year==2007")
 
 fig = px.scatter(df, x="gdpPercap", y="lifeExp", 
-                 template="theme_af")
+                 template="afcharts")
 
 ```
 
@@ -190,7 +190,7 @@ from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Get the categorical colour palette
 categorical = get_af_colours("categorical")
