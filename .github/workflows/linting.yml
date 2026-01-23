@@ -42,7 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mypy
+          pip install mypy types-PyYAML
 
       - name: Run Mypy
         run: mypy .
