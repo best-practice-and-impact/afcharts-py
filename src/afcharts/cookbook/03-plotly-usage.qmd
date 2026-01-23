@@ -44,16 +44,16 @@ fig.update_layout(
     xaxis=dict(
         showgrid=False,  # Hide x-axis grid lines
         dtick=10,  # Show ticks every 10 units
-        tick0=1952,  # Make axis start at 1952
-        range=[df["year"].min(), df["year"].max()],
+        range=[1950, 2010],
     ),
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
-        dtick=10,  # Show ticks every 20 units
+        dtick=10,  # Show ticks every 10 units
     ),
     showlegend=False,
-    height=420
+    height=400,
+    margin=dict(r=40),
 )
 
 fig.show()
@@ -136,17 +136,16 @@ fig.update_layout(
     xaxis=dict(
         showgrid=False,  # Hide x-axis grid lines
         dtick=10,  # Show ticks every 10 units
-        tick0=1952,  # Make axis start at 1952
-        range=[df["year"].min(), df["year"].max()],
+        range=[1950, 2010],
     ),
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
-        dtick=10,  # Show ticks every 20 units
+        dtick=10,  # Show ticks every 10 units
     ),
     showlegend=False,
     height=350,
-    margin=dict(r=140),
+    margin=dict(r=120),
 )
 
 fig.show()
