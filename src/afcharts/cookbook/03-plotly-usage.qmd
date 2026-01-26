@@ -300,11 +300,10 @@ Caution should be taken when producing stacked bar charts. They can quickly beco
 ```{python}
 # | eval: true
 # | output: false
-
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from pandas import cut
 from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
@@ -318,7 +317,7 @@ duo = get_af_colours("duo")
 df = px.data.gapminder().query("year == 2007")
 
 # Create life expectancy groups
-df['lifeExpGrouped'] = cut(
+df['lifeExpGrouped'] = pd.cut(
     df['lifeExp'],
     bins=[0, 75, float('inf')],
     labels=["Under 75", "75 and over"]
@@ -547,7 +546,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from pandas import cut
 from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
@@ -561,7 +559,7 @@ duo = get_af_colours("duo")
 df = px.data.gapminder().query("continent == 'Europe' and year == 2007")
 
 # Create life expectancy groups
-df['lifeExpGrouped'] = cut(
+df['lifeExpGrouped'] = pd.cut(
     df['lifeExp'],
     bins=[0, 75, float('inf')],
     labels=["Under 75", "75 and over"]
