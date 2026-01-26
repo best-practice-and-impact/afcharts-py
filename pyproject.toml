@@ -29,9 +29,26 @@ requires-python = ">=3.10"
 dependencies = [ # install package dependencies with $ uv sync
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
-    "seaborn>=0.13.2",
     "typeguard>=4.4.4",
     'PyYAML >= 5.0',
+]
+
+[project.optional-dependencies]
+dev = [ # package developer dependencies are installed by default with $ uv sync
+    "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
+    "mypy>=1.15.0",      # Mypy static type checker/linter
+    "types-PyYAML",      # type stub package used by mypy to check code that uses PyYAML
+    "pre-commit>=3.8.0", # Used to run pre-commit hook linting and formatting checks
+    "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
+    "pandas>=2.2.2",     # Used extensively to manipulate tabular data
+    "ipykernel",         # For rendering Quarto
+    "nbclient",          # For rendering Quarto
+]
+test = [ # package testing dependencies are installed by default with $ uv sync
+    "pytest>=8.2.2",       # Unit/regression testing etc.
+    "pytest-cov>=5.0.0",   # Test code coverage
+    "pytest-mock",         # Mock wrapper for unit tests
+    "pytest-sugar>=1.0.0", # Prettier pytest terminal output
 ]
 
 [dependency-groups]
