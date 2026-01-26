@@ -69,10 +69,6 @@ test = [ # package testing dependencies are installed by default with $ uv sync
     "pytest-mock",         # Mock wrapper for unit tests
     "pytest-sugar>=1.0.0", # Prettier pytest terminal output
 ]
-docs = [ # install package docs dependencies with $ uv sync --group docs
-    "mkdocs",          # Language agnostic docs building tool (alternative to Sphinx)
-    "mkdocs-material", # Theme for mkdocs
-]
 
 [project.urls]
 "Homepage" = "https://github.com/best-practice-and-impact/afcharts-py"
