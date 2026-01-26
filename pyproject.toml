@@ -93,7 +93,7 @@ where = ["src"]                                # Packages are located in src/ to
 exclude = ["docs*", "Documentation*", "build"]
 
 [tool.setuptools.package-data]
-afcharts = ["*.mplstyle"]
+afcharts = ["*.mplstyle", "config/af_colours.yaml"]
 
 [tool.ruff]
 line-length = 120
