@@ -39,33 +39,21 @@ fig.add_trace(
 last_year = df["year"].max()
 last_lifeExp = df[df["year"] == last_year]["lifeExp"].values[0]
 
-fig.add_annotation(
-    dict(
-        x=last_year,
-        y=last_lifeExp,
-        text="United Kingdom",
-        showarrow=False,
-        xanchor="left",
-        yanchor="middle",
-    )
-)
-
 # Update layout
 fig.update_layout(
     xaxis=dict(
         showgrid=False,  # Hide x-axis grid lines
         dtick=10,  # Show ticks every 10 units
-        tick0=1952,  # Make axis start at 1952
-        range=[df["year"].min(), df["year"].max()],
+        range=[1950, 2010],
     ),
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
-        dtick=20,  # Show ticks every 20 units
+        dtick=10,  # Show ticks every 10 units
     ),
     showlegend=False,
-    height=300,
-    margin=dict(r=140),
+    height=400,
+    margin=dict(r=40),
 )
 
 fig.show()
@@ -140,6 +128,7 @@ for i, country in enumerate(df["country"].unique()):
             showarrow=False,
             xanchor="left",
             yanchor="middle",
+            bgcolor="white",  # Add a white background
         )
     )
 
@@ -148,17 +137,16 @@ fig.update_layout(
     xaxis=dict(
         showgrid=False,  # Hide x-axis grid lines
         dtick=10,  # Show ticks every 10 units
-        tick0=1952,  # Make axis start at 1952
-        range=[df["year"].min(), df["year"].max()],
+        range=[1950, 2010],
     ),
     yaxis=dict(
         range=[0, 82],
         tickmode="linear",
-        dtick=20,  # Show ticks every 20 units
+        dtick=10,  # Show ticks every 10 units
     ),
     showlegend=False,
-    height=300,
-    margin=dict(r=140),
+    height=350,
+    margin=dict(r=120),
 )
 
 fig.show()
@@ -212,7 +200,9 @@ fig.add_trace(
 )
 
 # Update layout
-fig.update_layout(height=300)
+fig.update_layout(
+    height=420
+)
 
 fig.show()
 ```
@@ -272,9 +262,15 @@ for i, year in enumerate(sorted(df["year"].unique())):
 
 # Update layout
 fig.update_layout(
-    barmode="group",
-    height=300,
-    legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5),
+    barmode='group',
+    height=420,
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5
+    ),
 )
 
 fig.show()
@@ -304,7 +300,6 @@ Caution should be taken when producing stacked bar charts. They can quickly beco
 ```{python}
 # | eval: true
 # | output: false
-
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -322,8 +317,10 @@ duo = get_af_colours("duo")
 df = px.data.gapminder().query("year == 2007")
 
 # Create life expectancy groups
-df["lifeExpGrouped"] = pd.cut(
-    df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75+"]
+df['lifeExpGrouped'] = pd.cut(
+    df['lifeExp'],
+    bins=[0, 75, float('inf')],
+    labels=["Under 75", "75 and over"]
 )
 
 # Group by continent and life expectancy group
@@ -339,9 +336,9 @@ pivot_df = grouped.pivot(
 ).fillna(0)
 pivot_df["total"] = pivot_df.sum(axis=1)
 pivot_df["percent of Under 75"] = pivot_df["Under 75"] / pivot_df["total"]
-pivot_df["percent of 75+"] = pivot_df["75+"] / pivot_df["total"]
+pivot_df["percent of 75 and over"] = pivot_df["75 and over"] / pivot_df["total"]
 
-categories = ["Under 75", "75+"]
+categories = ["Under 75", "75 and over"]
 
 fig = go.Figure()
 
@@ -362,7 +359,7 @@ for i, category in enumerate(categories):
 # Update layout
 fig.update_layout(
     barmode="stack",
-    height=300,
+    height=420,
     yaxis=dict(tickformat=".0%"),
     legend=dict(
         title="Life Expectancy",
@@ -433,7 +430,7 @@ fig.update_layout(
         title="GDP per capita ($US, inflation-adjusted)",
     ),
     yaxis=dict(title="Life Expectancy (years)"),
-    height=300,
+    height=420,
 )
 
 fig.show()
@@ -562,35 +559,31 @@ duo = get_af_colours("duo")
 df = px.data.gapminder().query("continent == 'Europe' and year == 2007")
 
 # Create life expectancy groups
-df["lifeExpGrouped"] = pd.cut(
-    df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75+"]
+df['lifeExpGrouped'] = pd.cut(
+    df['lifeExp'],
+    bins=[0, 75, float('inf')],
+    labels=["Under 75", "75 and over"]
 )
 
 # Count number of countries in each group
 group_counts = df["lifeExpGrouped"].value_counts().sort_index()
 
 fig = go.Figure(
-    data=[
-        go.Pie(
-            labels=group_counts.index,
-            values=group_counts.values,
-            marker=dict(colors=duo, line=dict(color="white", width=2)),
-            sort=False,
-        )
-    ]
+    data=[go.Pie(
+        labels=group_counts.index,
+        values=group_counts.values,
+        marker=dict(colors=duo, line=dict(color='white', width=2)),
+        sort=False,
+        textinfo='label+percent',
+        textposition='inside',
+        texttemplate='%{label}<br>(%{percent:.0%})'
+    )]
 )
 
 # Update layout
 fig.update_layout(
     height=400,
-    legend=dict(
-        title="Life Expectancy",
-        orientation="h",
-        yanchor="top",
-        y=-0.05,
-        xanchor="center",
-        x=0.5,
-    ),
+    showlegend=False
 )
 
 fig.show()
@@ -653,7 +646,9 @@ fig.add_trace(
 )
 
 # Update layout
-fig.update_layout(height=300)
+fig.update_layout(
+    height=420
+)
 
 fig.show()
 ```
