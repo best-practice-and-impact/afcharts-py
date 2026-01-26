@@ -7,7 +7,7 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Get the duo colour palette
 duo = get_af_colours("duo")

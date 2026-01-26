@@ -15,7 +15,7 @@ import plotly.graph_objects as go
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -89,7 +89,7 @@ from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Get the duo colour palette
 duo = get_af_colours("duo")
@@ -183,7 +183,7 @@ import plotly.graph_objects as go
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
@@ -237,7 +237,7 @@ from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Get the duo colour palette
 duo = get_af_colours("duo")
@@ -308,7 +308,7 @@ from afcharts.pio_template import pio
 from afcharts.af_colours import get_af_colours
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Get the duo colour palette
 duo = get_af_colours("duo")
@@ -404,7 +404,7 @@ import plotly.graph_objects as go
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -466,7 +466,7 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder()
@@ -550,7 +550,7 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Get the duo colour palette
 duo = get_af_colours("duo")
@@ -621,7 +621,7 @@ from afcharts.pio_template import pio
 focus = get_af_colours("focus")
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
 
 # Load the gapminder dataset from plotly.express
 df = px.data.gapminder().query("year == 2007 & continent == 'Americas'")
