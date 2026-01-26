@@ -27,7 +27,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install jupyter nbformat notebook ipykernel matplotlib seaborn plotly
+          pip install jupyter nbformat notebook ipykernel matplotlib plotly
 
       - name: Install afcharts package
         run: pip install -e .
