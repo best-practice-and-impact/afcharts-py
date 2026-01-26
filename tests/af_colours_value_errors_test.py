@@ -13,6 +13,7 @@ invalid user input.
 """
 
 import pytest
+
 from afcharts.af_colours import get_af_colours
 
 

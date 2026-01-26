@@ -2,8 +2,7 @@ name: Lint and Type Check
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main, dev]
 
 permissions:
   contents: read
@@ -43,7 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mypy
+          pip install mypy types-PyYAML
 
       - name: Run Mypy
         run: mypy .
