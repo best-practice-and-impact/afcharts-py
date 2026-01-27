@@ -1,0 +1,86 @@
+
+name: Publish to PyPI or TestPyPI
+
+# Runs only when you officially publish a release
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install build tools
+        run: |
+          pip install build
+
+      - name: Build package
+        run: |
+          python3 -m build
+
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v5
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  publish-to-testpypi:
+    if: ${{ github.event.release.target_commitish != 'main' }}
+    name: Publish Python 🐍 distribution 📦 to TestPyPI via Trusted Publisher (no token)
+    needs:
+      - build-package
+    runs-on: ubuntu-latest
+
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/afcharts
+
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing (OIDC)
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v6
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distribution to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          repository-url: https://test.pypi.org/legacy/
+
+  publish-to-pypi:
+    if: ${{ github.event.release.target_commitish == 'main' }}
+    name: Publish Python 🐍 distribution 📦 to PyPI via Trusted Publisher (no token)
+    needs:
+      - build-package
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/afcharts  # Replace <package-name> with your PyPI project name
+
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing (OIDC)
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v6
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true

@@ -1,0 +1,28 @@
+---
+description-meta: |
+  This cookbook will teach you how to work with the afcharts Python package.
+---
+
+::: {.content-visible when-format="html"}
+# Welcome {.unnumbered}
+<img src="./assets/logo.svg" alt="afcharts logo" style="float: right; height: 150px;">
+
+The afcharts python package helps make accessible Matplotlib and Plotly charts that meet [Government Analysis Function best practice](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/).
+
+This cookbook includes a [Getting Started](getting-started.qmd) guide and example code for various chart types in [Matplotlib](01-matplotlib-usage.qmd) and [Plotly](03-plotly-usage.qmd).
+
+Visit the [GitHub repository](https://github.com/best-practice-and-impact/afcharts-py) to submit a question or suggestion via the Discussion or Issues pages.
+
+::: {.callout-tip}
+Looking for the afcharts R package? Check out [afcharts](https://best-practice-and-impact.github.io/afcharts/)
+:::
+
+# Package features
+
+- **Automatic chart formatting** with pre-built style sheets for Matplotlib and Plotly. These set a variety of chart properties to meet the Analysis Function accessibility guidance for charts, such as fonts, axes and grid lines.
+- **Chart colours** from the Analysis Function [accessible colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/#section-4) for data visualisation. These palettes were designed with experts to maximise clarity and accessibility.
+- **Example code for common chart types** such as line charts, bar charts, scatterplots and small multiples. Re-use these code snippets for your own charts to save time and repeat best practices.
+
+Accessibility note: Alternative text for all example charts can be found in the body text directly beneath each example.
+
+:::

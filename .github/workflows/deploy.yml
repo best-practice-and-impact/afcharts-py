@@ -1,0 +1,77 @@
+name: Render and Deploy Quarto Cookbook
+
+on:
+  # This allows it to be triggered for testing. Should delete in final version?
+  
+  workflow_dispatch:
+  push:
+    branches: [main, dev]
+
+jobs:
+  render-cookbook:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyter nbformat notebook ipykernel matplotlib plotly
+
+      - name: Install afcharts package
+        run: pip install -e .
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render Quarto project
+        run: quarto render ./src/afcharts/cookbook
+
+      - name: Upload rendered site
+        uses: actions/upload-artifact@v4
+        with:
+          name: cookbook-site
+          path: ./src/afcharts/cookbook/docs
+
+  deploy:
+    needs: render-cookbook
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download rendered site
+        uses: actions/download-artifact@v4
+        with:
+          name: cookbook-site
+          path: ./site
+
+      - name: Upload artifact to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+  
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

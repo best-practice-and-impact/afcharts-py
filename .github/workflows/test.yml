@@ -2,7 +2,7 @@
 name: Test
 on:
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 permissions: read-all
 
@@ -29,7 +29,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           if [ -f requirements_test.txt ]; then python3 -m pip install -r requirements_test.txt; fi
-          if [ -f pyproject.toml ]; then python3 -m pip install .[test]; fi
+          if [ -f pyproject.toml ]; then python3 -m pip install . --group test; fi
 
       - name: Run tests with pytest
         run: |-
