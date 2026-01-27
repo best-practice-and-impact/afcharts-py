@@ -1,5 +1,5 @@
 
-# afcharts-py <img src="docs/images/logo.svg" alt="afcharts logo" align="right" height="150"/>
+# afcharts-py <img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/logo.svg" alt="afcharts logo" align="right" height="150"/>
 
 ## Overview
 
@@ -11,7 +11,7 @@ The afcharts python package helps make accessible Matplotlib and Plotly charts f
 
 Looking for the R version? Check out the [afcharts R package](https://best-practice-and-impact.github.io/afcharts/).
 
-<img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="28.1%" alt="A grouped bar chart in afcharts style showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/scatterplot-matplotlib_afcharts.png" width="30%" alt="A scatterplot in afcharts style showing life expectancy against GDP per capita for 142 countries in 2007."/> <img src="docs/images/example_charts/line_chart-matplotlib_afcharts.png" width="37.5%" alt="A line chart in afcharts style showing life expectancy in China and the UK from 1952 to 2007"/>
+<img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="28.1%" alt="A grouped bar chart in afcharts style showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/scatterplot-matplotlib_afcharts.png" width="30%" alt="A scatterplot in afcharts style showing life expectancy against GDP per capita for 142 countries in 2007."/> <img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/line_chart-matplotlib_afcharts.png" width="37.5%" alt="A line chart in afcharts style showing life expectancy in China and the UK from 1952 to 2007"/>
 
 ## Installation
 
@@ -38,7 +38,7 @@ plt.style.use('afcharts.afcharts')
 
 Example: A [Matplotlib bar chart](https://best-practice-and-impact.github.io/afcharts-py/01-matplotlib-usage.html#grouped-bar-chart) with afcharts (left) and without (right)
 
-<img src="docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/bar_chart-matplotlib_default.png" width="34.7%" alt="Grouped bar chart (default Matplotlib) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, orange for 2007."/>
+<img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/bar_chart-matplotlib_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/bar_chart-matplotlib_default.png" width="34.7%" alt="Grouped bar chart (default Matplotlib) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, orange for 2007."/>
 
 ### Plotly
 
@@ -51,7 +51,7 @@ pio.templates.default = "afcharts"
 
 Example: A [Plotly bar chart](https://best-practice-and-impact.github.io/afcharts-py/03-plotly-usage.html#grouped-bar-chart) with afcharts (left) and without (right)
 
-<img src="docs/images/example_charts/bar_chart-plotly_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="docs/images/example_charts/bar_chart-plotly_default.png" width="35%" alt="Grouped bar chart (default Plotly) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, red for 2007."/>
+<img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/bar_chart-plotly_afcharts.png" width="35%" alt="Grouped bar chart (afcharts style) showing life expectancy in 1967 and 2007 for four countries. Bars use Analysis Function palette: dark blue for 1967, orange for 2007."/> <img src="https://github.com/best-practice-and-impact/afcharts-py/raw/main/docs/images/example_charts/bar_chart-plotly_default.png" width="35%" alt="Grouped bar chart (default Plotly) showing life expectancy in 1967 and 2007 for four countries. Bars: blue for 1967, red for 2007."/>
 
 ### Colours
 
