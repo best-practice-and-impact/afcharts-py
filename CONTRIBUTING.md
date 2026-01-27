@@ -142,7 +142,7 @@ This should display `(afcharts)` at the start of your terminal prompt, showing t
 If you don't want to use `uv`, the package can be installed in developer (editable) mode from the root directory of the repository with:
 
 ```bash
-pip install -e .[dev,test]
+pip install -e . --group test --group dev
 ```
 
 This assumes you already have a python virtual environment set up with your preferred tool (`conda`/`virtualenv`/`uv` etc.).
