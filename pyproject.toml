@@ -26,7 +26,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 
-dependencies = [ # install package dependencies with $ uv sync
+dependencies = [ # required dependencies
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "typeguard>=4.4.4",
@@ -34,7 +34,7 @@ dependencies = [ # install package dependencies with $ uv sync
 ]
 
 [dependency-groups]
-dev = [ # package developer dependencies are installed by default with $ uv sync
+dev = [ # package developer dependencies
     "ipython>=8.26.0",   # Installing ipython will enable colourised console output/tracebacks
     "mypy>=1.15.0",      # Mypy static type checker/linter
     "types-PyYAML",      # type stub package used by mypy to check code that uses PyYAML
@@ -42,15 +42,18 @@ dev = [ # package developer dependencies are installed by default with $ uv sync
     "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
     "pandas>=2.2.2",     # Used to manipulate tabular data
     "afcharts",          # Install current package in developer mode as workspace package
-    "ipykernel",         # For rendering Quarto
-    "nbclient",          # For rendering Quarto
 ]
-test = [ # package testing dependencies are installed by default with $ uv sync
-    "pandas>=2.2.2",     # Used to manipulate tabular data
+test = [ # package unit testing dependencies
+    "pandas>=2.2.2",       # Used to manipulate tabular data
     "pytest>=8.2.2",       # Unit/regression testing etc.
     "pytest-cov>=5.0.0",   # Test code coverage
     "pytest-mock",         # Mock wrapper for unit tests
     "pytest-sugar>=1.0.0", # Prettier pytest terminal output
+]
+docs = [ # cookbook dependencies
+    "ipykernel",         # For rendering Quarto
+    "nbclient",          # For rendering Quarto
+    "pandas>=2.2.2",     # Used to manipulate tabular data
 ]
 
 [project.urls]
@@ -63,7 +66,8 @@ test = [ # package testing dependencies are installed by default with $ uv sync
 default-groups = [
     "dev",
     "test",
-] # `uv sync` will also install dev and test dependencies by default
+    "docs",
+] # `uv sync` will all install dependencies by default
 
 [tool.uv.sources]
 afcharts = { workspace = true } # Install as editable package (developer mode like pip install -e .)
