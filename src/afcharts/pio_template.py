@@ -138,5 +138,5 @@ pio.templates["afcharts"] = go.layout.Template(
             "zerolinecolor": af_chart_feature_colour,
         },
     },
-    data={"scatter": [{"marker": {"size": 12}, "line": {"width": 2.5}}]},
+    data={"scatter": [{"marker": {"size": 8}, "line": {"width": 2.5}}]},
 )

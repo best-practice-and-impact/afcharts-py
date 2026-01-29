@@ -483,7 +483,6 @@ df_grouped = (
 # Define the continents to plot
 continents = df_grouped["continent"].unique()
 
-
 # Create a 2x2 subplot layout
 fig = make_subplots(rows=2, cols=2, subplot_titles=continents, shared_yaxes=True)
 
@@ -517,7 +516,10 @@ fig.update_yaxes(
 )
 
 # Update layout
-fig.update_layout(height=550)
+fig.update_layout(
+    height=550,
+    margin=dict(t=30),
+    )
 
 fig.show()
 
