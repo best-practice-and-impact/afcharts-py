@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
   push:
-    branches: [main, dev]
+    branches: [main]
 
 jobs:
   render-cookbook:
@@ -24,13 +24,10 @@ jobs:
         with:
           python-version: '3.12'
       
-      - name: Install Python dependencies
+      - name: Install afcharts and dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install jupyter nbformat notebook ipykernel matplotlib plotly
-
-      - name: Install afcharts package
-        run: pip install -e .
+          pip install -e . --group docs
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
