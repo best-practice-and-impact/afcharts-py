@@ -1,0 +1,47 @@
+## Other customisations
+## Sorting a bar chart
+
+To control the order of bars in a bar chart, use the .sort_values() method on the data object before plotting. Pass the name or list of names that you would like to sort by and specify whether ascending (True, default) or descending (False). In this below example, the data is sorted on "pop" and ascending is set to True so that the bars are displayed in ascending order of population.
+
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+# Load gapminder data from plotly
+df = px.data.gapminder()
+
+# Filter for Americas in 2007 and get top 5 by population
+pop_bar_data = df[(df["year"] == 2007) & (df["continent"] == "Americas")]
+pop_bar_data = pop_bar_data.nlargest(5, "pop").sort_values("pop", ascending=True) #Sort by population in ascending order
+
+plt.style.use("afcharts.afcharts")
+
+fig = plt.figure(figsize=(8, 5))
+plt.barh(
+    pop_bar_data["country"],
+    pop_bar_data["pop"] / 1e6,  # Convert to millions
+)
+
+plt.gca().set_axisbelow(True) # Ensure gridlines appear at the back of the graph
+plt.xlim(0, 300)
+plt.xticks([0, 100, 200, 300])
+
+plt.show()
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas, sorted in ascending order by population. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
+</div>
