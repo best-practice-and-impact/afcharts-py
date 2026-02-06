@@ -3,12 +3,14 @@ import os
 import plotly.express as px
 import plotly.graph_objects as go
 
-# AF Package
-from afcharts.assets.af_colours import duo
+from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Set default theme
-pio.templates.default = "theme_af"
+pio.templates.default = "afcharts"
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
 
 
 def test_plotly_line_chart():

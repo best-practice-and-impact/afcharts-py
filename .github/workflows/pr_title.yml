@@ -20,6 +20,7 @@ jobs:
             refactor
             perf
             test
+            build
           requireScope: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

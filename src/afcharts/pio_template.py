@@ -1,13 +1,7 @@
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from afcharts.assets.af_colours import (
-    af_colour_values,
-    diverging,
-    main,
-    sequential,
-    sequential_minus,
-)
+from afcharts.af_colours import get_af_colours
 
 # References:
 # https://plotly.com/python/templates/
@@ -32,7 +26,9 @@ base_rect_size = base_size / 24
 # instead.
 half_line = base_size / 2
 
-pio.templates["theme_af"] = go.layout.Template(
+af_chart_feature_colour = "#D6D6D6"
+
+pio.templates["afcharts"] = go.layout.Template(
     layout={
         "autosize": True,  # Automatically adjusts the scale of the plot based on it's content
         "annotationdefaults": {
@@ -44,17 +40,17 @@ pio.templates["theme_af"] = go.layout.Template(
         "coloraxis": {
             "colorbar": {  # Bar chart colours
                 "outlinewidth": 0,  # Width of the outline around the color bar
-                "tickcolor": af_colour_values["chart_features"],  # Bar chart tick colour
+                "tickcolor": af_chart_feature_colour,  # Bar chart tick colour
                 "ticklen": half_line / 2,  # Bar chart tick length
                 "ticks": "outside",  # Bar chart tick position
             }
         },
         "colorscale": {
-            "sequential": sequential,  # Sequential colour scale for low to high ranges
-            "sequentialminus": sequential_minus,  # Sequential palette for negatives
-            "diverging": diverging,  # Diverging colour scale
+            "sequential": get_af_colours("sequential")[
+                ::-1
+            ]  # reverse to make high = dark  # Sequential colour scale for low to high ranges
         },
-        "colorway": main,  # Sequence of colours to be used in plots
+        "colorway": get_af_colours("categorical"),  # Sequence of colours to be used in plots
         "font": {
             "color": "black",  # Text colour
             "family": afcharts_font,  # Font
@@ -81,8 +77,6 @@ pio.templates["theme_af"] = go.layout.Template(
         },
         "hovermode": "x unified",  # How hovering affects the display
         # x unified shows info for all the data at that point in the x-axis
-        "paper_bgcolor": "rgba(0,0,0,0)",  # Makes paper (entire area) background transparent
-        "plot_bgcolor": "rgba(0,0,0,0)",  # Makes plot area transparent
         "margin": {  # Set margins around the plot area in pixels
             "l": half_line,  # Left margin
             "r": half_line,  # Right margin
@@ -94,24 +88,25 @@ pio.templates["theme_af"] = go.layout.Template(
         "uniformtext_mode": "hide",  # Controls visibility of text based on size then the
         # text will be hidden - hide means that if a text element's size falls below the "uniformtext_minsize"
         "title": {
-            "automargin": True,
             "text": None,
             "font": {
                 "size": base_size * 1.6,
             },  # Title font size and colour
+            "x": 0,
+            "xref": "paper",  # Title alignment
             "pad": {
-                "t": half_line * 2,
-                "l": half_line * 2,
-                "r": half_line * 2,
-                "b": half_line * 2,
+                "t": half_line,
+                "l": 0,
+                "r": half_line,
+                "b": half_line,
             },  # Padding above and below title
         },
         "xaxis": {  # Configures the x-axis
             "automargin": True,  # Automatically adjust margins on axes to fit the content
-            "gridcolor": af_colour_values["chart_features"],  # Grid lines colours
-            "linecolor": af_colour_values["chart_features"],  # Axes line colour
+            "gridcolor": af_chart_feature_colour,  # Grid lines colours
+            "linecolor": af_chart_feature_colour,  # Axes line colour
             "linewidth": 1,
-            "tickcolor": af_colour_values["chart_features"],  # Tick mark colours
+            "tickcolor": af_chart_feature_colour,  # Tick mark colours
             "tickfont": {
                 "size": base_size,
             },  # Tick label font size
@@ -123,14 +118,14 @@ pio.templates["theme_af"] = go.layout.Template(
             },
             "fixedrange": True,  # Disables zoom and pan, keeps range fixed
             "zeroline": True,  # Makes zeroline visible
-            "zerolinecolor": af_colour_values["chart_features"],  # Zero line colour
+            "zerolinecolor": af_chart_feature_colour,  # Zero line colour
         },
         "yaxis": {  # Configures the y-axis (as with the x-axis above)
             "automargin": True,
-            "gridcolor": af_colour_values["chart_features"],
-            "linecolor": af_colour_values["chart_features"],
+            "gridcolor": af_chart_feature_colour,
+            "linecolor": af_chart_feature_colour,
             "linewidth": 1,
-            "tickcolor": af_colour_values["chart_features"],
+            "tickcolor": af_chart_feature_colour,
             "tickfont": {"size": base_size},
             "tickwidth": 1,
             "ticks": "outside",
@@ -140,7 +135,8 @@ pio.templates["theme_af"] = go.layout.Template(
             },
             "fixedrange": True,
             "zeroline": True,
-            "zerolinecolor": af_colour_values["chart_features"],
+            "zerolinecolor": af_chart_feature_colour,
         },
-    }
+    },
+    data={"scatter": [{"marker": {"size": 8}, "line": {"width": 2.5}}]},
 )

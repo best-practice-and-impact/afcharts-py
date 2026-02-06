@@ -4,27 +4,33 @@ project:
 
 book:
   title: "afcharts-py cookbook"
-  repo-branch: main
+  repo-url: https://github.com/best-practice-and-impact/afcharts-py
+  repo-actions: [source, issue]
   favicon: ./assets/logo.svg
   description: | 
-    afcharts-py is a Python package for creating accessible charts following Government Analysis Function best practice
-  page-footer: "Find afcharts-py on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
+    Python charts in the Analysis Function style
+  page-footer: "Find the afcharts python package on [GitHub](https://github.com/best-practice-and-impact/afcharts-py)."
+  sidebar:
+    tools:
+      - icon: bar-chart-line-fill
+        text: View the Analysis Function Data Visualisation Guidance
+        href: https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/
   chapters:
       - index.qmd
       - text: Getting started
         href: getting-started.qmd
-      - text: Matplotlib usage
+      - text: Matplotlib examples
         href: 01-matplotlib-usage.qmd
-      - text: Seaborn usage
-        href: 02-seaborn-usage.qmd
-      - text: Plotly usage
+      - text: Plotly examples
         href: 03-plotly-usage.qmd
       - text: Colours
         href: 04-colour-palettes.qmd
 
 format:
   html:
-    theme: cosmo
+    theme:
+      - cosmo
+      - custom.scss
     toc: true
     toc-title: "On this page"
     code-link: true
