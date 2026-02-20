@@ -687,3 +687,38 @@ fig
 <div class="chart-alt" id="linechart-1-desc">
 This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data. I dotted horizontal line has been added at 70 years of age, with an annotation to label it.
 </div>
+
+### Wrapping text
+
+If text is too long, it may be cut off or distort the dimensions of the chart. To avoid this, text can be wrapped to multiple lines using the textwrap module. The width argument controls how many characters are allowed on each line before wrapping. Alternatively, you can manually add line breaks (\n) to the text string to control where the text is wrapped.
+
+```{python}
+#| output: false
+import textwrap
+import matplotlib.pyplot as plt
+from plotly.express.data import gapminder
+
+plt.style.use("afcharts.afcharts")
+
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+top5 = df.nlargest(5, "pop")
+
+fig = plt.figure()
+plt.bar(top5["country"], top5["pop"] / 1e6)
+
+plt.title(textwrap.fill(
+    "The U.S.A. is the most populous country in the Americas by a wide margin",
+    width=40,
+))
+plt.ylabel("Population\nin millions")
+
+fig
+```
+
+
+```{python}
+#| echo: false
+
+fig
+
+```
