@@ -295,6 +295,49 @@ fig
 This histogram uses the afcharts theme, and shows the distribution of life expectancy by number of countries. There are pale grey grid lines extending out from the y axis. The bars are dark blue with white space between each.
 </div>
 
+## Historgrams
+
+```{python}
+
+#| output: false
+import matplotlib.pyplot as plt
+from plotly.express.data import gapminder
+
+# Set default theme
+plt.style.use("afcharts.afcharts")
+
+# Filter for year 2007
+df = gapminder().query("year == 2007")
+
+fig = plt.figure()
+
+plt.hist(
+    df["lifeExp"],
+    bins=range(int(df["lifeExp"].min()), int(df["lifeExp"].max()) + 5, 5),
+    edgecolor="white"
+)
+
+plt.xlabel(None)
+plt.ylabel("Number of countries")
+
+fig
+```
+
+<div class="chart-title">How life expectancy varies</div>
+<div class="chart-subtitle">Distribution of life expectancy, 2007</div>
+<div class="chart" aria-describedby="histogram-1-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div> 
+<div class="chart-source">Source: Gapminder</div>
+ <div class="chart-alt" id="histogram-1-desc"> This histogram uses the afcharts theme, and shows the distribution of life expectancy across countries in 2007. The x-axis shows life expectancy in 5-year bins, and the y-axis shows the number of countries. The bars are dark blue with white edges separating each bin. Pale grey grid lines extend out from the y-axis. </div> 
+
 ## Scatterplots
 
 ```{python}
