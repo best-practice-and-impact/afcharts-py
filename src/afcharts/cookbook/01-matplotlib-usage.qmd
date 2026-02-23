@@ -540,7 +540,7 @@ fig
 
 </div>
 <div class="chart-source">Source: Gapminder</div>
-<div class="chart-alt">
+<div class="chart-alt" id="focus-desc">
 This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
 </div>
 
@@ -576,6 +576,7 @@ fig
 
 <div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
 <div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="sortbar-desc">
 
 ```{python}
 #| echo: false
@@ -584,9 +585,9 @@ fig
 
 ```
 
-
+</div>
 <div class="chart-source">Source: Gapminder</div>
-<div class="chart-alt">
+<div class="chart-alt" id="sortbar-desc">
 This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas, sorted in ascending order by population. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
 </div>
 
@@ -623,7 +624,7 @@ fig
 
 <div class="chart-title">Living Longer</div>
 <div class="chart-subtitle">Life expectancy in the United Kingdom 1952 to 2007</div>
-<div class="chart" aria-describedby="linechart-1-desc">
+<div class="chart" aria-describedby="hline-desc">
 
 ```{python}
 #| echo: false
@@ -634,13 +635,15 @@ fig
 
 </div>
 <div class="chart-source">Source: Gapminder</div>
-<div class="chart-alt" id="linechart-1-desc">
-This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data. I dotted horizontal line has been added at 70 years of age, with an annotation to label it.
+<div class="chart-alt" id="hline-desc">
+This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data. A dotted horizontal line has been added at 70 years of age, with an annotation to label it.
 </div>
 
 ### Wrapping text
 
-If text is too long, it may be cut off or distort the dimensions of the chart. To avoid this, text can be wrapped to multiple lines using the textwrap module. The width argument controls how many characters are allowed on each line before wrapping. Alternatively, you can manually add line breaks using `\n`  to the text string to control where the text is wrapped.
+If text is too long, it may be cut off or distort the dimensions of the chart. To avoid this, text can be wrapped to multiple lines using the `textwrap` module. The width argument controls how many characters are allowed on each line before wrapping. See the figure title below for an example.
+
+Alternatively, you can manually add line breaks by inserting `\n` into the text string to control where the text is wrapped. See the y-axis label in the figure below for an example.
 
 ```{python}
 #| output: false
@@ -660,11 +663,13 @@ plt.title(textwrap.fill(
     "The U.S.A. is the most populous country in the Americas by a wide margin",
     width=40,
 ))
-plt.ylabel("Population\nin millions")
+plt.ylabel("Population\nin millions", rotation=0, labelpad=40)  
 
 fig
 ```
-
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="textwrap-desc">
 
 ```{python}
 #| echo: false
@@ -672,3 +677,9 @@ fig
 fig
 
 ```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="textwrap-desc">
+In this bar chart image, the y-axis label and chart title text have been wrapped onto two lines so that all the text is visible without being cut off.
+</div>
