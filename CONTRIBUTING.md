@@ -84,25 +84,23 @@ afcharts-py/
 ├── .github/                            # Github templates and workflows
 │
 ├── docs/
-│   └── images/                         # Image files
-│
+│   ├── images/                         # Image files
+│   └── cookbook/
+│       ├── _quarto.yml
+│       ├── index.qmd
+│       └── getting-started.qmd
 ├── src/
 │   └── afcharts/                       # Main package folder
 │       ├── __init__.py
 │       ├── pio_template.py             # Plotly template
-│       ├── afcharts.mplstyle           # Matplotlib stylesheet
-│       └── cookbook/
-│           ├── _quarto.yml
-│           └── index.qmd
-│           └── getting-started.qmd
-|
+│       └── afcharts.mplstyle           # Matplotlib stylesheet
 ├── tests/                              # Unit tests
 │
 ├── README.md
 ├── CONTRIBUTING.md
 ├── LICENSE.md
 ├── pyproject.toml
-└── .gitignore
+├── .gitignore
 └── .pre-commit-config.yaml
 ```
 
