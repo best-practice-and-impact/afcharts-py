@@ -163,7 +163,7 @@ See [docs/pytest_intro.md](docs/pytest_intro.md) for guidance on adding unit tes
 You can now reproduce the book (requires quarto to be installed):
 
 ```bash
-quarto preview ./src/afcharts/cookbook/
+quarto preview ./docs/cookbook/
 ```
 
 </details>
