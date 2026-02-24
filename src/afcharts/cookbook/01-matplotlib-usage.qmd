@@ -587,6 +587,56 @@ fig
 This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
 </div>
 
+## Annotations
+
+Annotations can be used to add value labels to a bar chart. Use the `bar_label()` method to add labels to bars in a bar chart. In the example below, the population values are added as white text labels inside the bars.
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+
+# Load gapminder dataset from plotly
+from plotly.express.data import gapminder
+
+# Set default theme
+plt.style.use("afcharts.afcharts")
+
+# Filter for Americas in 2007 and get top 5 by population
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+
+top5 = df.nlargest(5, "pop")
+
+fig, ax = plt.subplots()
+
+bars = ax.bar(
+    top5["country"],
+    top5["pop"] / 1e6,  # Convert to millions
+)
+
+# Add text annotations to top of each bar
+ax.bar_label(bars, labels=[f'{round(val, 1)}' for val in top5["pop"] / 1e6],
+             color='white', padding=-15)
+
+fig
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="barchart-annotated-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="barchart-annotated-desc">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. White text labels are added inside each bar showing the population value in millions. Pale grey grid lines extend out from the y axis.
+</div>
+
 ## Other customisations
 ### Sorting a bar chart
 
