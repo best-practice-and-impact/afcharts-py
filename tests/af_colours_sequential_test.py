@@ -11,6 +11,7 @@ import pytest
 
 from afcharts.af_colours import get_af_colours
 
+
 # Test valid list lengths
 @pytest.mark.parametrize(
     "palette, colour_format, number_of_colours",
