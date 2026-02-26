@@ -13,7 +13,8 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
     For the categorical palette, this can be a chosen number of colours
-    up to 6.
+    up to 6. For the sequential palette, the full 6-colour palette is
+    available, with guidance-informed subsets of 3, 4, or 5 when requested.
 
     Parameters
     ----------
@@ -25,10 +26,10 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
         Colour format required, with accepted values of "hex" or "rgb".
 
     number_of_colours : int, optional
-        Number of colours required (categorical palette only). Takes
-        values between 2 and 6. Returns 2 colours by default. If a
-        palette other than categorical is chosen, any value passed
-        is ignored.
+        Number of colours required. For sequential palette, takes
+        values 3, 4, or 5 (applying guidance-informed subsets). For categorical
+        palette, takes values between 2 and 6. Defaults to 6 (full palette).
+        If palette is another type, this argumet is ignored.
 
     config_path : NoneType, optional
         Takes the default value None, inside the function this is
@@ -68,7 +69,7 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
         raise ValueError("number_of_colours must be greater than 0.")
 
     elif palette == "sequential":
-        chosen_colours_list = sequential_colours(sequential_hex_list, colour_format)
+        chosen_colours_list = sequential_colours(sequential_hex_list, colour_format, number_of_colours)
 
     elif palette == "focus":
         chosen_colours_list = focus_colours(focus_hex_list, colour_format)
@@ -169,10 +170,11 @@ def duo_colours(duo_hex_list, colour_format="hex"):
     return duo_colours_list
 
 
-def sequential_colours(sequential_hex_list, colour_format="hex"):
+def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colours=6):
     """
     Return the Analysis Function sequential colour palette as a list
-    of 3 colours in hex or rgb format.
+    in hex or rgb format. Supports combinations of 3, 4, or 5 colours
+    based on Analysis Function guidance, as well as the full 6-colour palette.
 
     Parameters
     ----------
@@ -182,17 +184,36 @@ def sequential_colours(sequential_hex_list, colour_format="hex"):
     colour_format : string
         Colour format required, with accepted values of "hex" or "rgb".
 
+    number_of_colours: int
+        Number of sequential colours required, with accepted values of 3,
+        4, or 5. Defaults to 6 (full palette).
+
     Returns
     -------
     list
         sequential_colours_list
 
     """
+    SEQUENTIAL_COMBOS = {
+        3: [sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
+        4: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2],
+            sequential_hex_list[3]],
+        5: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2],
+            sequential_hex_list[3], sequential_hex_list[4]],
+    }
+
+    if number_of_colours not in [3, 4, 5, 6]:
+        raise ValueError("number_of_colours must be 3, 4, 5, or 6 for the sequential palette.")
+
+    if number_of_colours == 6:
+        colours = sequential_hex_list
+    else:
+        colours = SEQUENTIAL_COMBOS[number_of_colours]
 
     if colour_format == "hex":
-        sequential_colours_list = sequential_hex_list
+        sequential_colours_list = colours
     elif colour_format == "rgb":
-        sequential_colours_list = hex_to_rgb(sequential_hex_list)
+        sequential_colours_list = hex_to_rgb(colours)
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 

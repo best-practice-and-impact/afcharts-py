@@ -40,7 +40,7 @@ For example, to return the sequential colour palette as a list of rgb code tuple
 ```{python}
 #| eval: false
 get_af_colours("sequential", colour_format="rgb")                      
-# [(18, 67, 109), (32, 115, 188), (107, 172, 230)]
+# [(9, 33, 53), (18, 67, 109), (32, 115, 188), (107, 172, 230), (173, 209, 241), (242, 242, 242)]
 ```
 
 
