@@ -33,13 +33,13 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render Quarto project
-        run: quarto render ./src/afcharts/cookbook
+        run: quarto render ./docs/cookbook
 
       - name: Upload rendered site
         uses: actions/upload-artifact@v4
         with:
           name: cookbook-site
-          path: ./src/afcharts/cookbook/docs
+          path: ./docs/cookbook/docs
 
   deploy:
     needs: render-cookbook
