@@ -668,3 +668,193 @@ fig.show()
 <div class="chart-source">Source: Gapminder</div>
 
 This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
+
+
+## Sequential palette use example
+
+```{python}
+# | eval: true
+# | output: false
+
+import requests
+import pandas as pd
+import geopandas as gpd
+import plotly.graph_objects as go
+import io
+
+# Fetch indicator data
+url = "https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=41203"
+df = pd.read_csv(io.BytesIO(requests.get(url, verify=False).content))
+
+# Keep most recent period
+df = df[df["Time period"] == "2023/24"]  # This is the date in the analysis function website.
+# df = df.sort_values("Time period").drop_duplicates("Area Code", keep="last")
+
+# Numeric breakpoints for quantiles
+bins = [0, 2.4, 2.9, 3.5, 4.6, 12.7]
+
+# Labels in the same order
+labels = ["Lowest (0.0 to 2.4)", "(2.4 to 2.9)", "(2.9 to 3.5)", "(3.5 to 4.6)", "Highest (4.6 to 12.7)"]
+order = ["Suppressed"] + labels
+
+# Assign bin categories
+df["quantile_label"] = pd.cut(df["Value"], bins=bins, labels=labels, include_lowest=True)
+
+# Handle suppressed values (e.g., NaN)
+df["quantile_label"] = df["quantile_label"].astype("category")
+df["quantile_label"] = df["quantile_label"].cat.add_categories("Suppressed")
+df["quantile_label"] = df["quantile_label"].fillna("Suppressed")
+
+df["quantile_label"] = df["quantile_label"].cat.reorder_categories(order, ordered=True)
+
+# Get UK Country boundaries
+url = (
+    "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/"
+    "Countries_December_2023_Boundaries_UK_BUC/FeatureServer/0/query"
+    "?outFields=*&where=1%3D1&f=geojson"
+)
+country_boundaries = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
+
+# Get Counties and Unitary Autorities
+url = "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Counties_and_Unitary_Authorities_December_2023_Boundaries_UK_BUC/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+gdf = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
+
+# Filter to England only
+england_boundaries = country_boundaries[country_boundaries["CTRY23NM"] == "England"]
+gdf_clipped_strict = gpd.overlay(gdf, england_boundaries, how="intersection")
+
+merged = gdf_clipped_strict.merge(df, left_on="CTYUA23CD", right_on="Area Code", how="left").reset_index(drop=True)
+
+from afcharts.af_colours import get_af_colours
+from afcharts.pio_template import pio
+
+# Get the sequential colour palette in reverse order
+sequential = get_af_colours("sequential")[::-1]
+
+fig = go.Figure()
+
+cat_to_code = {
+    "Highest (4.6 to 12.7)": 5,
+    "(3.5 to 4.6)": 4,
+    "(2.9 to 3.5)": 3,
+    "(2.4 to 2.9)": 2,
+    "Lowest (0.0 to 2.4)": 1,
+    "Suppressed": 0,
+}
+z = merged["quantile_label"].map(cat_to_code).fillna(0).astype(int)
+
+fig.add_trace(
+    go.Choropleth(
+        geojson=merged.__geo_interface__,
+        locations=merged.index,  # these are indices we put into properties
+        z=z,  # numeric codes 0..5
+        colorscale=sequential,
+        zmin=0,
+        zmax=5,
+        marker_line_width=0.5,
+        marker_line_color="white",
+        hovertext=merged["Area Name"],
+        hoverinfo="text",
+        showscale=False,  # hide continuous colorbar; we'll add a categorical legend
+    )
+)
+
+# --- Custom legend (circles + labels) ---
+x = 0.2
+y = 1
+width = 700
+height =375
+width_height_ratio = width / height
+item_height = 0.035
+r = item_height / 2.0
+x_radius = r / width_height_ratio
+y_radius = r
+
+# Title
+fig.add_annotation(
+    x=x,
+    y=y,
+    xref="paper",
+    yref="paper",
+    text="Equal-sized quintiles of geographies",
+    showarrow=False,
+    xanchor="left",
+    yanchor="top",
+    font=dict(size=14, color="black"),
+)
+
+# Move down a bit under the title
+y -= item_height * 1.6
+
+# Draw circle + label per legend item (order already High -> ... -> Suppressed)
+for i, (lab, col) in enumerate(zip(order[::-1], sequential[::-1])):
+    y_i = y - i * (item_height + 0.012)
+
+    fig.add_shape(
+        type="circle",
+        xref="paper",
+        yref="paper",
+        x0=x,
+        x1=x + 2 * r / width_height_ratio,
+        y0=y_i - 2 * r,
+        y1=y_i,
+        line=dict(width=1, color="rgba(0,0,0,0.2)"),
+        fillcolor=col,
+        layer="above",
+    )
+
+    fig.add_annotation(
+        x=x + 1.5 * r,
+        y=y_i - r,
+        xref="paper",
+        yref="paper",
+        text=str(lab),
+        showarrow=False,
+        xanchor="left",
+        yanchor="middle",
+        font=dict(size=12, color="black"),  # ↓ legend label font size
+        align="left",
+    )
+
+# Add outline of England
+fig.add_trace(
+    go.Choropleth(
+        geojson=england_boundaries.__geo_interface__,
+        locations=england_boundaries.index,  # these are indices we put into properties
+        z=[0],
+        colorscale=[[0, "rgba(0,0,0,0)"], [1, "rgba(0,0,0,0)"]],  # transparent fill
+        marker_line_color="black",
+        marker_line_width=1,
+        hoverinfo="skip",
+        showscale=False,
+    )
+)
+
+fig.update_layout(showlegend=False, width=width, height=height, margin=dict(l=0, r=0, t=0, b=0))
+fig.update_geos(
+    projection_type="transverse mercator",
+    fitbounds="locations",
+    visible=False,
+)
+fig.show()
+```
+
+
+<div class="chart-title">Choropleth map with five series of sequential data</div>
+<div class="chart-subtitle">Rate of new certifications of visual impairment due to diabetic eye disease in persons aged 12 years and over, per 100,000 population</div>
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+<div class="chart-source">Source: Data used to create this map is available to download from the Fingertips Local Authority health profile produced by the Office for Health Improvement and Disparities.</div>
+
+
+In England the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 year and over, were 3.0 per 100,000 population.
+
+The map shows the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over by upper-tier local authority. The data has been broken down into five equal groups with the highest fifth of areas being in the category showing as darkest blue on the map, and areas with the lowest levels shown in the lightest blue.
+
+Oldham local authority has the highest rate where 12.7 per 100,000 persons aged 12 years and over were newly certified with a visual impairment due to diabetic eye disease. In contrast City of London local authority has the lowest rate of 0.0 per 100,000 persons aged 12 years and over. 29 local authority areas had values that were suppressed due to a small count.
