@@ -178,10 +178,19 @@ fig = plt.figure()
 
 for i, year in enumerate(sorted(df["year"].unique())):
     df_year = df[df["year"] == year].set_index("country").reindex(countries)
-    plt.bar(x + i * bar_width, df_year["lifeExp"], width=bar_width, label=str(year), color=duo[i % len(duo)])
+    plt.bar(
+        x + i * bar_width,
+        df_year["lifeExp"],
+        width=bar_width,
+        label=str(year),
+        color=duo[i % len(duo)]
+    )
 plt.xticks(x + bar_width / 2, countries)
-plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.25), ncol=2)
-
+plt.legend(
+    loc="lower center",
+    bbox_to_anchor=(0.5, -0.25),
+    ncol=2
+)
 fig
 ```
 
@@ -229,13 +238,23 @@ from plotly.express.data import gapminder
 df = gapminder().query("year == 2007")
 
 # Create life expectancy groups
-df["lifeExpGrouped"] = pd.cut(df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75 and over"])
+df['lifeExpGrouped'] = pd.cut(
+    df['lifeExp'],
+    bins=[0, 75, float('inf')],
+    labels=["Under 75", "75 and over"]
+)
 
 # Group by continent and life expectancy group
-grouped = df.groupby(["continent", "lifeExpGrouped"], observed=True).size().reset_index(name="n_countries")
+grouped = (
+    df.groupby(["continent", "lifeExpGrouped"], observed=True)
+    .size()
+    .reset_index(name="n_countries")
+)
 
 # Pivot to get proportions
-pivot_df = grouped.pivot(index="continent", columns="lifeExpGrouped", values="n_countries").fillna(0)
+pivot_df = grouped.pivot(
+    index="continent", columns="lifeExpGrouped", values="n_countries"
+).fillna(0)
 pivot_df["total"] = pivot_df.sum(axis=1)
 pivot_df["percent of Under 75"] = pivot_df["Under 75"] / pivot_df["total"]
 pivot_df["percent of 75 and over"] = pivot_df["75 and over"] / pivot_df["total"]
@@ -301,7 +320,11 @@ df = gapminder().query("year == 2007")
 
 fig = plt.figure()
 
-plt.hist(df["lifeExp"], bins=range(int(df["lifeExp"].min()), int(df["lifeExp"].max()) + 5, 5), edgecolor="white")
+plt.hist(
+    df["lifeExp"],
+    bins=range(int(df["lifeExp"].min()), int(df["lifeExp"].max()) + 5, 5),
+    edgecolor="white"
+)
 
 plt.ylabel("Number of\n countries", rotation=0, labelpad=40)
 
@@ -398,14 +421,20 @@ from plotly.express.data import gapminder
 df = gapminder()
 
 # Filter out Oceania and aggregate population by continent and year
-df_grouped = df[df["continent"] != "Oceania"].groupby(["continent", "year"], observed=True)["pop"].sum().reset_index()
+df_grouped = (
+    df[df["continent"] != "Oceania"]
+    .groupby(["continent", "year"], observed=True)["pop"]
+    .sum()
+    .reset_index()
+)
 
 # Define the continents to plot
 continents = df_grouped["continent"].unique()
 
 # Create a 2x2 subplot layout
-fig, axes = plt.subplots(ncols=2, nrows=2, sharex=True, sharey=True, constrained_layout=True)
-
+fig, axes = plt.subplots(
+    ncols=2, nrows=2, sharex=True, sharey=True, constrained_layout=True
+)
 
 # Make custom formatter for tick labels
 def tick_billions(x, pos):
@@ -465,7 +494,11 @@ from plotly.express.data import gapminder
 df = gapminder().query("continent == 'Europe' and year == 2007")
 
 # Create life expectancy groups
-df["lifeExpGrouped"] = pd.cut(df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75 and over"])
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
+    labels=["Under 75", "75 and over"]
+)
 
 # Count number of countries in each group
 group_counts = df["lifeExpGrouped"].value_counts().sort_index()
@@ -527,7 +560,10 @@ df = gapminder().query("year == 2007 & continent == 'Americas'")
 
 top5 = df.nlargest(5, "pop")
 
-colours = {country: focus[0 if country == "Brazil" else 1] for country in top5["country"].unique()}
+colours = {
+    country: focus[0 if country == "Brazil" else 1]
+    for country in top5["country"].unique()
+}
 
 # Map colors to bar order
 bar_colours = [colours[country] for country in top5["country"]]
@@ -690,7 +726,10 @@ plt.title(
 )
 plt.ylabel("Population\nin millions", rotation=0, labelpad=40)
 
-fig<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+fig
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
 <div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
 <div class="chart" aria-describedby="textwrap-desc">
 
