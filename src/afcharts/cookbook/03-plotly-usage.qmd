@@ -205,7 +205,9 @@ fig.add_trace(
 )
 
 # Update layout
-fig.update_layout(height=420)
+fig.update_layout(
+    height=420
+)
 
 fig.show()
 ```
@@ -247,7 +249,9 @@ duo = get_af_colours("duo")
 # Load the gapminder dataset from plotly.express
 from plotly.express.data import gapminder
 
-df = gapminder().query("year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']")
+df = gapminder().query(
+    "year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']"
+)
 
 fig = go.Figure()
 # Add a bar trace for each year
@@ -266,7 +270,13 @@ for i, year in enumerate(sorted(df["year"].unique())):
 fig.update_layout(
     barmode="group",
     height=420,
-    legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5),
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5
+    ),
 )
 
 fig.show()
@@ -301,7 +311,6 @@ import pandas as pd
 import plotly.graph_objects as go
 from afcharts.pio_template import pio
 
-
 from afcharts.af_colours import get_af_colours
 
 # Get the duo colour palette
@@ -316,13 +325,23 @@ from plotly.express.data import gapminder
 df = gapminder().query("year == 2007")
 
 # Create life expectancy groups
-df["lifeExpGrouped"] = pd.cut(df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75 and over"])
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
+    labels=["Under 75", "75 and over"]
+)
 
 # Group by continent and life expectancy group
-grouped = df.groupby(["continent", "lifeExpGrouped"], observed=True).size().reset_index(name="n_countries")
+grouped = (
+    df.groupby(["continent", "lifeExpGrouped"], observed=True)
+    .size()
+    .reset_index(name="n_countries")
+)
 
 # Pivot to get proportions
-pivot_df = grouped.pivot(index="continent", columns="lifeExpGrouped", values="n_countries").fillna(0)
+pivot_df = grouped.pivot(
+    index="continent", columns="lifeExpGrouped", values="n_countries"
+).fillna(0)
 pivot_df["total"] = pivot_df.sum(axis=1)
 pivot_df["percent of Under 75"] = pivot_df["Under 75"] / pivot_df["total"]
 pivot_df["percent of 75 and over"] = pivot_df["75 and over"] / pivot_df["total"]
@@ -519,7 +538,11 @@ from plotly.express.data import gapminder
 df = gapminder()
 
 # Filter out Oceania and aggregate population by continent and year
-df_grouped = df[df["continent"] != "Oceania"].groupby(["continent", "year"], observed=True)["pop"].sum().reset_index()
+df_grouped = (
+    df[df["continent"] != "Oceania"]
+    .groupby(["continent", "year"], observed=True)["pop"].sum()
+    .reset_index()
+)
 
 # Define the continents to plot
 continents = df_grouped["continent"].unique()
@@ -607,7 +630,11 @@ from plotly.express.data import gapminder
 df = gapminder().query("continent == 'Europe' and year == 2007")
 
 # Create life expectancy groups
-df["lifeExpGrouped"] = pd.cut(df["lifeExp"], bins=[0, 75, float("inf")], labels=["Under 75", "75 and over"])
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
+    labels=["Under 75", "75 and over"]
+)
 
 # Count number of countries in each group
 group_counts = df["lifeExpGrouped"].value_counts().sort_index()
@@ -627,7 +654,10 @@ fig = go.Figure(
 )
 
 # Update layout
-fig.update_layout(height=400, showlegend=False)
+fig.update_layout(
+    height=400,
+    showlegend=False
+)
 
 fig.show()
 ```
@@ -689,7 +719,9 @@ fig.add_trace(
 )
 
 # Update layout
-fig.update_layout(height=420)
+fig.update_layout(
+    height=420
+)
 
 fig.show()
 ```
