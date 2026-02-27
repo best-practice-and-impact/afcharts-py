@@ -240,9 +240,9 @@ from plotly.express.data import gapminder
 df = gapminder().query("year == 2007")
 
 # Create life expectancy groups
-df['lifeExpGrouped'] = pd.cut(
-    df['lifeExp'],
-    bins=[0, 75, float('inf')],
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
     labels=["Under 75", "75 and over"]
 )
 
@@ -425,8 +425,7 @@ df = gapminder()
 # Filter out Oceania and aggregate population by continent and year
 df_grouped = (
     df[df["continent"] != "Oceania"]
-    .groupby(["continent", "year"], observed=True)["pop"]
-    .sum()
+    .groupby(["continent", "year"], observed=True)["pop"].sum()
     .reset_index()
 )
 

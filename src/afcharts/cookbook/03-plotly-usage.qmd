@@ -703,7 +703,10 @@ df = gapminder().query("year == 2007 & continent == 'Americas'")
 
 top5 = df.nlargest(5, "pop")
 
-colours = {country: focus[0 if country == "Brazil" else 1] for country in top5["country"].unique()}
+colours = {
+    country: focus[0 if country == "Brazil" else 1]
+    for country in top5["country"].unique()
+}
 
 # Map colors to bar order
 bar_colours = [colours[country] for country in top5["country"]]
