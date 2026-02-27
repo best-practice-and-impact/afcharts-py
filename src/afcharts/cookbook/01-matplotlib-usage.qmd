@@ -167,7 +167,9 @@ duo = get_af_colours("duo")
 # Load the gapminder dataset from plotly.express
 from plotly.express.data import gapminder
 
-df = gapminder().query("year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']")
+df = gapminder().query(
+    "year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']"
+)
 
 countries = ["United Kingdom", "Ireland", "France", "Belgium"]
 years = [1967, 2007]
