@@ -88,7 +88,7 @@ afcharts-py/
 │   └── cookbook/
 │       ├── _quarto.yml
 │       ├── index.qmd
-│       └── getting-started.qmd
+│       └── 01-getting-started.qmd
 ├── src/
 │   └── afcharts/                       # Main package folder
 │       ├── __init__.py

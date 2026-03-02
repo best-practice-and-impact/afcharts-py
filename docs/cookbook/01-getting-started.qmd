@@ -41,7 +41,7 @@ seq = get_af_colours("sequential")
 
 See the [available colour palettes](04-colour-palettes.qmd#available-colour-palettes) and more information on using afcharts colours in [Colours](04-colour-palettes.qmd).
 
-Pass the list of colours to your plotting function as demonstrated in [Matplotlib examples](01-matplotlib-usage.qmd), [Plotly examples](03-plotly-usage.qmd) and the examples below.
+Pass the list of colours to your plotting function as demonstrated in [Matplotlib examples](02-matplotlib-usage.qmd), [Plotly examples](03-plotly-usage.qmd) and the examples below.
 
 ## Matplotlib
 afcharts includes a Matplotlib style sheet that automatically applies most of the formatting recommended by the Analysis Function guidance.
@@ -70,7 +70,7 @@ with plt.style.context('afcharts.afcharts'):
 
 This Matplotlib chart uses the afcharts style sheet and colour palettes to format the colours, fonts, axes and grid lines to match Analysis Function best practice.
 
-See [Matplotlib examples](01-matplotlib-usage.qmd) for many more examples.
+See [Matplotlib examples](02-matplotlib-usage.qmd) for many more examples.
 
 ```{python}
 #| output: false
