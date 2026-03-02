@@ -62,6 +62,7 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
 
     if palette not in ["categorical", "duo", "sequential", "focus"]:
         raise ValueError("palette must be one of 'categorical', 'duo', 'sequential' " + f"or 'focus', not {palette}.")
+
     if colour_format not in ["hex", "rgb"]:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
@@ -162,13 +163,14 @@ def duo_colours(duo_hex_list, colour_format="hex"):
         duo_colours_list
 
     """
-
     if colour_format == "hex":
         duo_colours_list = duo_hex_list
     elif colour_format == "rgb":
         duo_colours_list = hex_to_rgb(duo_hex_list)
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
+
+    return duo_colours_list
 
 def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colours=5):
     """
