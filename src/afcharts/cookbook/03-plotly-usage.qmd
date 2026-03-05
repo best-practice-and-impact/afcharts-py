@@ -715,7 +715,7 @@ url = (
 )
 country_boundaries = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
 
-# Get Counties and Unitary Autorities
+# Get Counties and Unitary Authorities
 url = "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Counties_and_Unitary_Authorities_December_2023_Boundaries_UK_BUC/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
 gdf = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
 
@@ -729,7 +729,7 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Get the sequential colour palette in reverse order
-sequential = get_af_colours("sequential")[::-1]
+sequential = get_af_colours("sequential", number_of_colours=6)[::-1]
 
 # Set default theme
 pio.templates.default = "afcharts"
@@ -845,6 +845,7 @@ fig.show()
 
 <div class="chart-title">Choropleth map with five series of sequential data</div>
 <div class="chart-subtitle">Rate of new certifications of visual impairment due to diabetic eye disease in persons aged 12 years and over, per 100,000 population</div>
+<div class="chart" aria-describedby="choropleth-desc">
 
 ```{python}
 #| echo: false
@@ -852,15 +853,16 @@ fig.show()
 fig.show()
 
 ```
-
+</div>
 <div class="chart-source">Source: Data used to create this map is available to download from the Fingertips Local Authority health profile produced by the Office for Health Improvement and Disparities.</div>
 
-
-In England the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 year and over, were 3.0 per 100,000 population.
+<div class="chart-alt" id="choropleth-desc">
+In England the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over, were 3.0 per 100,000 population.
 
 The map shows the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over by upper-tier local authority. The data has been broken down into five equal groups with the highest fifth of areas being in the category showing as darkest blue on the map, and areas with the lowest levels shown in the lightest blue.
 
 Oldham local authority has the highest rate where 12.7 per 100,000 persons aged 12 years and over were newly certified with a visual impairment due to diabetic eye disease. In contrast City of London local authority has the lowest rate of 0.0 per 100,000 persons aged 12 years and over. 29 local authority areas had values that were suppressed due to a small count.
+</div>
 
 ## Heat Maps
 ```{python}
@@ -876,13 +878,14 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Get the sequential colour palette
-sequential = get_af_colours("sequential")[0:-1][::-1]
+sequential = get_af_colours("sequential", number_of_colours=5)[::-1]
 
 # Set default theme
 pio.templates.default = "afcharts"
 
 # Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics
-df = pd.read_excel("./data/table_211_213__6_.xlsx", sheet_name="2.1.1", header=11)
+DATA_URL = "https://assets.publishing.service.gov.uk/media/699c5d49cd3d70e6c2f1274c/table_211_213__6_.xlsx"
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11)
 
 df["Year and Period"] = df[["Year and dataset code row", "Quarter"]].astype(str).agg(", ".join, axis=1)
 
@@ -915,6 +918,7 @@ fig.show()
 
 <div class="chart-title">Domestic energy price indices in real terms</div>
 <div class="chart-subtitle">Heat map of Quarterly consumer price indices of fuel components.</div>
+<div class="chart" aria-describedby="heatmap-desc">
 
 ```{python}
 #| echo: false
@@ -922,13 +926,15 @@ fig.show()
 fig.show()
 
 ```
-
+</div>
 <div class="chart-source">Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics</div>
 
+<div class="chart-alt" id="heatmap-desc">
 Figures include VAT where applicable.  VAT rates for coal and coke, gas, electricity and heating oils was 8% from the 2nd quarter of 1994 and 5% since the 4th quarter of 1997 (the rate changed on 1st September). 
-Real price series are deflated using GDP (market prices) deflator. GDP updated is updated when published by ONS.
+Real price series are deflated using GDP (market prices) deflator. The GDP deflator is updated when published by ONS. 
 Data may change regularly due to rebasing. The ONS use the latest full year of data as the base year and the Department rebases to 2010=100
 
 Note 1. Aggregate of individual solid fuels, gas, electricity and liquid fuels indices.
 Note 2. ULSP, ULSD & motor oil. Other fuels are as defined by ONS. See the Methodology tab for further details.
-Note 3. ONS update the GDP Deflator on a regular basis.  As such the real terms price indices are subject to regular revisions to the whole series.   
+Note 3. ONS update the GDP Deflator on a regular basis.  As such the real terms price indices are subject to regular revisions to the whole series.
+</div>
