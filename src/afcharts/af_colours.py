@@ -8,12 +8,13 @@ from pathlib import Path
 import yaml
 
 
-def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, config_path=None):
+def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, include_grey=False, config_path=None):
     """
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
-    For the categorical and sequential palettes, this can be a chosen number of colours
-    up to 6.
+    For the categorical palette, this can be a chosen number of colours
+    up to 6. For the sequential palette, this can be a chosen number of colours of 3,
+    4, or 5.
 
     Parameters
     ----------
@@ -26,10 +27,14 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
 
     number_of_colours : int, optional
         Number of colours required. For the sequential palette, takes
-        values 3, 4, 5 or 6 (applying guidance-informed subsets). For categorical
+        values 3, 4, or 5 (applying guidance-informed subsets). For categorical
         palette, takes values between 2 and 6. The default is None, which uses the
         default value for the chosen colour palette.
         If palette is another type, this argument is ignored.
+
+    include_grey : bool, optional
+        Whether to include the grey colour in the palette. Can be used to show
+        null values in charts. The default is False, which excludes the grey colour.
 
     config_path : NoneType, optional
         Takes the default value None, inside the function this is
@@ -66,14 +71,14 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
     if colour_format not in ["hex", "rgb"]:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
-    if number_of_colours < 1:
+    if number_of_colours is not None and number_of_colours < 1:
         raise ValueError("number_of_colours must be greater than 0.")
 
-    elif palette == "sequential":
+    if palette == "sequential":
         if number_of_colours is None:
             chosen_colours_list = sequential_colours(sequential_hex_list, colour_format)
         else:
-            chosen_colours_list = sequential_colours(sequential_hex_list, colour_format, number_of_colours)
+            chosen_colours_list = sequential_colours(sequential_hex_list, colour_format, number_of_colours, include_grey)
 
     elif palette == "focus":
         chosen_colours_list = focus_colours(focus_hex_list, colour_format)
@@ -172,11 +177,11 @@ def duo_colours(duo_hex_list, colour_format="hex"):
 
     return duo_colours_list
 
-def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colours=5):
+def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colours=5, include_grey=False):
     """
     Return the Analysis Function sequential colour palette as a list
     in hex or rgb format. Supports combinations of 3, 4, or 5 colours
-    based on Analysis Function guidance, as well as the full 6-colour palette.
+    based on Analysis Function guidance.
 
     Parameters
     ----------
@@ -189,6 +194,10 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
     number_of_colours: int
         Number of sequential colours required, with accepted values of 3,
         4, 5 or 6. Defaults to 5.
+    
+    include_grey : bool, optional
+        Whether to include the grey colour in the palette. Can be used to show
+        null values in charts. The default is False, which excludes the grey colour.
 
     Returns
     -------
@@ -204,11 +213,12 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
             sequential_hex_list[3], sequential_hex_list[4]],
     }
 
-    if number_of_colours not in [3, 4, 5, 6]:
-        raise ValueError("number_of_colours must be 3, 4, 5, or 6 for the sequential palette.")
+    if number_of_colours not in [3, 4, 5]:
+        raise ValueError("number_of_colours must be 3, 4,or 5 for the sequential palette.")
 
-    if number_of_colours == 6:
-        colours = sequential_hex_list
+    if include_grey:
+        colours = SEQUENTIAL_COMBOS[number_of_colours] + [sequential_hex_list[-1]]
+    
     else:
         colours = SEQUENTIAL_COMBOS[number_of_colours]
 
