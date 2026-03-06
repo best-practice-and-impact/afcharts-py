@@ -78,7 +78,12 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, inclu
         if number_of_colours is None:
             chosen_colours_list = sequential_colours(sequential_hex_list, colour_format)
         else:
-            chosen_colours_list = sequential_colours(sequential_hex_list, colour_format, number_of_colours, include_grey)
+            chosen_colours_list = sequential_colours(
+                sequential_hex_list,
+                colour_format,
+                number_of_colours,
+                include_grey,
+            )
 
     elif palette == "focus":
         chosen_colours_list = focus_colours(focus_hex_list, colour_format)
@@ -193,8 +198,8 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
 
     number_of_colours: int
         Number of sequential colours required, with accepted values of 3,
-        4, 5 or 6. Defaults to 5.
-    
+        4, or 5. Defaults to 5.
+
     include_grey : bool, optional
         Whether to include the grey colour in the palette. Can be used to show
         null values in charts. The default is False, which excludes the grey colour.
@@ -218,7 +223,6 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
 
     if include_grey:
         colours = SEQUENTIAL_COMBOS[number_of_colours] + [sequential_hex_list[-1]]
-    
     else:
         colours = SEQUENTIAL_COMBOS[number_of_colours]
 
