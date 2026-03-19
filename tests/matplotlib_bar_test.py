@@ -3,9 +3,11 @@ Unit tests for the matplotlib bar charts using the af charts package.
 """
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import to_rgb
+
 
 def test_matplotlib_figure_creation():
     """
