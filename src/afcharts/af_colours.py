@@ -6,9 +6,10 @@
 from pathlib import Path
 
 import yaml
+from typing import List, Optional, Union
 
 
-def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, config_path=None):
+def get_af_colours(palette: str, colour_format: str="hex", number_of_colours: int=6, config_path: Optional[Path]=None):
     """
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
@@ -43,7 +44,7 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
 
     Returns
     -------
-    list
+    List[str]
         chosen_colours_list
 
     """
@@ -82,7 +83,7 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, confi
     return chosen_colours_list
 
 
-def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex", number_of_colours=2):
+def categorical_colours(categorical_hex_list: list, duo_hex_list: list, colour_format: str="hex", number_of_colours: int=2):
     """
     Return the Analysis Function categorical colour palette as a list
     in hex or rgb format for up to 6 colours. If number_of_colours is
@@ -90,10 +91,10 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex",
 
     Parameters
     ----------
-    categorical_hex_list : list
+    categorical_hex_list : List[str]
         List of categorical colours as a hex list, stored in the config.
 
-    duo_hex_list : list
+    duo_hex_list : List[str]
         List of duo hex codes, stored in the config. This is needed for the
         case of number_of_colours = 2.
 
@@ -111,7 +112,7 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex",
 
     Returns
     -------
-    list
+    List[str]
         categorical_colours_list
 
     """
@@ -137,7 +138,7 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex",
     return categorical_colours_list
 
 
-def duo_colours(duo_hex_list, colour_format="hex"):
+def duo_colours(duo_hex_list: list, colour_format: str="hex"):
     """
     Return the Analysis Function duo colour palette as a list of 2
     colours in hex or rgb format. This function is also called by
@@ -145,7 +146,7 @@ def duo_colours(duo_hex_list, colour_format="hex"):
 
     Parameters
     ----------
-    duo_hex_list : list
+    duo_hex_list : List[str]
         List of duo colours hex codes, stored in the config. This is needed for the
         case of number_of_colours = 2.
 
@@ -154,7 +155,7 @@ def duo_colours(duo_hex_list, colour_format="hex"):
 
     Returns
     -------
-    list
+    List[str]
         duo_colours_list
 
     """
@@ -169,22 +170,22 @@ def duo_colours(duo_hex_list, colour_format="hex"):
     return duo_colours_list
 
 
-def sequential_colours(sequential_hex_list, colour_format="hex"):
+def sequential_colours(sequential_hex_list: list, colour_format: str="hex"):
     """
     Return the Analysis Function sequential colour palette as a list
     of 3 colours in hex or rgb format.
 
     Parameters
     ----------
-    sequential_hex_list : list
+    sequential_hex_list : List[str]
         List of sequential colours hex codes, stored in the config.
 
-    colour_format : string
+    colour_format : List[str]
         Colour format required, with accepted values of "hex" or "rgb".
 
     Returns
     -------
-    list
+    List[str]
         sequential_colours_list
 
     """
@@ -199,14 +200,14 @@ def sequential_colours(sequential_hex_list, colour_format="hex"):
     return sequential_colours_list
 
 
-def focus_colours(focus_hex_list, colour_format="hex"):
+def focus_colours(focus_hex_list: list, colour_format: str="hex"):
     """
     Return the Analysis Function focus colour palette as a list of 2
     colours in hex or rgb format.
 
     Parameters
     ----------
-    focus_hex_list : list
+    focus_hex_list : List[str]
         List of focus colours hex codes, stored in the config.
 
     colour_format : string
@@ -214,7 +215,7 @@ def focus_colours(focus_hex_list, colour_format="hex"):
 
     Returns
     -------
-    list
+    List[str]
         focus_colours_list
 
     """
@@ -229,13 +230,13 @@ def focus_colours(focus_hex_list, colour_format="hex"):
     return focus_colours_list
 
 
-def hex_to_rgb(hex_colours):
+def hex_to_rgb(hex_colours: list):
     """
     Convert a list of hex codes to a list of rgb colours.
 
     Parameters
     ----------
-    hex_colours : list
+    hex_colours : List[str]
         The hex colours to be converted as a list of strings, with or
         without # at the beginning.
 
@@ -246,7 +247,7 @@ def hex_to_rgb(hex_colours):
 
     Returns
     -------
-    list
+    List[Tuple[int, int, int]]
         converted_list
 
     """
