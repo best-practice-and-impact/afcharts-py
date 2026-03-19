@@ -589,7 +589,11 @@ This bar chart uses the afcharts theme, and shows the populations of five countr
 
 ## Annotations
 
-Annotations can be used to add value labels to a bar chart. Use the `bar_label()` method to add labels to bars in a bar chart. In the example below, the population values are added as white text labels inside the bars.
+Labelling your chart is often preferable to using a legend, as often this relies on a user matching the legend to the data using colour alone.
+
+You can add an annotation anywhere on a chart using the `annotate()` method. This is demonstrated above in [Line chart with duo palette](#line-chart-with-duo-palette), which directly labels each line. Note that black text has been used for the labels, as this ensures sufficient contrast against the white background.
+
+To add value labels to bars in a bar chart, use the `bar_label()` method. In the example below, the population values are added as white text labels inside the bars.
 
 ```{python}
 #| output: false
