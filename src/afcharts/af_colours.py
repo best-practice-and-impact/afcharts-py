@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 
-def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, include_grey=False, config_path=None):
+def get_af_colours(palette: str, colour_format="hex", number_of_colours=None, include_grey=False, config_path=None):
     """
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
@@ -33,7 +33,7 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, inclu
         If palette is another type, this argument is ignored.
 
     include_grey : bool, optional
-        Whether to include the grey colour in the palette. Can be used to show
+        Whether to include the grey colour in the sequential palette. Can be used to show
         null values in charts. The default is False, which excludes the grey colour.
 
     config_path : NoneType, optional
@@ -76,13 +76,15 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, inclu
 
     if palette == "sequential":
         if number_of_colours is None:
-            chosen_colours_list = sequential_colours(sequential_hex_list, colour_format)
+            chosen_colours_list = sequential_colours(
+                sequential_hex_list, colour_format=colour_format, include_grey=include_grey
+            )
         else:
             chosen_colours_list = sequential_colours(
                 sequential_hex_list,
-                colour_format,
-                number_of_colours,
-                include_grey,
+                colour_format=colour_format,
+                number_of_colours=number_of_colours,
+                include_grey=include_grey,
             )
 
     elif palette == "focus":
@@ -92,7 +94,12 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=6, inclu
         chosen_colours_list = duo_colours(duo_hex_list, colour_format)
 
     elif palette == "categorical":
-        chosen_colours_list = categorical_colours(categorical_hex_list, duo_hex_list, colour_format, number_of_colours)
+        if number_of_colours is None:
+            chosen_colours_list = categorical_colours(categorical_hex_list, duo_hex_list, colour_format)
+        else:
+            chosen_colours_list = categorical_colours(
+                categorical_hex_list, duo_hex_list, colour_format, number_of_colours
+            )
 
     return chosen_colours_list
 
@@ -182,6 +189,7 @@ def duo_colours(duo_hex_list, colour_format="hex"):
 
     return duo_colours_list
 
+
 def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colours=5, include_grey=False):
     """
     Return the Analysis Function sequential colour palette as a list
@@ -212,14 +220,18 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
     """
     SEQUENTIAL_COMBOS = {
         3: [sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
-        4: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2],
-            sequential_hex_list[3]],
-        5: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2],
-            sequential_hex_list[3], sequential_hex_list[4]],
+        4: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
+        5: [
+            sequential_hex_list[0],
+            sequential_hex_list[1],
+            sequential_hex_list[2],
+            sequential_hex_list[3],
+            sequential_hex_list[4],
+        ],
     }
 
     if number_of_colours not in [3, 4, 5]:
-        raise ValueError("number_of_colours must be 3, 4,or 5 for the sequential palette.")
+        raise ValueError("number_of_colours must be 3, 4, or 5 for the sequential palette.")
 
     if include_grey:
         colours = SEQUENTIAL_COMBOS[number_of_colours] + [sequential_hex_list[-1]]

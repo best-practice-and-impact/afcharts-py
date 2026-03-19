@@ -24,7 +24,7 @@ get_af_colours("duo")
 
 ### Number of colours
 
-By default, `get_af_colours()` will return all colours in the given palette. For the categorical palette, the number of colours returned can be set with the `number_of_colours` argument.
+By default, `get_af_colours()` will return all colours in the given palette. For the categorical and sequential palettes, the number of colours returned can be set with the `number_of_colours` argument.
 
 For example, to return four colours from the categorical palette as hex codes:
 ```{python}
@@ -40,7 +40,7 @@ For example, to return the sequential colour palette as a list of rgb code tuple
 ```{python}
 #| eval: false
 get_af_colours("sequential", colour_format="rgb")                      
-# [(9, 33, 53), (18, 67, 109), (32, 115, 188), (107, 172, 230), (173, 209, 241), (242, 242, 242)]
+# [(9, 33, 53), (18, 67, 109), (32, 115, 188), (107, 172, 230), (173, 209, 241)]
 ```
 
 
@@ -57,7 +57,7 @@ from afcharts.af_colours import get_af_colours
 
 cat = get_af_colours("categorical")
 duo = get_af_colours("duo")
-sequential = get_af_colours("sequential")
+sequential = get_af_colours("sequential", include_grey=True)
 focus = get_af_colours("focus")
 ```
 
@@ -101,7 +101,7 @@ display(HTML(df.to_html(escape=False, index=False)))
 
 
 ### Sequential palette
-The `sequential` colour palette should be used for data where the order has some meaning, such as age groups.
+The `sequential` colour palette should be used for data where the order has some meaning, such as age groups. The pale grey colour should be used for cases when, for example, you have no data or have suppressed the value.
 
 ```{python}
 #| echo: false
