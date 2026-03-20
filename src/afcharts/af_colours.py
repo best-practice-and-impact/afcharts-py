@@ -4,12 +4,14 @@
 # Py-af-colours source: https://github.com/best-practice-and-impact/py-af-colours
 
 from pathlib import Path
+from typing import List, Optional, Tuple, Union
 
 import yaml
-from typing import List, Tuple, Optional, Union
 
 
-def get_af_colours(palette: str, colour_format: str="hex", number_of_colours: int=6, config_path: Optional[Path]=None) -> List[Union[str, Tuple[int, int, int]]]:
+def get_af_colours(
+    palette: str, colour_format: str = "hex", number_of_colours: int = 6, config_path: Optional[Path] = None
+) -> List[Union[str, Tuple[int, int, int]]]:
     """
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
@@ -83,7 +85,9 @@ def get_af_colours(palette: str, colour_format: str="hex", number_of_colours: in
     return chosen_colours_list
 
 
-def categorical_colours(categorical_hex_list: List[str], duo_hex_list: List[str], colour_format: str="hex", number_of_colours: int=2) -> List[Union[str, Tuple[int, int, int]]]:
+def categorical_colours(
+    categorical_hex_list: List[str], duo_hex_list: List[str], colour_format: str = "hex", number_of_colours: int = 2
+) -> List[Union[str, Tuple[int, int, int]]]:
     """
     Return the Analysis Function categorical colour palette as a list
     in hex or rgb format for up to 6 colours. If number_of_colours is
@@ -138,7 +142,7 @@ def categorical_colours(categorical_hex_list: List[str], duo_hex_list: List[str]
     return categorical_colours_list
 
 
-def duo_colours(duo_hex_list: List[str], colour_format: str="hex") -> List[Union[str, Tuple[int, int, int]]]:
+def duo_colours(duo_hex_list: List[str], colour_format: str = "hex") -> List[Union[str, Tuple[int, int, int]]]:
     """
     Return the Analysis Function duo colour palette as a list of 2
     colours in hex or rgb format. This function is also called by
@@ -170,7 +174,9 @@ def duo_colours(duo_hex_list: List[str], colour_format: str="hex") -> List[Union
     return duo_colours_list
 
 
-def sequential_colours(sequential_hex_list: List[str], colour_format: str="hex") -> List[Union[str, Tuple[int, int, int]]]:
+def sequential_colours(
+    sequential_hex_list: List[str], colour_format: str = "hex"
+) -> List[Union[str, Tuple[int, int, int]]]:
     """
     Return the Analysis Function sequential colour palette as a list
     of 3 colours in hex or rgb format.
@@ -200,7 +206,7 @@ def sequential_colours(sequential_hex_list: List[str], colour_format: str="hex")
     return sequential_colours_list
 
 
-def focus_colours(focus_hex_list: List[str], colour_format: str="hex") -> List[Union[str, Tuple[int, int, int]]]:
+def focus_colours(focus_hex_list: List[str], colour_format: str = "hex") -> List[Union[str, Tuple[int, int, int]]]:
     """
     Return the Analysis Function focus colour palette as a list of 2
     colours in hex or rgb format.
