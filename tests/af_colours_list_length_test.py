@@ -18,8 +18,7 @@ from afcharts.af_colours import get_af_colours
 @pytest.mark.parametrize(
     "palette, colour_format, number_of_colours",
     [
-        # Test categorical palette for length boundaries (1–6 supported values)
-        ("categorical", "hex", 1),
+        # Test categorical palette for length boundaries (2–6 supported values)
         ("categorical", "hex", 2),
         ("categorical", "hex", 3),
         ("categorical", "hex", 4),
