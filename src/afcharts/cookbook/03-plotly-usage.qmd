@@ -670,7 +670,7 @@ fig.show()
 This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
 
 
-## Sequential palette use example
+## Choropleth map with sequential palette
 
 ```{python}
 # | eval: true
@@ -864,7 +864,7 @@ The map shows the rate of new certifications of visual impairment (CVI) due to d
 Oldham local authority has the highest rate where 12.7 per 100,000 persons aged 12 years and over were newly certified with a visual impairment due to diabetic eye disease. In contrast City of London local authority has the lowest rate of 0.0 per 100,000 persons aged 12 years and over. 29 local authority areas had values that were suppressed due to a small count.
 </div>
 
-## Heat Maps
+## Heat map with sequential palette
 ```{python}
 # | eval: true
 # | output: false
@@ -885,14 +885,14 @@ pio.templates.default = "afcharts"
 
 # Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics
 DATA_URL = "https://assets.publishing.service.gov.uk/media/699c5d49cd3d70e6c2f1274c/table_211_213__6_.xlsx"
-df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11)
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12])
 
 df["Year and Period"] = df[["Year and dataset code row", "Quarter"]].astype(str).agg(", ".join, axis=1)
 
 df = df.set_index(["Year and Period"])
 
-# Drop row 0 (contains repeated header artefacts), select numeric block
-df = df.iloc[1:, 9:-2].copy()
+# Select numeric block
+df = df.iloc[:, 9:-2].copy()
 
 for c in df.columns:
     df[c] = pd.to_numeric(df[c], errors="coerce")

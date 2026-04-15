@@ -56,7 +56,8 @@ docs = [ # cookbook dependencies
     "ipykernel",         # For rendering Quarto
     "nbclient",          # For rendering Quarto
     "pandas>=2.2.2",     # Used to manipulate tabular data
-    "requests"
+    "requests",
+    "openpyxl",          # For reading/writing Excel files
 ]
 
 [project.urls]
