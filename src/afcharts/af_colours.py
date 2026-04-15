@@ -130,7 +130,7 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format: Colou
 
     number_of_colours : int
         Number of colours required, with accepted values between 2 and 6
-        inclusive. Returns 2 colours if no value given.
+        inclusive. Returns 6 colours if no value given.
 
     Raises
     ------

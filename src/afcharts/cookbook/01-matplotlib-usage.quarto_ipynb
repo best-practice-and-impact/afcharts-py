@@ -1,0 +1,1049 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Using the package with matplotlib\n",
+        "\n",
+        "## Line charts\n",
+        "### Single line chart\n"
+      ],
+      "id": "96063e07"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder().query(\"country == 'United Kingdom'\")\n",
+        "\n",
+        "# Make the figure wider than the default (6.4, 4.8)\n",
+        "fig = plt.figure(figsize=(8.5, 4.8))\n",
+        "\n",
+        "plt.plot(df[\"year\"], df[\"lifeExp\"])\n",
+        "\n",
+        "plt.xlim([1950, 2010])\n",
+        "plt.ylim([0, 82])\n",
+        "\n",
+        "fig"
+      ],
+      "id": "365eb066",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">Living Longer</div>\n",
+        "<div class=\"chart-subtitle\">Life expectancy in the United Kingdom 1952 to 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"linechart-1-desc\">\n"
+      ],
+      "id": "acd2414e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "d2914852",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"linechart-1-desc\">\n",
+        "This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data.\n",
+        "</div>\n",
+        "\n",
+        "### Line chart with duo palette\n"
+      ],
+      "id": "39c22377"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "from afcharts.af_colours import get_af_colours\n",
+        "\n",
+        "# Get the duo colour palette\n",
+        "duo = get_af_colours(\"duo\")\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder()\n",
+        "df = df[df[\"country\"].isin([\"United Kingdom\", \"China\"])]\n",
+        "\n",
+        "# Make the figure wider than the default (6.4, 4.8)\n",
+        "fig, ax = plt.subplots(figsize=(8.5, 4.8))\n",
+        "\n",
+        "for i, (country, data) in enumerate(df.groupby(\"country\")):\n",
+        "    plt.plot(data[\"year\"], data[\"lifeExp\"], label=country, color=duo[i])\n",
+        "    ax.annotate(\n",
+        "        country,\n",
+        "        xy=(data[\"year\"].values[-1], data[\"lifeExp\"].values[-1]),\n",
+        "        xytext=(6,0),\n",
+        "        textcoords=\"offset points\",\n",
+        "        bbox=dict(boxstyle=\"square\", fc=\"white\", lw=0)  # Add a white background\n",
+        "        )\n",
+        "\n",
+        "plt.xlim([1950, 2010])\n",
+        "plt.ylim([0, 82])\n",
+        "\n",
+        "fig"
+      ],
+      "id": "9dada4fa",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">Living Longer</div>\n",
+        "<div class=\"chart-subtitle\">Life expectancy in the United Kingdom and China 1952 to 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"linechart-2-desc\">\n"
+      ],
+      "id": "1e9e5dce"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "ba13c9ac",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id = \"linechart-2-desc\">\n",
+        "This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are two thicker lines showing the life expectancy in the UK and China over time. The line colours are from the main Analysis Function palette - dark blue for China and orange for the UK, denoted by a legend at the bottom of the chart.\n",
+        "</div>\n",
+        "\n",
+        "<!--This differs from the plotly page. Update when legends are removed-->\n",
+        "\n",
+        "## Bar charts\n"
+      ],
+      "id": "36b135fe"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# | output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "# Filter for Americas in 2007 and get top 5 by population\n",
+        "df = gapminder().query(\"year == 2007 & continent == 'Americas'\")\n",
+        "\n",
+        "top5 = df.nlargest(5, \"pop\")\n",
+        "\n",
+        "fig = plt.figure()\n",
+        "\n",
+        "plt.bar(\n",
+        "    top5[\"country\"],\n",
+        "    top5[\"pop\"] / 1e6,  # Convert to millions\n",
+        ")\n",
+        "\n",
+        "fig"
+      ],
+      "id": "a8b95472",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">The U.S.A. is the most populous country in the Americas</div>\n",
+        "<div class=\"chart-subtitle\">Population of countries in the Americas (millions), 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"barchart-1-desc\">\n"
+      ],
+      "id": "6d29a536"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "c1c6e8a1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"barchart-1-desc\">\n",
+        "This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.\n",
+        "</div>\n",
+        "\n",
+        "### Grouped bar chart\n"
+      ],
+      "id": "6e790230"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "import numpy as np\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "from afcharts.af_colours import get_af_colours\n",
+        "\n",
+        "# Get the duo colour palette\n",
+        "duo = get_af_colours(\"duo\")\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "# Load gapminder data from plotly\n",
+        "df = gapminder().query(\"year in [1967, 2007] and country in ['United Kingdom', 'Ireland', 'France', 'Belgium']\")\n",
+        "\n",
+        "countries = ['United Kingdom', 'Ireland', 'France', 'Belgium']\n",
+        "years = [1967, 2007]\n",
+        "bar_width = 0.35\n",
+        "x = np.arange(len(countries))\n",
+        "\n",
+        "fig = plt.figure()\n",
+        "\n",
+        "for i, year in enumerate(years):\n",
+        "    data = df[df[\"year\"] == year].set_index(\"country\").reindex(countries)\n",
+        "    plt.bar(\n",
+        "        x + i * bar_width,\n",
+        "        data[\"lifeExp\"],\n",
+        "        width=bar_width,\n",
+        "        label=str(year),\n",
+        "        color=duo[i]\n",
+        "    )\n",
+        "plt.xticks(x + bar_width / 2, countries)\n",
+        "plt.legend(\n",
+        "    loc=\"lower center\",\n",
+        "    bbox_to_anchor=(0.5, -0.25),\n",
+        "    ncol=2\n",
+        ")\n",
+        "\n",
+        "fig"
+      ],
+      "id": "b60d54a5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">Living longer</div>\n",
+        "<div class=\"chart-subtitle\">Life expectancy (years) in 1967 and 2007</div>\n",
+        "<div class =\"chart\" aria-describedby=\"barchart-2-desc\">\n"
+      ],
+      "id": "b4ce9753"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "e9bc5c50",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"bartchart-2-desc\">\n",
+        "This grouped bar chart uses the afcharts theme. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the main Analysis Function palette - dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart.\n",
+        "</div>\n",
+        "\n",
+        "### Stacked bar chart\n",
+        "\n",
+        "Caution should be taken when producing stacked bar charts. They can quickly become difficult to interpret if plotting non part-to-whole data, and/or if plotting more than two categories per stack. First and last categories in the stack will always be easier to compare across bars than those in the middle. Think carefully about the story you are trying to tell with your chart.\n"
+      ],
+      "id": "21d77742"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# | eval: true\n",
+        "# | output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "import matplotlib.ticker as mtick\n",
+        "import numpy as np\n",
+        "\n",
+        "from pandas import cut\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "from afcharts.af_colours import get_af_colours\n",
+        "\n",
+        "# Get the duo colour palette\n",
+        "duo = get_af_colours(\"duo\")\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "# Load the gapminder dataset from plotly.express\n",
+        "df = gapminder().query(\"year == 2007\")\n",
+        "\n",
+        "# Create life expectancy groups\n",
+        "df['lifeExpGrouped'] = cut(\n",
+        "    df['lifeExp'],\n",
+        "    bins=[0, 75, float('inf')],\n",
+        "    labels=[\"Under 75\", \"75 and over\"]\n",
+        ")\n",
+        "\n",
+        "# Group by continent and life expectancy group\n",
+        "grouped = (\n",
+        "    df.groupby([\"continent\", \"lifeExpGrouped\"], observed=True)\n",
+        "    .size()\n",
+        "    .reset_index(name=\"n_countries\")\n",
+        ")\n",
+        "\n",
+        "# Pivot to get proportions\n",
+        "pivot_df = grouped.pivot(\n",
+        "    index=\"continent\", columns=\"lifeExpGrouped\", values=\"n_countries\"\n",
+        ").fillna(0)\n",
+        "pivot_df[\"total\"] = pivot_df.sum(axis=1)\n",
+        "pivot_df[\"percent of Under 75\"] = pivot_df[\"Under 75\"] / pivot_df[\"total\"]\n",
+        "pivot_df[\"percent of 75 and over\"] = pivot_df[\"75 and over\"] / pivot_df[\"total\"]\n",
+        "\n",
+        "categories = [\"Under 75\", \"75 and over\"]\n",
+        "\n",
+        "fig = plt.figure(figsize=(8, 5))\n",
+        "\n",
+        "bottom = np.zeros(len(pivot_df))\n",
+        "for i, category in enumerate(categories):\n",
+        "    plt.bar(\n",
+        "        pivot_df.index,\n",
+        "        pivot_df[f\"percent of {category}\"],\n",
+        "        label=category,\n",
+        "        color=duo[i],\n",
+        "        bottom=bottom,\n",
+        "    )\n",
+        "    bottom += pivot_df[f\"percent of {category}\"]\n",
+        "# Set y axis to format as percent\n",
+        "plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))\n",
+        "plt.legend(loc=\"lower center\", bbox_to_anchor=(0.5, -0.25), ncol=2)\n",
+        "\n",
+        "fig"
+      ],
+      "id": "7ca9664b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">How life expectancy varies across continents</div>\n",
+        "<div class=\"chart-subtitle\">Percentage of countries by life expectancy band, 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"barchart-stack-desc\">\n"
+      ],
+      "id": "49fe047a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "b4478079",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"barchart-stack-desc\">\n",
+        "This stacked bar chart uses the afcharts theme and shows the proportions of countries with a life expectancy over and under 75 by continent. The continents are listed along the x axis, with the y axis labelled between 0% and 100%. The colours for the bar segments are from the main Analysis Function palette - dark blue for under 75 and orange for over 75, denoted by a legend at the bottom of the chart. There is whitespace between each bar.\n",
+        "</div>\n",
+        "\n",
+        "\n",
+        "## Histograms\n"
+      ],
+      "id": "2a48ffb4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "# Filter for year 2007\n",
+        "df = gapminder().query(\"year == 2007\")\n",
+        "\n",
+        "fig = plt.figure()\n",
+        "\n",
+        "plt.hist(\n",
+        "    df[\"lifeExp\"],\n",
+        "    bins=range(int(df[\"lifeExp\"].min()), int(df[\"lifeExp\"].max()) + 5, 5),\n",
+        "    edgecolor=\"white\"\n",
+        ")\n",
+        "\n",
+        "plt.ylabel(\"Number of\\n countries\", rotation=0, labelpad=40)\n",
+        "\n",
+        "fig"
+      ],
+      "id": "bb09f937",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">How life expectancy varies</div>\n",
+        "<div class=\"chart-subtitle\">Distribution of life expectancy, 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"histogram-1-desc\">\n"
+      ],
+      "id": "0415121c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "fecb4cb3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div> \n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        " <div class=\"chart-alt\" id=\"histogram-1-desc\"> This histogram uses the afcharts theme, and shows the distribution of life expectancy across countries in 2007. The x-axis shows life expectancy in 5-year bins, and the y-axis shows the number of countries. The bars are dark blue with white edges separating each bin. Pale grey grid lines extend out from the y-axis. </div>\n",
+        "\n",
+        "## Scatterplots\n"
+      ],
+      "id": "090ae97d"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# | eval: true\n",
+        "# | output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "from matplotlib.ticker import StrMethodFormatter\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "# Load the gapminder dataset from plotly.express\n",
+        "df = gapminder().query(\"year == 2007\")\n",
+        "\n",
+        "# Make the figure wider than the default (6.4, 4.8)\n",
+        "fig = plt.figure(figsize=(8.5, 4.8))\n",
+        "\n",
+        "plt.scatter(df[\"gdpPercap\"], df[\"lifeExp\"])\n",
+        "\n",
+        "# Set axis limits to start at 0\n",
+        "plt.xlim(0, 5e4)\n",
+        "plt.ylim(0, max(df[\"lifeExp\"]) + 5)\n",
+        "plt.xlabel(\"GDP per capita ($US, inflation-adjusted)\")\n",
+        "plt.ylabel(\"Life Expectancy (years)\")\n",
+        "\n",
+        "# Format x-axis with commas\n",
+        "plt.gca().xaxis.set_major_formatter(StrMethodFormatter(\"{x:,.0f}\"))\n",
+        "\n",
+        "# Add vertical gridlines\n",
+        "plt.grid(True)\n",
+        "\n",
+        "fig"
+      ],
+      "id": "8ce3a886",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">The relationship between GDP and Life Expectancy is complex</div>\n",
+        "<div class=\"chart-subtitle\">GDP and Life Expectancy for all countries, 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"scatter-desc\">\n"
+      ],
+      "id": "c91ca8d3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "95b4a3c2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"scatter-desc\">\n",
+        "This scatterplot uses the afcharts theme, and shows life expectancy against GDP per capita for 142 countries in 2007. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.\n",
+        "</div>\n",
+        "\n",
+        "## Small multiples\n"
+      ],
+      "id": "d75db7dc"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# | eval: true\n",
+        "# | output: false\n",
+        "\n",
+        "import matplotlib.pyplot as plt\n",
+        "from matplotlib.ticker import FuncFormatter\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "from afcharts.af_colours import get_af_colours\n",
+        "\n",
+        "# Get the categorical colour palette\n",
+        "categorical = get_af_colours(\"categorical\")\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder()\n",
+        "\n",
+        "# Filter out Oceania and aggregate population by continent and year\n",
+        "df_grouped = (\n",
+        "    df[df[\"continent\"] != \"Oceania\"]\n",
+        "    .groupby([\"continent\", \"year\"], observed=True)[\"pop\"]\n",
+        "    .sum()\n",
+        "    .reset_index()\n",
+        ")\n",
+        "\n",
+        "# Define the continents to plot\n",
+        "continents = df_grouped[\"continent\"].unique()\n",
+        "\n",
+        "# Create a 2x2 subplot layout\n",
+        "fig, axes = plt.subplots(\n",
+        "    ncols=2, nrows=2, sharex=True, sharey=True, constrained_layout=True\n",
+        ")\n",
+        "\n",
+        "\n",
+        "# Make custom formatter for tick labels\n",
+        "def tick_billions(x, pos):\n",
+        "    if x == 0:\n",
+        "        return \"0\"\n",
+        "    else:\n",
+        "        return f\"{x / 1e9:.0f}bn\"\n",
+        "\n",
+        "\n",
+        "# Add data to each set of axes\n",
+        "for idx, (continent, ax) in enumerate(zip(continents, axes.flat)):\n",
+        "    data = df_grouped[df_grouped[\"continent\"] == continent]\n",
+        "    ax.fill_between(x=data[\"year\"], y1=data[\"pop\"], y2=0, color=categorical[idx])\n",
+        "    ax.yaxis.set_major_formatter(FuncFormatter(tick_billions))\n",
+        "    ax.set_title(continent, loc=\"center\")\n",
+        "\n",
+        "fig"
+      ],
+      "id": "105ff30a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">Asia's rapid growth</div>\n",
+        "<div class=\"chart-subtitle\">Population growth by continent, 1952-2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"small-multiples-desc\">\n"
+      ],
+      "id": "a3cc8b60"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "c8c2cb38",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"small-multiples-desc\">\n",
+        "This chart uses the afcharts theme. It contains four subplots in a two by two grid showing how the populations of four continents have changed over time. Each subplot is labelled with the continent. The subplots have a common y axis, with no values on the x axis to facilitate for a simple comparison of the relative values. Each subplot is filled with a different colour from the Analysis Function categorical colour palette to be distinct from other subplots.\n",
+        "</div>\n",
+        "\n",
+        "## Pie charts\n"
+      ],
+      "id": "dafb3621"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# | eval: true\n",
+        "# | output: false\n",
+        "\n",
+        "import matplotlib.pyplot as plt\n",
+        "from matplotlib.ticker import FuncFormatter\n",
+        "from pandas import cut\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "from afcharts.af_colours import get_af_colours\n",
+        "\n",
+        "# Get the duo colour palette\n",
+        "duo = get_af_colours(\"duo\")\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder().query(\"continent == 'Europe' and year == 2007\")\n",
+        "\n",
+        "# Create life expectancy groups\n",
+        "df['lifeExpGrouped'] = cut(\n",
+        "    df['lifeExp'],\n",
+        "    bins=[0, 75, float('inf')],\n",
+        "    labels=[\"Under 75\", \"75 and over\"]\n",
+        ")\n",
+        "\n",
+        "# Count number of countries in each group\n",
+        "group_counts = df[\"lifeExpGrouped\"].value_counts().sort_index()\n",
+        "\n",
+        "fig = plt.figure()\n",
+        "patches, labels, texts = plt.pie(\n",
+        "    group_counts.values,\n",
+        "    labels=group_counts.index,\n",
+        "    autopct=\"%1.0f%%\",\n",
+        "    colors=duo,\n",
+        "    wedgeprops={\"edgecolor\": \"white\", \"linewidth\": 2},\n",
+        ")\n",
+        "\n",
+        "textcolours = [\"white\", \"black\"]\n",
+        "\n",
+        "# Set the text to contrasting colours\n",
+        "for i, text in enumerate(texts):\n",
+        "    text.set_color(textcolours[i])\n",
+        "\n",
+        "fig"
+      ],
+      "id": "d9ebcf6f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">How life expectancy varies in Europe</div>\n",
+        "<div class=\"chart-subtitle\">Percentage of countries by life expectancy band, 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"pie-desc\">\n"
+      ],
+      "id": "0fa97e67"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "2b0b47cc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"pie-desc\">\n",
+        "This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by labels next to each segment. There is whitespace separating the segments from each other.</div>\n",
+        "\n",
+        "## Focus charts\n"
+      ],
+      "id": "342a0861"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# | eval: true\n",
+        "# | output: false\n",
+        "\n",
+        "import matplotlib.pyplot as plt\n",
+        "from matplotlib.ticker import FuncFormatter\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "from afcharts.af_colours import get_af_colours\n",
+        "\n",
+        "# Get the focus colour palette\n",
+        "focus = get_af_colours(\"focus\")\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder().query(\"year == 2007 & continent == 'Americas'\")\n",
+        "\n",
+        "top5 = df.nlargest(5, \"pop\")\n",
+        "\n",
+        "colours = {\n",
+        "    country: focus[0 if country == \"Brazil\" else 1]\n",
+        "    for country in top5[\"country\"].unique()\n",
+        "}\n",
+        "\n",
+        "fig = plt.figure(figsize=(8, 5))\n",
+        "plt.bar(\n",
+        "    top5[\"country\"],\n",
+        "    top5[\"pop\"] / 1e6,\n",
+        "    color=[colours[country] for country in top5[\"country\"]],\n",
+        ")\n",
+        "\n",
+        "fig"
+      ],
+      "id": "1d0d03c9",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">Brazil has the second highest population in the Americas</div>\n",
+        "<div class=\"chart-subtitle\">Population of countries in the Americas (millions), 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"focus-desc\">\n"
+      ],
+      "id": "cba5a1cd"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "46c1d295",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"focus-desc\">\n",
+        "This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.\n",
+        "</div>\n",
+        "\n",
+        "## Other customisations\n",
+        "### Sorting a bar chart\n",
+        "\n",
+        "To control the order of bars in a bar chart, sort the data object before plotting. For Pandas data frames, you can use the `.sort_values()` method. Pass the name or list of names that you would like to sort by and specify whether ascending (True, default) or descending (False). In this below example, the data is sorted on `pop` and ascending is set to `True` so that the bars are displayed in ascending order of population.\n"
+      ],
+      "id": "a7c727fe"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "# Filter for Americas in 2007 and get top 5 by population\n",
+        "df = gapminder().query(\"year == 2007 & continent == 'Americas'\")\n",
+        "\n",
+        "top5 = df.nlargest(5, \"pop\").sort_values(\"pop\", ascending=True)\n",
+        "\n",
+        "fig = plt.figure(figsize=(8, 5))\n",
+        "plt.barh(\n",
+        "    top5[\"country\"],\n",
+        "    top5[\"pop\"] / 1e6,  # Convert to millions\n",
+        ")\n",
+        "\n",
+        "fig"
+      ],
+      "id": "b8557fb3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">The U.S.A. is the most populous country in the Americas</div>\n",
+        "<div class=\"chart-subtitle\">Population of countries in the Americas (millions), 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"sortbar-desc\">\n"
+      ],
+      "id": "197bbbb7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "f3766591",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"sortbar-desc\">\n",
+        "This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas, sorted in ascending order by population. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.\n",
+        "</div>\n",
+        "\n",
+        "### Adding a horizontal or vertical line\n",
+        "\n",
+        "To add a horizontal or vertical line across the whole plot, use `axhline()` or `axvline()` respectively. Annotating the line can be achieved using `text()`. This can be useful to highlight a threshold or average level.  \n"
+      ],
+      "id": "4f6236d1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Load gapminder dataset from plotly\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "# Set default theme\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder().query(\"country == 'United Kingdom'\")\n",
+        "\n",
+        "# Make the figure wider than the default (6.4, 4.8)\n",
+        "fig = plt.figure(figsize=(8.5, 4.8))\n",
+        "\n",
+        "plt.plot(df[\"year\"], df[\"lifeExp\"])\n",
+        "\n",
+        "# Add a dotted horizontal line for 70 years of age\n",
+        "plt.axhline(y=70, linestyle='--', color='gray', linewidth=2)\n",
+        "plt.text(2005, 71, 'Age 70', fontsize=10, fontweight='normal', color='black')\n",
+        "\n",
+        "plt.xlim([1950, 2010])\n",
+        "plt.ylim([0, 82])\n",
+        "\n",
+        "fig"
+      ],
+      "id": "edbb5844",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">Living Longer</div>\n",
+        "<div class=\"chart-subtitle\">Life expectancy in the United Kingdom 1952 to 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"hline-desc\">\n"
+      ],
+      "id": "6e9e39bb"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "dcba1e98",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"hline-desc\">\n",
+        "This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data. A dotted horizontal line has been added at 70 years of age, with an annotation to label it.\n",
+        "</div>\n",
+        "\n",
+        "### Wrapping text\n",
+        "\n",
+        "If text is too long, it may be cut off or distort the dimensions of the chart. To avoid this, text can be wrapped to multiple lines using the `textwrap` module. The width argument controls how many characters are allowed on each line before wrapping. See the figure title below for an example.\n",
+        "\n",
+        "Alternatively, you can manually add line breaks by inserting `\\n` into the text string to control where the text is wrapped. See the y-axis label in the figure below for an example.\n"
+      ],
+      "id": "47992aab"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "import textwrap\n",
+        "import matplotlib.pyplot as plt\n",
+        "from plotly.express.data import gapminder\n",
+        "\n",
+        "plt.style.use(\"afcharts.afcharts\")\n",
+        "\n",
+        "df = gapminder().query(\"year == 2007 & continent == 'Americas'\")\n",
+        "top5 = df.nlargest(5, \"pop\")\n",
+        "\n",
+        "fig = plt.figure()\n",
+        "plt.bar(top5[\"country\"], top5[\"pop\"] / 1e6)\n",
+        "\n",
+        "plt.title(textwrap.fill(\n",
+        "    \"The U.S.A. is the most populous country in the Americas by a wide margin\",\n",
+        "    width=40,\n",
+        "))\n",
+        "plt.ylabel(\"Population\\nin millions\", rotation=0, labelpad=40)  \n",
+        "\n",
+        "fig"
+      ],
+      "id": "f0d5c826",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div class=\"chart-title\">The U.S.A. is the most populous country in the Americas</div>\n",
+        "<div class=\"chart-subtitle\">Population of countries in the Americas (millions), 2007</div>\n",
+        "<div class=\"chart\" aria-describedby=\"textwrap-desc\">\n"
+      ],
+      "id": "c1e1e02f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "fig"
+      ],
+      "id": "28c07e8d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "</div>\n",
+        "<div class=\"chart-source\">Source: Gapminder</div>\n",
+        "<div class=\"chart-alt\" id=\"textwrap-desc\">\n",
+        "In this bar chart image, the y-axis label and chart title text have been wrapped onto two lines so that all the text is visible without being cut off.\n",
+        "</div>"
+      ],
+      "id": "36504f8d"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/mnt/workbench/home/Fred.Rodrigues/.venv/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
