@@ -101,7 +101,9 @@ display(HTML(df.to_html(escape=False, index=False)))
 
 
 ### Sequential palette
-The `sequential` colour palette should be used for data where the order has some meaning, such as age groups. The pale grey colour should be used for cases when, for example, you have no data or have suppressed the value.
+The `sequential` colour palette should be used for data where the order has some meaning, such as age groups.
+
+The pale grey colour should be used for cases when, for example, you have no data or have suppressed the value. By default, the sequential palette returned by `get_af_colours()` does not include the pale grey. To include it, set `include_grey=True`.
 
 ```{python}
 #| echo: false

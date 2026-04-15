@@ -46,7 +46,7 @@ pio.templates["afcharts"] = go.layout.Template(
             }
         },
         "colorscale": {
-            "sequential": get_af_colours("sequential", number_of_colours=5)[
+            "sequential": get_af_colours("sequential")[
                 ::-1
             ]  # reverse to make high = dark  # Sequential colour scale for low to high ranges
         },

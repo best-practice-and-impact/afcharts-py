@@ -4,11 +4,20 @@
 # Py-af-colours source: https://github.com/best-practice-and-impact/py-af-colours
 
 from pathlib import Path
-
+from typing import Literal
 import yaml
 
 
-def get_af_colours(palette: str, colour_format="hex", number_of_colours=None, include_grey=False, config_path=None):
+ColourFormat = Literal["hex", "rgb"]
+Palette_List = Literal["duo", "focus", "categorical", "sequential"]
+
+def get_af_colours(
+    palette: Palette_List,
+    colour_format: ColourFormat = "hex",
+    number_of_colours: int | None = None,
+    include_grey: bool = False,
+    config_path: str | Path | None = None,
+) -> list[str]:
     """
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
@@ -94,17 +103,14 @@ def get_af_colours(palette: str, colour_format="hex", number_of_colours=None, in
         chosen_colours_list = duo_colours(duo_hex_list, colour_format)
 
     elif palette == "categorical":
-        if number_of_colours is None:
-            chosen_colours_list = categorical_colours(categorical_hex_list, duo_hex_list, colour_format)
-        else:
-            chosen_colours_list = categorical_colours(
+        chosen_colours_list = categorical_colours(
                 categorical_hex_list, duo_hex_list, colour_format, number_of_colours
             )
 
     return chosen_colours_list
 
 
-def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex", number_of_colours=2):
+def categorical_colours(categorical_hex_list, duo_hex_list, colour_format: ColourFormat = "hex", number_of_colours: int | None = None):
     """
     Return the Analysis Function categorical colour palette as a list
     in hex or rgb format for up to 6 colours. If number_of_colours is
@@ -138,14 +144,14 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex",
 
     """
 
-    if number_of_colours > 6:
+    if number_of_colours is not None and number_of_colours > 6:
         raise ValueError("number_of_colours must not be more than 6 for the categorical palette.")
 
-    if number_of_colours == 2:
+    elif number_of_colours is not None and number_of_colours == 2:
         categorical_colours_list = duo_colours(duo_hex_list, colour_format)
         return categorical_colours_list
 
-    elif colour_format == "hex":
+    if colour_format == "hex":
         full_categorical_colours_list = categorical_hex_list
 
     elif colour_format == "rgb":
@@ -158,8 +164,7 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format="hex",
 
     return categorical_colours_list
 
-
-def duo_colours(duo_hex_list, colour_format="hex"):
+def duo_colours(duo_hex_list, colour_format: ColourFormat = "hex"):
     """
     Return the Analysis Function duo colour palette as a list of 2
     colours in hex or rgb format. This function is also called by
@@ -190,7 +195,7 @@ def duo_colours(duo_hex_list, colour_format="hex"):
     return duo_colours_list
 
 
-def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colours=5, include_grey=False):
+def sequential_colours(sequential_hex_list, colour_format: ColourFormat = "hex", number_of_colours=5, include_grey=False):
     """
     Return the Analysis Function sequential colour palette as a list
     in hex or rgb format. Supports combinations of 3, 4, or 5 colours
@@ -221,13 +226,7 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
     SEQUENTIAL_COMBOS = {
         3: [sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
         4: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
-        5: [
-            sequential_hex_list[0],
-            sequential_hex_list[1],
-            sequential_hex_list[2],
-            sequential_hex_list[3],
-            sequential_hex_list[4],
-        ],
+        5: sequential_hex_list[0:5]
     }
 
     if number_of_colours not in [3, 4, 5]:
@@ -248,7 +247,7 @@ def sequential_colours(sequential_hex_list, colour_format="hex", number_of_colou
     return sequential_colours_list
 
 
-def focus_colours(focus_hex_list, colour_format="hex"):
+def focus_colours(focus_hex_list, colour_format: ColourFormat = "hex"):
     """
     Return the Analysis Function focus colour palette as a list of 2
     colours in hex or rgb format.
