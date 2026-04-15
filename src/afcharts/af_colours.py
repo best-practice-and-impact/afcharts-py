@@ -4,20 +4,21 @@
 # Py-af-colours source: https://github.com/best-practice-and-impact/py-af-colours
 
 from pathlib import Path
-from typing import Literal
+from typing import List, Literal
+
 import yaml
 
-
 ColourFormat = Literal["hex", "rgb"]
-Palette_List = Literal["duo", "focus", "categorical", "sequential"]
+PaletteName = Literal["duo", "focus", "categorical", "sequential"]
+
 
 def get_af_colours(
-    palette: Palette_List,
+    palette: PaletteName,
     colour_format: ColourFormat = "hex",
     number_of_colours: int | None = None,
     include_grey: bool = False,
     config_path: str | Path | None = None,
-) -> list[str]:
+) -> List:
     """
     get_af_colours() is the top level function in af_colours. This returns
     the chosen Analysis Function colour palette in hex or rgb format.
@@ -69,10 +70,10 @@ def get_af_colours(
     with open(config_path) as file:
         config = yaml.load(file, Loader=yaml.BaseLoader)
 
-    categorical_hex_list = config["categorical_hex_list"]
-    duo_hex_list = config["duo_hex_list"]
-    sequential_hex_list = config["sequential_hex_list"]
-    focus_hex_list = config["focus_hex_list"]
+    categorical_hex_list: List[str] = config["categorical_hex_list"]
+    duo_hex_list: List[str] = config["duo_hex_list"]
+    sequential_hex_list: List[str] = config["sequential_hex_list"]
+    focus_hex_list: List[str] = config["focus_hex_list"]
 
     if palette not in ["categorical", "duo", "sequential", "focus"]:
         raise ValueError("palette must be one of 'categorical', 'duo', 'sequential' " + f"or 'focus', not {palette}.")
@@ -84,35 +85,29 @@ def get_af_colours(
         raise ValueError("number_of_colours must be greater than 0.")
 
     if palette == "sequential":
-        if number_of_colours is None:
-            chosen_colours_list = sequential_colours(
-                sequential_hex_list, colour_format=colour_format, include_grey=include_grey
-            )
-        else:
-            chosen_colours_list = sequential_colours(
-                sequential_hex_list,
-                colour_format=colour_format,
-                number_of_colours=number_of_colours,
-                include_grey=include_grey,
-            )
+        return sequential_colours(
+            sequential_hex_list,
+            colour_format=colour_format,
+            number_of_colours=number_of_colours or 5,
+            include_grey=include_grey,
+        )
 
-    elif palette == "focus":
-        chosen_colours_list = focus_colours(focus_hex_list, colour_format)
+    if palette == "focus":
+        return focus_colours(focus_hex_list, colour_format)
 
-    elif palette == "duo":
-        chosen_colours_list = duo_colours(duo_hex_list, colour_format)
+    if palette == "duo":
+        return duo_colours(duo_hex_list, colour_format)
 
-    elif palette == "categorical":
-        chosen_colours_list = categorical_colours(
-                categorical_hex_list, duo_hex_list, colour_format, number_of_colours
-            )
-
-    return chosen_colours_list
+    # palette == "categorical"
+    return categorical_colours(categorical_hex_list, duo_hex_list, colour_format, number_of_colours)
 
 
 def categorical_colours(
-    categorical_hex_list, duo_hex_list, colour_format: ColourFormat = "hex", number_of_colours: int = 6
-) -> list[str]:
+    categorical_hex_list: List[str],
+    duo_hex_list: List[str],
+    colour_format: ColourFormat = "hex",
+    number_of_colours: int | None = 6,
+) -> List:
     """
     Return the Analysis Function categorical colour palette as a list
     in hex or rgb format for up to 6 colours. If number_of_colours is
@@ -145,13 +140,15 @@ def categorical_colours(
         categorical_colours_list
 
     """
+    n = 6 if number_of_colours is None else number_of_colours
 
-    if number_of_colours is not None and number_of_colours > 6:
+    if n > 6:
         raise ValueError("number_of_colours must not be more than 6 for the categorical palette.")
+    if n < 2:
+        raise ValueError("number_of_colours must be at least 2 for the categorical palette.")
 
-    elif number_of_colours is not None and number_of_colours == 2:
-        categorical_colours_list = duo_colours(duo_hex_list, colour_format)
-        return categorical_colours_list
+    if n == 2:
+        return duo_colours(duo_hex_list, colour_format)
 
     if colour_format == "hex":
         full_categorical_colours_list = categorical_hex_list
@@ -162,11 +159,9 @@ def categorical_colours(
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
-    categorical_colours_list = full_categorical_colours_list[0:number_of_colours]
+    return full_categorical_colours_list[0:n]
 
-    return categorical_colours_list
-
-def duo_colours(duo_hex_list, colour_format: ColourFormat = "hex") -> list[str]:
+def duo_colours(duo_hex_list: List[str], colour_format: ColourFormat = "hex") -> List:
     """
     Return the Analysis Function duo colour palette as a list of 2
     colours in hex or rgb format. This function is also called by
@@ -188,18 +183,19 @@ def duo_colours(duo_hex_list, colour_format: ColourFormat = "hex") -> list[str]:
 
     """
     if colour_format == "hex":
-        duo_colours_list = duo_hex_list
+        return duo_hex_list
     elif colour_format == "rgb":
-        duo_colours_list = hex_to_rgb(duo_hex_list)
+        return hex_to_rgb(duo_hex_list)
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
-    return duo_colours_list
-
 
 def sequential_colours(
-    sequential_hex_list, colour_format: ColourFormat = "hex", number_of_colours=5, include_grey=False
-) -> list[str]:
+    sequential_hex_list: List[str],
+    colour_format: ColourFormat = "hex",
+    number_of_colours: int = 5,
+    include_grey: bool = False
+) -> List:
     """
     Return the Analysis Function sequential colour palette as a list
     in hex or rgb format. Supports combinations of 3, 4, or 5 colours
@@ -230,7 +226,7 @@ def sequential_colours(
     SEQUENTIAL_COMBOS = {
         3: [sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
         4: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
-        5: sequential_hex_list[0:5]
+        5: sequential_hex_list[:5]
     }
 
     if number_of_colours not in [3, 4, 5]:
@@ -242,16 +238,14 @@ def sequential_colours(
         colours = SEQUENTIAL_COMBOS[number_of_colours]
 
     if colour_format == "hex":
-        sequential_colours_list = colours
+        return colours
     elif colour_format == "rgb":
-        sequential_colours_list = hex_to_rgb(colours)
+        return hex_to_rgb(colours)
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
-    return sequential_colours_list
 
-
-def focus_colours(focus_hex_list, colour_format: ColourFormat = "hex") -> list[str]:
+def focus_colours(focus_hex_list: List[str], colour_format: ColourFormat = "hex") -> List:
     """
     Return the Analysis Function focus colour palette as a list of 2
     colours in hex or rgb format.
@@ -272,16 +266,14 @@ def focus_colours(focus_hex_list, colour_format: ColourFormat = "hex") -> list[s
     """
 
     if colour_format == "hex":
-        focus_colours_list = focus_hex_list
+        return focus_hex_list
     elif colour_format == "rgb":
-        focus_colours_list = hex_to_rgb(focus_hex_list)
+         return hex_to_rgb(focus_hex_list)
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
-    return focus_colours_list
 
-
-def hex_to_rgb(hex_colours) -> list:
+def hex_to_rgb(hex_colours: List[str]) -> List:
     """
     Convert a list of hex codes to a list of rgb colours.
 
@@ -299,13 +291,17 @@ def hex_to_rgb(hex_colours) -> list:
     Returns
     -------
     list
-        converted_list
+        rgb_list
 
     """
     if type(hex_colours) is not list:
         raise TypeError("hex_colours must be a list.")
 
+    for value in hex_colours:
+        if not isinstance(value, str):
+            raise TypeError("hex_colours must be a list of hex strings.")
+
     hex_colours_new = [i.lstrip("#") for i in hex_colours]
 
-    converted_list = [(tuple(int(value[i : i + 2], 16) for i in (0, 2, 4))) for value in hex_colours_new]
-    return converted_list
+    rgb_list = [(tuple(int(value[i : i + 2], 16) for i in (0, 2, 4))) for value in hex_colours_new]
+    return rgb_list

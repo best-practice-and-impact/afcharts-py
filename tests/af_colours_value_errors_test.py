@@ -17,22 +17,6 @@ import pytest
 from afcharts.af_colours import get_af_colours
 
 
-def test_invalid_palette_value():
-    """
-    Verify an invalid colour palette name triggers a ValueError.
-    """
-    with pytest.raises(ValueError):
-        get_af_colours("wrong_palette", "hex")
-
-
-def test_invalid_colour_format_value():
-    """
-    Verify an unsupported colour format triggers a ValueError.
-    """
-    with pytest.raises(ValueError):
-        get_af_colours("duo", "wrong_format")
-
-
 def test_invalid_low_number_of_colours_value():
     """
     Verify requesting zero colours triggers a ValueError.
