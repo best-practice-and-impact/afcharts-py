@@ -110,7 +110,9 @@ def get_af_colours(
     return chosen_colours_list
 
 
-def categorical_colours(categorical_hex_list, duo_hex_list, colour_format: ColourFormat = "hex", number_of_colours: int | None = None):
+def categorical_colours(
+    categorical_hex_list, duo_hex_list, colour_format: ColourFormat = "hex", number_of_colours: int = 6
+) -> list[str]:
     """
     Return the Analysis Function categorical colour palette as a list
     in hex or rgb format for up to 6 colours. If number_of_colours is
@@ -164,7 +166,7 @@ def categorical_colours(categorical_hex_list, duo_hex_list, colour_format: Colou
 
     return categorical_colours_list
 
-def duo_colours(duo_hex_list, colour_format: ColourFormat = "hex"):
+def duo_colours(duo_hex_list, colour_format: ColourFormat = "hex") -> list[str]:
     """
     Return the Analysis Function duo colour palette as a list of 2
     colours in hex or rgb format. This function is also called by
@@ -195,7 +197,9 @@ def duo_colours(duo_hex_list, colour_format: ColourFormat = "hex"):
     return duo_colours_list
 
 
-def sequential_colours(sequential_hex_list, colour_format: ColourFormat = "hex", number_of_colours=5, include_grey=False):
+def sequential_colours(
+    sequential_hex_list, colour_format: ColourFormat = "hex", number_of_colours=5, include_grey=False
+) -> list[str]:
     """
     Return the Analysis Function sequential colour palette as a list
     in hex or rgb format. Supports combinations of 3, 4, or 5 colours
@@ -247,7 +251,7 @@ def sequential_colours(sequential_hex_list, colour_format: ColourFormat = "hex",
     return sequential_colours_list
 
 
-def focus_colours(focus_hex_list, colour_format: ColourFormat = "hex"):
+def focus_colours(focus_hex_list, colour_format: ColourFormat = "hex") -> list[str]:
     """
     Return the Analysis Function focus colour palette as a list of 2
     colours in hex or rgb format.
@@ -277,7 +281,7 @@ def focus_colours(focus_hex_list, colour_format: ColourFormat = "hex"):
     return focus_colours_list
 
 
-def hex_to_rgb(hex_colours):
+def hex_to_rgb(hex_colours) -> list:
     """
     Convert a list of hex codes to a list of rgb colours.
 
