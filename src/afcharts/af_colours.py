@@ -129,7 +129,7 @@ def categorical_colours(
         return categorical_colours_list
 
     elif colour_format == "hex":
-        full_categorical_colours_list = categorical_hex_list
+        full_categorical_colours_list: Union[List[str], List[Tuple[int, int, int]]] = categorical_hex_list
 
     elif colour_format == "rgb":
         full_categorical_colours_list = hex_to_rgb(categorical_hex_list)
@@ -165,7 +165,7 @@ def duo_colours(duo_hex_list: List[str], colour_format: str = "hex") -> Union[Li
     """
 
     if colour_format == "hex":
-        duo_colours_list = duo_hex_list
+        duo_colours_list: Union[List[str], List[Tuple[int, int, int]]] = duo_hex_list
     elif colour_format == "rgb":
         duo_colours_list = hex_to_rgb(duo_hex_list)
     else:
@@ -197,7 +197,7 @@ def sequential_colours(
     """
 
     if colour_format == "hex":
-        sequential_colours_list = sequential_hex_list
+        sequential_colours_list: Union[List[str], List[Tuple[int, int, int]]] = sequential_hex_list
     elif colour_format == "rgb":
         sequential_colours_list = hex_to_rgb(sequential_hex_list)
     else:
@@ -229,7 +229,7 @@ def focus_colours(
     """
 
     if colour_format == "hex":
-        focus_colours_list = focus_hex_list
+        focus_colours_list: Union[List[str], List[Tuple[int, int, int]]] = focus_hex_list
     elif colour_format == "rgb":
         focus_colours_list = hex_to_rgb(focus_hex_list)
     else:
@@ -264,5 +264,5 @@ def hex_to_rgb(hex_colours: List[str]) -> List[Tuple[int, int, int]]:
 
     hex_colours_new = [i.lstrip("#") for i in hex_colours]
 
-    converted_list = [(tuple(int(value[i : i + 2], 16) for i in (0, 2, 4))) for value in hex_colours_new]
+    converted_list = [(int(value[0:2], 16), int(value[2:4], 16), int(value[4:6], 16)) for value in hex_colours_new]
     return converted_list
