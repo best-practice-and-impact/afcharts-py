@@ -22,7 +22,7 @@ def test_invalid_palette_value():
     Verify an invalid colour palette name triggers a ValueError.
     """
     with pytest.raises(ValueError):
-        get_af_colours("wrong_palette", "hex")
+        get_af_colours("wrong_palette", "hex")  # type: ignore[arg-type]
 
 
 def test_invalid_colour_format_value():
@@ -30,7 +30,7 @@ def test_invalid_colour_format_value():
     Verify an unsupported colour format triggers a ValueError.
     """
     with pytest.raises(ValueError):
-        get_af_colours("duo", "wrong_format")
+        get_af_colours("duo", "wrong_format")  # type: ignore[arg-type]
 
 
 def test_invalid_low_number_of_colours_value():
