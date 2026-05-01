@@ -206,7 +206,9 @@ def sequential_colours(
     return sequential_colours_list
 
 
-def focus_colours(focus_hex_list: List[str], colour_format: str = "hex") -> Union[List[str], List[Tuple[int, int, int]]]:
+def focus_colours(
+    focus_hex_list: List[str], colour_format: str = "hex"
+) -> Union[List[str], List[Tuple[int, int, int]]]:
     """
     Return the Analysis Function focus colour palette as a list of 2
     colours in hex or rgb format.
