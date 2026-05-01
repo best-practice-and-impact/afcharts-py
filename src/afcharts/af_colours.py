@@ -46,7 +46,7 @@ def get_af_colours(
         Whether to include the grey colour in the sequential palette. Can be used to show
         null values in charts. The default is False, which excludes the grey colour.
 
-    config_path : NoneType, optional
+    config_path : str | Path | None, optional
         Takes the default value None, inside the function this is
         mapped to the relative path independent of operating system.
         Should not require changing.
