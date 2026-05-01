@@ -748,6 +748,12 @@ fig
 This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data. A dotted horizontal line has been added at 70 years of age, with an annotation to label it.
 </div>
 
+### Saving figures
+
+The afcharts style uses a larger base font size (14pt vs Matplotlib's default 10pt) for accessibility. The `figure.figsize` parameter is intentionally not set in the style sheet — the default canvas remains 6.4 × 4.8 inches.
+
+By default, `savefig` saves at exactly `figure.figsize`. If you pass `bbox_inches='tight'`, the output is cropped to the bounding box of all content, so dimensions will vary between charts. Avoid this if you need a consistent, fixed output size.
+
 ### Wrapping text
 
 If text is too long, it may be cut off or distort the dimensions of the chart. To avoid this, text can be wrapped to multiple lines using the `textwrap` module. The width argument controls how many characters are allowed on each line before wrapping. See the figure title below for an example.
