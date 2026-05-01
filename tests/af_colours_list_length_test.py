@@ -37,3 +37,11 @@ def test_categorical_list_length(palette, colour_format, number_of_colours):
     assert len(result) == number_of_colours, (
         f"Expected {number_of_colours} colours but got {len(result)} for palette='{palette}', format='{colour_format}'"
     )
+
+
+def test_categorical_minimum_colours_value():
+    """
+    Verify requesting 1 colour from the categorical palette triggers a ValueError.
+    """
+    with pytest.raises(ValueError):
+        get_af_colours("categorical", "hex", 1)
