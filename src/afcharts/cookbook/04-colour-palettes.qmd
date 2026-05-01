@@ -24,7 +24,7 @@ get_af_colours("duo")
 
 ### Number of colours
 
-By default, `get_af_colours()` will return all colours in the given palette. For the categorical and sequential palettes, the number of colours returned can be set with the `number_of_colours` argument.
+By default, `get_af_colours()` will return all core colours in the given palette with grey as an optional addition. For the categorical and sequential palettes, the number of colours returned can be set with the `number_of_colours` argument.
 
 For example, to return four colours from the categorical palette as hex codes:
 ```{python}

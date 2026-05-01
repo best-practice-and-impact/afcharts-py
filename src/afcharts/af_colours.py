@@ -16,8 +16,8 @@ def get_af_colours(
     palette: PaletteName,
     colour_format: ColourFormat = "hex",
     number_of_colours: int | None = None,
-    include_grey: bool = False,
     config_path: str | Path | None = None,
+    include_grey: bool = False,
 ) -> List:
     """
     get_af_colours() is the top level function in af_colours. This returns
@@ -161,11 +161,11 @@ def categorical_colours(
 
     return full_categorical_colours_list[0:n]
 
+
 def duo_colours(duo_hex_list: List[str], colour_format: ColourFormat = "hex") -> List:
     """
     Return the Analysis Function duo colour palette as a list of 2
-    colours in hex or rgb format. This function is also called by
-    sequential_colours() if number_of_colours is equal to 2.
+    colours in hex or rgb format.
 
     Parameters
     ----------
@@ -194,7 +194,7 @@ def sequential_colours(
     sequential_hex_list: List[str],
     colour_format: ColourFormat = "hex",
     number_of_colours: int = 5,
-    include_grey: bool = False
+    include_grey: bool = False,
 ) -> List:
     """
     Return the Analysis Function sequential colour palette as a list
@@ -226,7 +226,7 @@ def sequential_colours(
     SEQUENTIAL_COMBOS = {
         3: [sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
         4: [sequential_hex_list[0], sequential_hex_list[1], sequential_hex_list[2], sequential_hex_list[3]],
-        5: sequential_hex_list[:5]
+        5: sequential_hex_list[:5],
     }
 
     if number_of_colours not in [3, 4, 5]:
@@ -268,7 +268,7 @@ def focus_colours(focus_hex_list: List[str], colour_format: ColourFormat = "hex"
     if colour_format == "hex":
         return focus_hex_list
     elif colour_format == "rgb":
-         return hex_to_rgb(focus_hex_list)
+        return hex_to_rgb(focus_hex_list)
     else:
         raise ValueError(f"colour_format must be 'hex' or 'rgb', not {colour_format}.")
 
