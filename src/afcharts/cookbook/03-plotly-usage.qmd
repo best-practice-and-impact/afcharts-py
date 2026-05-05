@@ -671,7 +671,7 @@ This bar chart uses the afcharts theme, and shows the populations of five countr
 
 
 ## Choropleth map with sequential palette
-
+<!-- AF example followed: https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/ -->
 ```{python}
 # | eval: true
 # | output: false
@@ -742,23 +742,51 @@ cat_to_code = {
     "(2.9 to 3.5)": 3,
     "(2.4 to 2.9)": 2,
     "Lowest (0.0 to 2.4)": 1,
-    "Suppressed": 0,
 }
-z = merged["quantile_label"].map(cat_to_code).fillna(0).astype(int)
+z = merged["quantile_label"].map(cat_to_code)
 
+# Must add a separate trace for the 'Supressed'.
+null_mask = ~pd.isna(z)
 fig.add_trace(
     go.Choropleth(
-        geojson=merged.__geo_interface__,
-        locations=merged.index,  # these are indices we put into properties
-        z=z,  # numeric codes 0..5
-        colorscale=sequential,
+        geojson=merged.loc[null_mask].__geo_interface__,
+        locations=merged.loc[null_mask].index,
+        z=z[null_mask],
+        colorscale=sequential[1:],
         zmin=0,
         zmax=5,
         marker_line_width=0.5,
         marker_line_color="white",
-        hovertext=merged["Area Name"],
-        hoverinfo="text",
+        customdata=merged.loc[null_mask, ["quantile_label", "Value"]],
+        hovertext=merged.loc[null_mask, "Area Name"],
+        hovertemplate=(
+            "<b>%{hovertext}</b><br>"
+            "Value: %{customdata[1]}<br>"
+            "Category: %{customdata[0]}"
+            "<extra></extra>"
+        ),
         showscale=False,  # hide continuous colorbar; we'll add a categorical legend
+    )
+)
+
+# Supressed values
+fig.add_trace(
+    go.Choropleth(
+        geojson=merged.loc[~null_mask].__geo_interface__,
+        locations=merged.loc[~null_mask].index,
+        z=[0] * (~null_mask).sum(),  # dummy z
+        colorscale=[[0, sequential[0]], [1, sequential[0]]],  # null colour
+        marker_line_width=0.5,
+        marker_line_color="white",
+        customdata=merged.loc[~null_mask, ["quantile_label"]],
+        hovertext=merged.loc[~null_mask, "Area Name"],
+        hovertemplate=(
+            "<b>%{hovertext}</b><br>"
+            "Value: Suppressed<br>"
+            "Category: %{customdata[0]}"
+            "<extra></extra>"
+        ),
+        showscale=False,
     )
 )
 
@@ -865,6 +893,7 @@ Oldham local authority has the highest rate where 12.7 per 100,000 persons aged 
 </div>
 
 ## Heat map with sequential palette
+<!-- Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics -->
 ```{python}
 # | eval: true
 # | output: false
@@ -883,8 +912,8 @@ sequential = get_af_colours("sequential", number_of_colours=5)[::-1]
 # Set default theme
 pio.templates.default = "afcharts"
 
-# Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics
-DATA_URL = "https://assets.publishing.service.gov.uk/media/699c5d49cd3d70e6c2f1274c/table_211_213__6_.xlsx"
+DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
+
 df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12])
 
 df["Year and Period"] = df[["Year and dataset code row", "Quarter"]].astype(str).agg(", ".join, axis=1)
@@ -906,6 +935,7 @@ fig.add_trace(go.Heatmap(z=df, x=wrapped_x, y=list(df.index), colorscale=sequent
 
 fig.update_layout(
     height=600,
+    width=600,
     xaxis=dict(
         tickangle=45,
         automargin=True,
@@ -936,5 +966,5 @@ Data may change regularly due to rebasing. The ONS use the latest full year of d
 
 Note 1. Aggregate of individual solid fuels, gas, electricity and liquid fuels indices.
 Note 2. ULSP, ULSD & motor oil. Other fuels are as defined by ONS. See the Methodology tab for further details.
-Note 3. ONS update the GDP Deflator on a regular basis.  As such the real terms price indices are subject to regular revisions to the whole series.
+Note 3. ONS update the GDP Deflator on a regular basis. As such the real terms price indices are subject to regular revisions to the whole series.
 </div>
