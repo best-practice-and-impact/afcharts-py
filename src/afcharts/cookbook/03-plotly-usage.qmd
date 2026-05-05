@@ -806,7 +806,7 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Get the sequential colour palette in reverse order
-sequential = get_af_colours("sequential", number_of_colours=6)[::-1]
+sequential = get_af_colours("sequential", number_of_colours=5, include_grey=True)[::-1]
 
 # Set default theme
 pio.templates.default = "afcharts"
@@ -976,6 +976,7 @@ Oldham local authority has the highest rate where 12.7 per 100,000 persons aged 
 # | eval: true
 # | output: false
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -985,7 +986,7 @@ from afcharts.af_colours import get_af_colours
 from afcharts.pio_template import pio
 
 # Get the sequential colour palette
-sequential = get_af_colours("sequential", number_of_colours=5)[::-1]
+sequential = get_af_colours("sequential", number_of_colours=5, include_grey=True)[::-1]
 
 # Set default theme
 pio.templates.default = "afcharts"
@@ -1004,12 +1005,16 @@ df = df.iloc[:, 9:-2].copy()
 for c in df.columns:
     df[c] = pd.to_numeric(df[c], errors="coerce")
 
+
+null_mask = np.where(df.isna(), 1, np.nan)
+
 fig = go.Figure()
 
 # Wrap each x‑axis label to max 30 characters per line
 wrapped_x = ["<br>".join(textwrap.wrap(col.replace("Real terms price indices:", ""), width=30)) for col in df.columns]
 
-fig.add_trace(go.Heatmap(z=df, x=wrapped_x, y=list(df.index), colorscale=sequential))
+
+fig.add_trace(go.Heatmap(z=df, x=wrapped_x, y=list(df.index), colorscale=sequential[1:]))
 
 fig.update_layout(
     height=600,
@@ -1018,6 +1023,18 @@ fig.update_layout(
         tickangle=45,
         automargin=True,
     ),
+)
+
+# Overlay heatmap for nulls
+fig.add_trace(
+    go.Heatmap(
+        z=null_mask,
+        x=wrapped_x,
+        y=list(df.index),
+        colorscale=[[0, sequential[0]], [1, sequential[0]]],  # null colour
+        showscale=False,
+        hoverinfo="skip",
+    )
 )
 
 fig.show()
