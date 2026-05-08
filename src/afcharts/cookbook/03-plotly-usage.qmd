@@ -747,7 +747,7 @@ This bar chart uses the afcharts theme, and shows the populations of five countr
 </div>
 
 
-## Choropleth map with sequential palette
+## Choropleth map
 <!-- AF example followed: https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/ -->
 ```{python}
 # | eval: true
@@ -763,9 +763,7 @@ import io
 url = "https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=41203"
 df = pd.read_csv(io.BytesIO(requests.get(url, verify=False).content))
 
-# Keep most recent period
 df = df[df["Time period"] == "2023/24"]  # This is the date in the analysis function website.
-# df = df.sort_values("Time period").drop_duplicates("Area Code", keep="last")
 
 # Numeric breakpoints for quantiles
 bins = [0, 2.4, 2.9, 3.5, 4.6, 12.7]
@@ -775,14 +773,12 @@ labels = ["Lowest (0.0 to 2.4)", "(2.4 to 2.9)", "(2.9 to 3.5)", "(3.5 to 4.6)",
 order = ["Suppressed"] + labels
 
 # Assign bin categories
-df["quantile_label"] = pd.cut(df["Value"], bins=bins, labels=labels, include_lowest=True)
-
-# Handle suppressed values (e.g., NaN)
-df["quantile_label"] = df["quantile_label"].astype("category")
-df["quantile_label"] = df["quantile_label"].cat.add_categories("Suppressed")
-df["quantile_label"] = df["quantile_label"].fillna("Suppressed")
-
-df["quantile_label"] = df["quantile_label"].cat.reorder_categories(order, ordered=True)
+df["quantile_label"] = (
+    pd.cut(df["Value"], bins=bins, labels=labels, include_lowest=True)
+    .cat.add_categories("Suppressed")
+    .fillna("Suppressed")
+    .cat.reorder_categories(order, ordered=True)
+)
 
 # Get UK Country boundaries
 url = (
@@ -813,16 +809,10 @@ pio.templates.default = "afcharts"
 
 fig = go.Figure()
 
-cat_to_code = {
-    "Highest (4.6 to 12.7)": 5,
-    "(3.5 to 4.6)": 4,
-    "(2.9 to 3.5)": 3,
-    "(2.4 to 2.9)": 2,
-    "Lowest (0.0 to 2.4)": 1,
-}
+cat_to_code = {label: i + 1 for i, label in enumerate(labels)}
 z = merged["quantile_label"].map(cat_to_code)
 
-# Must add a separate trace for the 'Supressed'.
+# Must add a separate trace for the 'Suppressed'.
 null_mask = ~pd.isna(z)
 fig.add_trace(
     go.Choropleth(
@@ -832,21 +822,13 @@ fig.add_trace(
         colorscale=sequential[1:],
         zmin=0,
         zmax=5,
-        marker_line_width=0.5,
         marker_line_color="white",
-        customdata=merged.loc[null_mask, ["quantile_label", "Value"]],
-        hovertext=merged.loc[null_mask, "Area Name"],
-        hovertemplate=(
-            "<b>%{hovertext}</b><br>"
-            "Value: %{customdata[1]}<br>"
-            "Category: %{customdata[0]}"
-            "<extra></extra>"
-        ),
         showscale=False,  # hide continuous colorbar; we'll add a categorical legend
+        hoverinfo="skip",
     )
 )
 
-# Supressed values
+# Suppressed values
 fig.add_trace(
     go.Choropleth(
         geojson=merged.loc[~null_mask].__geo_interface__,
@@ -855,15 +837,8 @@ fig.add_trace(
         colorscale=[[0, sequential[0]], [1, sequential[0]]],  # null colour
         marker_line_width=0.5,
         marker_line_color="white",
-        customdata=merged.loc[~null_mask, ["quantile_label"]],
-        hovertext=merged.loc[~null_mask, "Area Name"],
-        hovertemplate=(
-            "<b>%{hovertext}</b><br>"
-            "Value: Suppressed<br>"
-            "Category: %{customdata[0]}"
-            "<extra></extra>"
-        ),
         showscale=False,
+        hoverinfo="skip",
     )
 )
 
@@ -875,8 +850,6 @@ height = 375
 width_height_ratio = width / height
 item_height = 0.035
 r = item_height / 2.0
-x_radius = r / width_height_ratio
-y_radius = r
 
 # Title
 fig.add_annotation(
@@ -963,14 +936,10 @@ fig.show()
 <div class="chart-source">Source: Data used to create this map is available to download from the Fingertips Local Authority health profile produced by the Office for Health Improvement and Disparities.</div>
 
 <div class="chart-alt" id="choropleth-desc">
-In England the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over, were 3.0 per 100,000 population.
-
 The map shows the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over by upper-tier local authority. The data has been broken down into five equal groups with the highest fifth of areas being in the category showing as darkest blue on the map, and areas with the lowest levels shown in the lightest blue.
-
-Oldham local authority has the highest rate where 12.7 per 100,000 persons aged 12 years and over were newly certified with a visual impairment due to diabetic eye disease. In contrast City of London local authority has the lowest rate of 0.0 per 100,000 persons aged 12 years and over. 29 local authority areas had values that were suppressed due to a small count.
 </div>
 
-## Heat map with sequential palette
+## Heatmap
 <!-- Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics -->
 ```{python}
 # | eval: true
@@ -993,49 +962,48 @@ pio.templates.default = "afcharts"
 
 DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
 
-df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12])
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12], usecols="A:B,J:P")
 
-df["Year and Period"] = df[["Year and dataset code row", "Quarter"]].astype(str).agg(", ".join, axis=1)
+df = (
+    df[df["Quarter"] == "Jan to Mar"]
+    .set_index("Year and dataset code row")
+    .drop(columns=["Quarter"])
+    .dropna(how="all")
+)
+df.index = df.index.astype("string")
 
-df = df.set_index(["Year and Period"])
-
-# Select numeric block
-df = df.iloc[:, 9:-2].copy()
+df.columns = (
+    df.columns.str.replace("Real terms price indices: ", "")
+    .str.replace(" [Note 3]", "")
+    .str.replace("\n[Note 1, 3]", "")
+    .str.replace("\n[Note 2, 3]", "")
+    .str.replace("=100\n[Note 3]", "")
+)
 
 for c in df.columns:
     df[c] = pd.to_numeric(df[c], errors="coerce")
 
-
-null_mask = np.where(df.isna(), 1, np.nan)
-
 fig = go.Figure()
 
-# Wrap each x‑axis label to max 30 characters per line
-wrapped_x = ["<br>".join(textwrap.wrap(col.replace("Real terms price indices:", ""), width=30)) for col in df.columns]
 
-
-fig.add_trace(go.Heatmap(z=df, x=wrapped_x, y=list(df.index), colorscale=sequential[1:]))
+fig.add_trace(
+    go.Heatmap(
+        z=df.T,
+        x=df.index,
+        y=df.columns,
+        colorscale=sequential[1:],
+        hoverinfo="skip",
+    )
+)
 
 fig.update_layout(
     height=600,
     width=600,
     xaxis=dict(
-        tickangle=45,
         automargin=True,
     ),
 )
 
-# Overlay heatmap for nulls
-fig.add_trace(
-    go.Heatmap(
-        z=null_mask,
-        x=wrapped_x,
-        y=list(df.index),
-        colorscale=[[0, sequential[0]], [1, sequential[0]]],  # null colour
-        showscale=False,
-        hoverinfo="skip",
-    )
-)
 
 fig.show()
 ```
@@ -1056,13 +1024,7 @@ fig.show()
 <div class="chart-source">Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics</div>
 
 <div class="chart-alt" id="heatmap-desc">
-Figures include VAT where applicable.  VAT rates for coal and coke, gas, electricity and heating oils was 8% from the 2nd quarter of 1994 and 5% since the 4th quarter of 1997 (the rate changed on 1st September). 
-Real price series are deflated using GDP (market prices) deflator. The GDP deflator is updated when published by ONS. 
-Data may change regularly due to rebasing. The ONS use the latest full year of data as the base year and the Department rebases to 2010=100
-
-Note 1. Aggregate of individual solid fuels, gas, electricity and liquid fuels indices.
-Note 2. ULSP, ULSD & motor oil. Other fuels are as defined by ONS. See the Methodology tab for further details.
-Note 3. ONS update the GDP Deflator on a regular basis. As such the real terms price indices are subject to regular revisions to the whole series.
+Heatmap displaying domestic energy price indices for the January–March quarter by year and fuel type. Values are encoded using a colour scale from light to dark to represent lower to higher index values, enabling comparison across fuels and years.
 </div>
 
 ## Other customisations
