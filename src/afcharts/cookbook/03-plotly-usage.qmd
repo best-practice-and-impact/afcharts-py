@@ -822,6 +822,7 @@ fig.add_trace(
         colorscale=sequential[1:],
         zmin=0,
         zmax=5,
+        marker_line_width=0.5,
         marker_line_color="white",
         showscale=False,  # hide continuous colorbar; we'll add a categorical legend
         hoverinfo="skip",
@@ -955,7 +956,7 @@ df.columns = (
     .str.replace(" [Note 3]", "")
     .str.replace("\n[Note 1, 3]", "")
     .str.replace("\n[Note 2, 3]", "")
-    .str.replace("=100\n[Note 3]", "")
+    .str.replace("CPI 2025=100\n[Note 3]", "")
 )
 
 for c in df.columns:
@@ -970,6 +971,7 @@ fig.add_trace(
         x=df.index,
         y=df.columns,
         colorscale=sequential[1:],
+        colorbar=dict(title="CPI (2025 = 100)"),
         hoverinfo="skip",
     )
 )
