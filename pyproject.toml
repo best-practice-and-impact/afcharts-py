@@ -52,9 +52,12 @@ test = [ # package unit testing dependencies
     "pytest-sugar>=1.0.0", # Prettier pytest terminal output
 ]
 docs = [ # cookbook dependencies
+    "geopandas",         # For chloropleth map in plotly examples
     "ipykernel",         # For rendering Quarto
     "nbclient",          # For rendering Quarto
     "pandas>=2.2.2",     # Used to manipulate tabular data
+    "requests",
+    "openpyxl",          # For reading/writing Excel files
 ]
 
 [project.urls]
