@@ -1011,7 +1011,7 @@ Heatmap displaying domestic energy price indices for the January–March quarter
 
 Labelling your chart is often preferable to using a legend, as often this relies on a user matching the legend to the data using colour alone.
 
-You can add an annotation anywhere on a chart using the `annotate()` method. This is demonstrated above in [Line chart with duo palette](#line-chart-with-duo-palette), which directly labels each line. Note that black text has been used for the labels, as this ensures sufficient contrast against the white background.
+You can add an annotation anywhere on a chart using the `fig.add_annotation()` method. This is demonstrated above in [Line chart with duo palette](#line-chart-with-duo-palette), which directly labels each line. Note that black text has been used for the labels, as this ensures sufficient contrast against the white background.
 
 To add value labels to bars in a bar chart, use the `text` argument of `go.Bar()`. In the example below, the population values are added as white text labels inside the bars.
 
@@ -1043,6 +1043,8 @@ fig.add_trace(
         x=x,
         y=y,
         text=round(y, 2),
+        textposition="inside",
+        textfont=dict(color="white")
     )
 )
 
