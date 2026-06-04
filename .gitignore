@@ -138,5 +138,5 @@ docs/cookbook/.gitignore
 .quarto/
 _book/
 .vdoc.*
-docs/cookbook/docs/
+docs/cookbook/docs/*
 _site/
