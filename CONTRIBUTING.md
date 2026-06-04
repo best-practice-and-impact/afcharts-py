@@ -84,17 +84,20 @@ afcharts-py/
 ├── .github/                            # Github templates and workflows
 │
 ├── docs/
-│   └── images/                         # Image files
+│   ├── images/                         # Image files
+│   └── cookbook/
+│       ├── _quarto.yml
+│       ├── index.qmd
+│       ├── 01-getting-started.qmd
+│       ├── 02-matplotlib-usage.qmd
+│       ├── 03-plotly-usage.qmd
+│       └── 04-colour-palettes.qmd
 │
 ├── src/
 │   └── afcharts/                       # Main package folder
 │       ├── __init__.py
 │       ├── pio_template.py             # Plotly template
 │       ├── afcharts.mplstyle           # Matplotlib stylesheet
-│       └── cookbook/
-│           ├── _quarto.yml
-│           └── index.qmd
-│           └── getting-started.qmd
 |
 ├── tests/                              # Unit tests
 │
@@ -102,7 +105,7 @@ afcharts-py/
 ├── CONTRIBUTING.md
 ├── LICENSE.md
 ├── pyproject.toml
-└── .gitignore
+├── .gitignore
 └── .pre-commit-config.yaml
 ```
 
@@ -163,7 +166,7 @@ See [docs/pytest_intro.md](docs/pytest_intro.md) for guidance on adding unit tes
 You can now reproduce the book (requires quarto to be installed):
 
 ```bash
-quarto preview ./src/afcharts/cookbook/
+quarto preview ./docs/cookbook/
 ```
 
 </details>
