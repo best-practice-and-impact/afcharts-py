@@ -1280,7 +1280,7 @@ In this bar chart image, the y-axis label and chart title text have been wrapped
 </div>
 
 
-## Reverting to plotly default template
+## Revert to Plotly default
 
 In some instances you may want to rever to the default plotly template after applying the 'afcharts' 'pio_template'.
 
