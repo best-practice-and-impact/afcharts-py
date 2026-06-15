@@ -1278,3 +1278,17 @@ fig.show()
 <div class="chart-alt" id="textwrap-desc">
 In this bar chart image, the y-axis label and chart title text have been wrapped onto two lines so that all the text is visible without being cut off.
 </div>
+
+
+## Revert to Plotly default
+
+To revert to Plotly's default settings after applying the afcharts template:
+
+```{python}
+# | output: false
+
+from afcharts.pio_template import pio
+
+# Revert to plotly's default theme
+pio.templates.default = "plotly"
+```
