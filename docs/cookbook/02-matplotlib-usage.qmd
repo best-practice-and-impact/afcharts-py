@@ -597,6 +597,84 @@ fig
 This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
 </div>
 
+## Heatmap
+<!-- Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics -->
+
+```{python}
+#| output: false
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+
+from afcharts.af_colours import get_af_colours
+
+# Get the sequential colour palette
+sequential = get_af_colours("sequential", number_of_colours=5, include_grey=True)[::-1]
+
+# Slice the palette to remove the grey colour
+sequential_slice = sequential[1:]
+
+# Get a Matplotlib colormap from the sequential palette
+sequential_cmap = LinearSegmentedColormap.from_list("sequential", sequential_slice)
+
+# Set default theme
+plt.style.use("afcharts.afcharts")
+
+DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
+
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12], usecols="A:B,J:P")
+
+df = (
+    df[df["Quarter"] == "Jan to Mar"]
+    .set_index("Year and dataset code row")
+    .drop(columns=["Quarter"])
+    .dropna(how="all")
+)
+df.index = df.index.astype("string")
+
+df.columns = (
+    df.columns.str.replace("Real terms price indices: ", "")
+    .str.replace(" [Note 3]", "")
+    .str.replace("\n[Note 1, 3]", "")
+    .str.replace("\n[Note 2, 3]", "")
+    .str.replace("CPI 2025=100\n[Note 3]", "")
+)
+
+for c in df.columns:
+    df[c] = pd.to_numeric(df[c], errors="coerce")
+
+fig = plt.figure(figsize=(5, 8))
+plt.imshow(df.T, aspect="auto", cmap=sequential_cmap)
+plt.gca().invert_yaxis()
+plt.xticks(labels=df.index[::10], ticks=np.arange(len(df.index))[::10])
+plt.yticks(labels=df.columns, ticks=np.arange(len(df.columns)))
+plt.grid(False)
+cbar = plt.colorbar(shrink=0.9)
+cbar.ax.set_title(label="CPI (2025 = 100)")
+fig
+
+```
+
+<div class="chart-title">Domestic energy price indices in real terms</div>
+<div class="chart-subtitle">Heat map of quarterly consumer price indices of fuel components.</div>
+<div class="chart" aria-describedby="heatmap-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div>
+<div class="chart-source">Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics</div>
+
+<div class="chart-alt" id="heatmap-desc">
+Heatmap displaying domestic energy price indices for the January–March quarter by year and fuel type. Values are encoded using a colour scale from light to dark to represent lower to higher index values, enabling comparison across fuels and years.
+</div>
+
 ## Annotations
 
 Labelling your chart is often preferable to using a legend, as often this relies on a user matching the legend to the data using colour alone.
