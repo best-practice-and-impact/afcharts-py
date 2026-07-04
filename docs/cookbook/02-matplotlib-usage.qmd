@@ -624,11 +624,11 @@ plt.style.use("afcharts.afcharts")
 
 DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
 
-df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12], usecols="A:B,J:P")
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=7, usecols="A:B,J:P")
 
 df = (
     df[df["Quarter"] == "Jan to Mar"]
-    .set_index("Year and dataset code row")
+    .set_index("Year")
     .drop(columns=["Quarter"])
     .dropna(how="all")
 )
