@@ -597,8 +597,16 @@ fig
 This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
 </div>
 
-## Choropleth map
+## Choropleth maps
 <!-- AF example followed: https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/ -->
+
+A choropleth map colours geographic areas according to a data value. In this example, we plot rates of visual impairment certification across upper-tier local authority areas in England. Each area is assigned to one of five equal groups (quintiles) and coloured from lightest to darkest to represent low to high rates.
+
+This example introduces two concepts not seen in the earlier chart examples:
+
+- **Sequential colour palette**: Unlike the categorical or duo palettes used in earlier examples, the [sequential palette](04-colour-palettes.qmd#sequential-palette) is designed for ordered data, where colour intensity conveys magnitude — light shades for low values, dark shades for high values.
+- **[GeoPandas](https://geopandas.org/en/stable/)**: A library that extends Pandas to work with geospatial data. Here it is used to load geographic boundary files (in GeoJSON format), clip them to England only, and merge them with the health indicator data — creating a single dataset that Plotly can use to draw the map.
+
 ```{python}
 # | eval: true
 # | output: false
@@ -615,7 +623,7 @@ from matplotlib.patches import Patch
 url = "https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=41203"
 df = pd.read_csv(io.BytesIO(requests.get(url, verify=False).content))
 
-df = df[df["Time period"] == "2023/24"]  # This is the date in the analysis function website.
+df = df[df["Time period"] == "2023/24"]
 
 # Numeric breakpoints for quantiles
 bins = [0, 2.4, 2.9, 3.5, 4.6, 12.7]
@@ -630,7 +638,7 @@ df["quantile_label"] = (
     .fillna("Suppressed")
 )
 
-# Get UK Country boundaries
+# Load UK Country boundaries using geopandas
 url = (
     "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/"
     "Countries_December_2023_Boundaries_UK_BUC/FeatureServer/0/query"
@@ -638,14 +646,15 @@ url = (
 )
 country_boundaries = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
 
-# Get Counties and Unitary Authorities
+# Load Counties and Unitary Authorities boundaries using geopandas
 url = "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Counties_and_Unitary_Authorities_December_2023_Boundaries_UK_BUC/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
 gdf = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
 
-# Filter to England only
+# Filter boundaries to England only
 england_boundaries = country_boundaries[country_boundaries["CTRY23NM"] == "England"]
 gdf_clipped_strict = gpd.overlay(gdf, england_boundaries, how="intersection")
 
+# Merge the indicator data with the geographic boundaries
 merged = gdf_clipped_strict.merge(df, left_on="CTYUA23CD", right_on="Area Code", how="left").reset_index(drop=True)
 
 # Get the sequential colour palette in reverse order
@@ -655,7 +664,6 @@ sequential = get_af_colours("sequential", number_of_colours=5, include_grey=True
 plt.style.use("afcharts.afcharts")
 
 colour_map = dict(zip(labels, sequential))
-
 merged["colour"] = merged["quantile_label"].map(colour_map).fillna(sequential[0])
 
 fig, ax = plt.subplots(figsize=(8, 10))
@@ -697,14 +705,19 @@ fig
 ```
 
 </div>
-<div class="chart-source">Source: Data used to create this map is available to download from the Fingertips Local Authority health profile produced by the Office for Health Improvement and Disparities.</div>
+<div class="chart-source">Source: Data used to create this map is available to download from the [Fingertips Local Authority Health Profiles](https://fingertips.phe.org.uk/profile/health-profiles) produced by the Office for Health Improvement and Disparities.</div>
 
 <div class="chart-alt" id="choropleth-desc">
 The map shows the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over by upper-tier local authority. The data has been broken down into five equal groups with the highest fifth of areas being in the category showing as darkest blue on the map, and areas with the lowest levels shown in the lightest blue.
 </div>
 
-## Heatmap
+## Heatmaps
 <!-- Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics -->
+
+A heatmap displays values in a grid of rows and columns, using colour intensity to show magnitude. In this example, we plot domestic energy price indices by fuel type and year.
+
+The [sequential colour palette](04-colour-palettes.qmd#sequential-palette) is used again here. This time, it's used to generate a Matplotlib colormap, which maps colour continuously across the full range of values — with a colour bar shown alongside the chart to act as a scale.
+
 ```{python}
 #| output: false
 
