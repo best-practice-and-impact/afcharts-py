@@ -941,11 +941,11 @@ pio.templates.default = "afcharts"
 
 DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
 
-df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=11, skiprows=[12], usecols="A:B,J:P")
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=7, usecols="A:B,J:P")
 
 df = (
     df[df["Quarter"] == "Jan to Mar"]
-    .set_index("Year and dataset code row")
+    .set_index("Year")
     .drop(columns=["Quarter"])
     .dropna(how="all")
 )
@@ -953,10 +953,7 @@ df.index = df.index.astype("string")
 
 df.columns = (
     df.columns.str.replace("Real terms price indices: ", "")
-    .str.replace(" [Note 3]", "")
-    .str.replace("\n[Note 1, 3]", "")
-    .str.replace("\n[Note 2, 3]", "")
-    .str.replace("CPI 2025=100\n[Note 3]", "")
+    .str.replace(r"(CPI 2025=100)?[ \\n]*\[Note [\d, ]+\]", "", regex=True)
 )
 
 for c in df.columns:
