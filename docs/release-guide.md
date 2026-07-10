@@ -15,22 +15,23 @@ uses two types of release to route packages to the right registry:
 
 The typical flow is:
 
-1. Create a **pre-release** → the workflow publishes to TestPyPI and
-   automatically verifies the package can be installed and imported.
-2. Once satisfied, **promote** the pre-release to a full release → the
-   workflow publishes to PyPI (after confirming the version exists on
-   TestPyPI).
+1. Create a **pre-release** on the release branch → the workflow publishes
+   to TestPyPI and automatically verifies the package can be installed and
+   imported.
+2. Once satisfied, squash-merge the release branch into `main`.
+3. Create a **full release** from `main` → the workflow publishes to PyPI
+   (after confirming a matching version exists on TestPyPI).
 
 ```
-  Pre-release created          Promote to full release
-        │                              │
-        ▼                              ▼
-  ┌───────────┐  ✅ verified    ┌─────────────┐
-  │  TestPyPI │ ──────────────► │    PyPI     │
-  └───────────┘                 └─────────────┘
-    (automated                    (safety check
-     install +                     confirms version
-     import test)                  exists on TestPyPI)
+  Pre-release (release branch)       Full release (main)
+        │                                    │
+        ▼                                    ▼
+  ┌───────────┐  ✅ verified          ┌─────────────┐
+  │  TestPyPI │ ── squash merge ──►   │    PyPI     │
+  └───────────┘    to main            └─────────────┘
+    (automated                          (safety check
+     install +                           confirms version
+     import test)                        exists on TestPyPI)
 ```
 
 ### Safety checks
@@ -143,45 +144,34 @@ git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 ```
 
-### 7. Publish the final version to TestPyPI
-
-Create another GitHub pre-release — this time with the final version number:
-
-1. **Releases** → **Draft a new release**
-2. Tag: `v1.2.0`, Target: `release/v1.2.0`
-3. **Title**: `afcharts 1.2.0`
-4. **Description**: List of changes since previous release
-5. **Check "Set as a pre-release"**
-6. Publish
-
-Wait for the workflow to complete and verify all jobs pass. This confirms
-the exact version that will go to PyPI installs correctly.
-
-### 8. Open pull requests
+### 7. Open pull requests
 
 Open PRs from the release branch into **both** `main` and `dev`:
 
 - `release/v1.2.0` → `main`
 - `release/v1.2.0` → `dev`
 
-Get them reviewed and merge both **without squash merging** (or recreate the `v1.2.0` tag on `main` after merging). This ensures `main` and `dev` are in sync and that the tag you promote matches the code in `main`.
+Get them reviewed and **squash-merge** both.
 
-### 9. Promote the pre-release to a full release
+### 8. Create a full release from main
 
-1. Go to **Releases** on GitHub
-2. Find the `v1.2.0` pre-release you created in step 7
-3. Click **Edit** (pencil icon)
-4. **Uncheck "Set as a pre-release"**
-5. Check **"Set as the latest release"**
-6. Click **Update release**
+1. Go to the repository on GitHub → **Releases** → **Draft a new release**
+2. Click **Choose a tag** and type `v1.2.0` → select **Create new tag**
+3. **Target**: `main`
+4. **Title**: `afcharts 1.2.0`
+5. **Description**: List of changes since previous release
+6. Check **"Set as the latest release"**
+7. **Do NOT** check "Set as a pre-release"
+8. Click **Publish release**
 
-This triggers the workflow again, which will:
+This triggers the workflow, which will:
 
-- Run the **safety check** (confirms `1.2.0` exists on TestPyPI)
-- Build the package
+- Run the **safety check** (confirms a version matching `1.2.0` — including
+  `1.2.0rc1`, `1.2.0rc2`, etc. — exists on TestPyPI)
+- Build the package from the tagged commit on `main`
 - Publish `afcharts 1.2.0` to **PyPI**
 
-### 10. Verify the PyPI publication
+### 9. Verify the PyPI publication
 
 After the workflow completes, confirm the package is live:
 
@@ -213,8 +203,8 @@ The safety check queries TestPyPI for any version matching the base version
 number (e.g. for `1.2.0`, it looks for `1.2.0`, `1.2.0rc1`, `1.2.0rc2`,
 etc.). If it fails:
 
-- Ensure you completed steps 3–7 (publishing a pre-release to TestPyPI)
-  before promoting to a full release.
+- Ensure you completed steps 3–5 (publishing an RC pre-release to TestPyPI)
+  before creating the full release from `main`.
 - Check https://test.pypi.org/project/afcharts/ to see which versions are
   available.
 
@@ -226,13 +216,13 @@ TestPyPI does not allow uploading the same version twice. To retry:
 2. Commit and push to the release branch
 3. Create a new GitHub pre-release with the updated tag (e.g. `v1.2.0rc2`)
 
-### I accidentally created a full release instead of a pre-release
+### I accidentally created a full release before verifying on TestPyPI
 
 The safety check will block the PyPI publish if no matching version exists on
 TestPyPI. To fix:
 
-1. Delete or edit the release back to a pre-release
-2. Follow the process from step 3
+1. Delete the release (and its tag) from GitHub
+2. Follow the process from step 2 (create an RC pre-release first)
 
 ---
 
@@ -253,12 +243,9 @@ git push origin release/v1.2.0
 git add pyproject.toml && git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 
-# → Create GitHub pre-release (tag: v1.2.0, target: release/v1.2.0)
-# → Wait for workflow to pass
-
 # → Open PRs: release/v1.2.0 → main, release/v1.2.0 → dev
-# → Merge both PRs
+# → Squash-merge both PRs
 
-# → Promote v1.2.0 pre-release to full release (uncheck "pre-release")
+# → Create full release from main (tag: v1.2.0, target: main)
 # → Workflow publishes to PyPI
 ```
