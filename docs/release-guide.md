@@ -156,8 +156,7 @@ Open PRs from the release branch into **both** `main` and `dev`:
 - `release/v1.2.0` → `main`
 - `release/v1.2.0` → `dev`
 
-Get them reviewed and merge both. This ensures `main` and `dev` are in sync
-after the release.
+Get them reviewed and merge both **without squash merging** (or recreate the `v1.2.0` tag on `main` after merging). This ensures `main` and `dev` are in sync and that the tag you promote matches the code in `main`.
 
 ### 8. Promote the pre-release to a full release
 
