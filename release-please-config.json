@@ -1,8 +1,0 @@
-{
-  "packages": {
-    ".": {
-      "release-type": "python",
-      "bump-minor-pre-major": true
-    }
-  }
-}

@@ -18,8 +18,7 @@ from afcharts.af_colours import get_af_colours
 @pytest.mark.parametrize(
     "palette, colour_format, number_of_colours",
     [
-        # Test categorical palette for length boundaries (1–6 supported values)
-        ("categorical", "hex", 1),
+        # Test categorical palette for length boundaries (2–6 supported values)
         ("categorical", "hex", 2),
         ("categorical", "hex", 3),
         ("categorical", "hex", 4),
@@ -38,3 +37,11 @@ def test_categorical_list_length(palette, colour_format, number_of_colours):
     assert len(result) == number_of_colours, (
         f"Expected {number_of_colours} colours but got {len(result)} for palette='{palette}', format='{colour_format}'"
     )
+
+
+def test_categorical_minimum_colours_value():
+    """
+    Verify requesting 1 colour from the categorical palette triggers a ValueError.
+    """
+    with pytest.raises(ValueError):
+        get_af_colours("categorical", "hex", 1)

@@ -1,0 +1,1306 @@
+# Using the package with Plotly
+
+
+## Line charts
+### Single line chart
+
+```{python}
+# | label: line-charts-1
+# | eval: true
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("country == 'United Kingdom'")
+
+# Create figure
+fig = go.Figure()
+
+# Add a trace
+fig.add_trace(
+    go.Scatter(
+        x=df["year"],
+        y=df["lifeExp"],
+        mode="lines",
+        name="United Kingdom",
+        text=df["country"],
+    )
+)
+
+# Add label at the last point
+last_year = df["year"].max()
+last_lifeExp = df[df["year"] == last_year]["lifeExp"].values[0]
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        range=[1950, 2010],
+    ),
+    yaxis=dict(
+        range=[0, 82],
+        tickmode="linear",
+        dtick=10,  # Show ticks every 10 units
+    ),
+    showlegend=False,
+    height=400,
+    margin=dict(r=40),
+)
+
+fig.show()
+```
+
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom 1952 to 2007</div>
+<div class="chart" aria-describedby="linechart-1-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="linechart-1-desc">
+This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data.
+</div>
+
+### Line chart with duo palette
+
+```{python}
+# | label: line-charts-2
+# | eval: true
+# | output: false
+
+import plotly.express as px
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+from afcharts.af_colours import get_af_colours
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder()
+df = df[df["country"].isin(["United Kingdom", "China"])]
+
+# Create figure
+fig = go.Figure()
+
+# Add a trace for each continent
+for i, country in enumerate(df["country"].unique()):
+    df_country = df[df["country"] == country]
+
+    fig.add_trace(
+        go.Scatter(
+            x=df_country["year"],
+            y=df_country["lifeExp"],
+            mode="lines",
+            name=country,
+            text=df_country["country"],
+            line=dict(color=duo[i % len(duo)]),
+        )
+    )
+
+    # Add label at the last point
+    last_year = df_country["year"].max()
+    last_lifeExp = df_country[df_country["year"] == last_year]["lifeExp"].values[0]
+
+    fig.add_annotation(
+        dict(
+            x=last_year,
+            y=last_lifeExp,
+            text=country,
+            showarrow=False,
+            xanchor="left",
+            yanchor="middle",
+            bgcolor="white",  # Add a white background
+        )
+    )
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        range=[1950, 2010],
+    ),
+    yaxis=dict(
+        range=[0, 82],
+        tickmode="linear",
+        dtick=10,  # Show ticks every 10 units
+    ),
+    showlegend=False,
+    height=350,
+    margin=dict(r=120),
+)
+
+fig.show()
+```
+
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom and China 1952 to 2007</div>
+<div class="chart" aria-describedby="linechart-2-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="linechart-2-desc">
+This line chart uses the afcharts theme and there are thin pale grey lines extending from the y axis. There are two thicker lines showing the life expectancy in the UK and China over time. The line colours are from the Analysis Function 'duo' palette - dark blue for China and orange for the UK, with labels for each line on the right hand side.
+</div>
+
+Legends should be avoided unless absolutely necessary, as these usually rely on using colour to match labels to data. More information can be found in the Analysis Function [charts guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/#section-11). It is best practice to label lines directly.
+
+## Bar charts
+
+```{python}
+# | eval: true
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+# Filter for Americas in 2007 and get top 5 by population
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+
+top5 = df.nlargest(5, "pop")
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Bar(
+        x=top5["country"],
+        y=top5["pop"] / 1e6,  # Convert to millions
+    )
+)
+
+# Update layout
+fig.update_layout(
+    height=420
+)
+
+fig.show()
+
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="barchart-1-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="barchart-1-desc">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
+</div>
+
+### Grouped bar chart
+
+```{python}
+# | eval: true
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+from afcharts.af_colours import get_af_colours
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query(
+    "year in [1967, 2007] & country in ['United Kingdom', 'Ireland', 'France', 'Belgium']"
+)
+
+fig = go.Figure()
+# Add a bar trace for each year
+for i, year in enumerate(sorted(df["year"].unique())):
+    df_year = df[df["year"] == year]
+    fig.add_trace(
+        go.Bar(
+            x=df_year["country"],
+            y=df_year["lifeExp"],
+            name=str(year),
+            marker_color=duo[i % len(duo)],
+        )
+    )
+
+# Update layout
+fig.update_layout(
+    barmode="group",
+    height=420,
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5
+    ),
+)
+
+fig.show()
+```
+
+<div class="chart-title">Living longer</div>
+<div class="chart-subtitle">Life expectancy (years) in 1967 and 2007</div>
+<div class="chart" aria-describedby="barchart-2-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="barchart-2-desc">
+This grouped bar chart uses the afcharts theme. It shows the life expectancy in 1967 and 2007 for four countries, which are displayed on the x axis. For each country there are two bars. The bar colours are from the Analysis Function 'duo' palette - dark blue for 1967 and orange for 2007, denoted by a legend at the bottom of the chart.
+</div>
+
+### Stacked bar chart
+
+Caution should be taken when producing stacked bar charts. They can quickly become difficult to interpret if plotting non part-to-whole data, and/or if plotting more than two categories per stack. First and last categories in the stack will always be easier to compare across bars than those in the middle. Think carefully about the story you are trying to tell with your chart.
+
+```{python}
+# | eval: true
+# | output: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from afcharts.pio_template import pio
+
+from afcharts.af_colours import get_af_colours
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("year == 2007")
+
+# Create life expectancy groups
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
+    labels=["Under 75", "75 and over"]
+)
+
+# Group by continent and life expectancy group
+grouped = (
+    df.groupby(["continent", "lifeExpGrouped"], observed=True)
+    .size()
+    .reset_index(name="n_countries")
+)
+
+# Pivot to get proportions
+pivot_df = grouped.pivot(
+    index="continent", columns="lifeExpGrouped", values="n_countries"
+).fillna(0)
+pivot_df["total"] = pivot_df.sum(axis=1)
+pivot_df["percent of Under 75"] = pivot_df["Under 75"] / pivot_df["total"]
+pivot_df["percent of 75 and over"] = pivot_df["75 and over"] / pivot_df["total"]
+
+categories = ["Under 75", "75 and over"]
+
+fig = go.Figure()
+
+# Add a bar trace for each category
+for i, category in enumerate(categories):
+    percent_col = f"percent of {category}"
+    life_exp_data = pivot_df[[percent_col]]
+
+    fig.add_trace(
+        go.Bar(
+            x=life_exp_data.index,
+            y=life_exp_data[percent_col],
+            name=str(category),
+            marker_color=duo[i % len(duo)],
+        )
+    )
+
+# Update layout
+fig.update_layout(
+    barmode="stack",
+    height=420,
+    yaxis=dict(tickformat=".0%"),
+    legend=dict(
+        title="Life Expectancy",
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5,
+    ),
+)
+
+fig.show()
+
+```
+
+<div class="chart-title">How life expectancy varies across continents</div>
+<div class="chart-subtitle">Percentage of countries by life expectancy band, 2007</div>
+<div class="chart" aria-describedby="barchart-stack-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="barchart-stack-desc">
+This stacked bar chart uses the afcharts theme and shows the proportions of countries with a life expectancy over and under 75 by continent. The continents are listed along the x axis, with the y axis labelled between 0% and 100%. The colours for the bar segments are from the Analysis Function 'duo' palette - dark blue for under 75 and orange for over 75, denoted by a legend at the bottom of the chart. There is whitespace between each bar.
+</div>
+
+
+## Histograms
+
+```{python}
+# | eval: true
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+# Filter for year 2007
+df = gapminder().query("year == 2007")
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Histogram(
+        x=df["lifeExp"],
+        xbins=dict(start=int(df["lifeExp"].min()), end=int(df["lifeExp"].max()) + 5, size=5),
+    )
+)
+
+# Update layout
+fig.update_layout(
+    height=420,
+    yaxis=dict(title="Number of countries"),
+)
+
+fig.show()
+
+```
+
+<div class="chart-title">How life expectancy varies</div>
+<div class="chart-subtitle">Distribution of life expectancy, 2007</div>
+<div class="chart" aria-describedby="histogram-1-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="histogram-1-desc"> This histogram uses the afcharts theme, and shows the distribution of life expectancy across countries in 2007. The x-axis shows life expectancy in 5-year bins, and the y-axis shows the number of countries. The bars are dark blue with white edges separating each bin. Pale grey grid lines extend out from the y-axis. </div>
+
+## Scatterplots
+
+```{python}
+# | eval: true
+# | output: false
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("year == 2007")
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Scatter(
+        x=df["gdpPercap"],
+        y=df["lifeExp"],
+        mode="markers",
+    )
+)
+
+# Axes should start from 0
+fig.update_yaxes(rangemode="tozero")
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        title="GDP per capita ($US, inflation-adjusted)",
+    ),
+    yaxis=dict(title="Life Expectancy (years)"),
+    height=420,
+)
+
+fig.show()
+```
+
+<div class="chart-title">The relationship between GDP and Life Expectancy is complex</div>
+<div class="chart-subtitle">GDP and Life Expectancy for all countries, 2007</div>
+<div class="chart" aria-describedby="scatter-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="scatter-desc">
+This scatterplot uses the afcharts theme, and shows life expectancy against GDP per capita for 142 countries in 2007. Thin pale grey lines extend out from the x and y axis labels, forming a grid. The data points are plotted as dark blue circles. Both axes are labeled in black using a sans serif font.
+</div>
+
+## Small multiples
+```{python}
+# | eval: true
+# | output: false
+
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+from afcharts.pio_template import pio
+
+from afcharts.af_colours import get_af_colours
+
+# Get the categorical colour palette
+categorical = get_af_colours("categorical")
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder()
+
+# Filter out Oceania and aggregate population by continent and year
+df_grouped = (
+    df[df["continent"] != "Oceania"]
+    .groupby(["continent", "year"], observed=True)["pop"].sum()
+    .reset_index()
+)
+
+# Define the continents to plot
+continents = df_grouped["continent"].unique()
+
+# Create a 2x2 subplot layout
+fig = make_subplots(rows=2, cols=2, subplot_titles=continents, shared_yaxes=True)
+
+# Add area traces for each continent
+for i, continent in enumerate(continents):
+    row = i // 2 + 1
+    col = i % 2 + 1
+    data = df_grouped[df_grouped["continent"] == continent]
+    fig.add_trace(
+        go.Scatter(
+            x=data["year"],
+            y=data["pop"],
+            fill="tozeroy",
+            mode="none",
+            name=continent,
+            showlegend=False,
+            fillcolor=categorical[i % len(categorical)],
+        ),
+        row=row,
+        col=col,
+    )
+
+
+# Customize axes
+fig.update_xaxes(showgrid=False)
+fig.update_yaxes(
+    range=[0, 4.1e9],
+    tickvals=[0, 2e9, 4e9],
+    ticktext=["0", "2bn", "4bn"],
+    showgrid=True,
+)
+
+# Update layout
+fig.update_layout(
+    height=550,
+    margin=dict(t=30),
+)
+
+fig.show()
+
+```
+
+<div class="chart-title">Asia's rapid growth</div>
+<div class="chart-subtitle">Population growth by continent, 1952-2007</div>
+<div class="chart" aria-describedby="small-multiples-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="small-multiples-desc">
+This chart uses the afcharts theme. It contains four subplots in a two by two grid showing how the populations of four continents have changed over time. Each subplot is labelled with the continent. The subplots have a common y axis, with no values on the x axis to facilitate for a simple comparison of the relative values. Each subplot is filled with a different colour from the Analysis Function categorical colour palette to be distinct from other subplots.
+</div>
+
+## Pie charts
+```{python}
+# | eval: true
+# | output: false
+
+import pandas as pd
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+from afcharts.af_colours import get_af_colours
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("continent == 'Europe' and year == 2007")
+
+# Create life expectancy groups
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
+    labels=["Under 75", "75 and over"]
+)
+
+# Count number of countries in each group
+group_counts = df["lifeExpGrouped"].value_counts().sort_index()
+
+fig = go.Figure(
+    data=[
+        go.Pie(
+            values=group_counts.values,
+            labels=group_counts.index,
+            marker=dict(colors=duo, line=dict(color="white", width=2)),
+            sort=False,
+            textinfo="label+percent",
+            textposition="inside",
+            texttemplate="%{label}<br>(%{percent:.0%})",
+        )
+    ]
+)
+
+# Update layout
+fig.update_layout(
+    height=400,
+    showlegend=False
+)
+
+fig.show()
+```
+
+<div class="chart-title">How life expectancy varies in Europe</div>
+<div class="chart-subtitle">Percentage of countries by life expectancy band, 2007</div>
+<div class="chart" aria-describedby="pie-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="pie-desc">
+This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by a legend to the right of the pie chart. There is whitespace separating the segments from each other.
+</div>
+
+## Focus charts
+```{python}
+# | eval: true
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+from afcharts.af_colours import get_af_colours
+
+# Get the focus colour palette
+focus = get_af_colours("focus")
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+
+top5 = df.nlargest(5, "pop")
+
+colours = {
+    country: focus[0 if country == "Brazil" else 1]
+    for country in top5["country"].unique()
+}
+
+# Map colors to bar order
+bar_colours = [colours[country] for country in top5["country"]]
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Bar(
+        x=top5["country"],
+        y=top5["pop"],  # Repeat the category name for each x value
+        marker_color=bar_colours,
+    )
+)
+
+# Update layout
+fig.update_layout(
+    height=420
+)
+
+fig.show()
+```
+
+<div class="chart-title">Brazil has the second highest population in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="focus-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="focus-desc">
+This bar chart uses the afcharts theme, and shows the populations of five countries of the Americas in descending order. The country names are given on the x axis, with all chart text in black in a sans serif font. Four of the bars on the chart are light grey, and the bar for Brazil is filled in dark blue to highlight it.
+</div>
+
+
+## Choropleth maps
+<!-- AF example followed: https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/ -->
+
+A choropleth map colours geographic areas according to a data value. In this example, we plot rates of visual impairment certification across upper-tier local authority areas in England. Each area is assigned to one of five equal groups (quintiles) and coloured from lightest to darkest to represent low to high rates.
+
+This example introduces two concepts not seen in the earlier chart examples:
+
+- **Sequential colour palette**: Unlike the categorical or duo palettes used in earlier examples, the [sequential palette](04-colour-palettes.qmd#sequential-palette) is designed for ordered data, where colour intensity conveys magnitude — light shades for low values, dark shades for high values.
+- **[GeoPandas](https://geopandas.org/en/stable/)**: A library that extends Pandas to work with geospatial data. Here it is used to load geographic boundary files (in GeoJSON format), clip them to England only, and merge them with the health indicator data — creating a single dataset that Plotly can use to draw the map.
+
+```{python}
+# | eval: true
+# | output: false
+
+import requests
+import pandas as pd
+import geopandas as gpd
+import plotly.graph_objects as go
+import io
+
+# Fetch indicator data
+url = "https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=41203"
+df = pd.read_csv(io.BytesIO(requests.get(url, verify=False).content))
+
+df = df[df["Time period"] == "2023/24"]
+
+# Numeric breakpoints for quantiles
+bins = [0, 2.4, 2.9, 3.5, 4.6, 12.7]
+
+# Labels in the same order
+labels = ["Lowest (0.0 to 2.4)", "(2.4 to 2.9)", "(2.9 to 3.5)", "(3.5 to 4.6)", "Highest (4.6 to 12.7)"]
+order = ["Suppressed"] + labels
+
+# Assign bin categories
+df["quantile_label"] = (
+    pd.cut(df["Value"], bins=bins, labels=labels, include_lowest=True)
+    .cat.add_categories("Suppressed")
+    .fillna("Suppressed")
+    .cat.reorder_categories(order, ordered=True)
+)
+
+# Load UK Country boundaries using geopandas
+url = (
+    "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/"
+    "Countries_December_2023_Boundaries_UK_BUC/FeatureServer/0/query"
+    "?outFields=*&where=1%3D1&f=geojson"
+)
+country_boundaries = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
+
+# Load Counties and Unitary Authorities boundaries using geopandas
+url = "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Counties_and_Unitary_Authorities_December_2023_Boundaries_UK_BUC/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+gdf = gpd.read_file(requests.get(url, verify=False).content).to_crs(4326)
+
+# Filter boundaries to England only
+england_boundaries = country_boundaries[country_boundaries["CTRY23NM"] == "England"]
+gdf_clipped_strict = gpd.overlay(gdf, england_boundaries, how="intersection")
+
+# Merge the indicator data with the geographic boundaries
+merged = gdf_clipped_strict.merge(df, left_on="CTYUA23CD", right_on="Area Code", how="left").reset_index(drop=True)
+
+from afcharts.af_colours import get_af_colours
+from afcharts.pio_template import pio
+
+# Get the sequential colour palette in reverse order
+sequential = get_af_colours("sequential", number_of_colours=5, include_grey=True)[::-1]
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+fig = go.Figure()
+
+cat_to_code = {label: i + 1 for i, label in enumerate(labels)}
+z = merged["quantile_label"].map(cat_to_code)
+
+# Must add a separate trace for the 'Suppressed'.
+null_mask = ~pd.isna(z)
+fig.add_trace(
+    go.Choropleth(
+        geojson=merged.loc[null_mask].__geo_interface__,
+        locations=merged.loc[null_mask].index,
+        z=z[null_mask],
+        colorscale=sequential[1:],
+        zmin=0,
+        zmax=5,
+        marker_line_width=0.5,
+        marker_line_color="white",
+        showscale=False,  # hide continuous colorbar; we'll add a categorical legend
+        hoverinfo="skip",
+    )
+)
+
+# Suppressed values
+fig.add_trace(
+    go.Choropleth(
+        geojson=merged.loc[~null_mask].__geo_interface__,
+        locations=merged.loc[~null_mask].index,
+        z=[0] * (~null_mask).sum(),  # dummy z
+        colorscale=[[0, sequential[0]], [1, sequential[0]]],  # null colour
+        marker_line_width=0.5,
+        marker_line_color="white",
+        showscale=False,
+        hoverinfo="skip",
+    )
+)
+
+# Add a legend entry for each category using a dummy scatter trace
+for lab, col in zip(order[::-1], sequential[::-1]):
+    fig.add_trace(
+        go.Scatter(
+            x=[None],
+            y=[None],
+            mode="markers",
+            marker=dict(size=10, color=col, symbol="square"),
+            name=lab,
+        )
+    )
+
+
+# Add outline of England
+fig.add_trace(
+    go.Choropleth(
+        geojson=england_boundaries.__geo_interface__,
+        locations=england_boundaries.index,  # these are indices we put into properties
+        z=[0],
+        colorscale=[[0, "rgba(0,0,0,0)"], [1, "rgba(0,0,0,0)"]],  # transparent fill
+        marker_line_color="black",
+        marker_line_width=1,
+        hoverinfo="skip",
+        showscale=False,
+    )
+)
+
+width = 700
+height = 375
+
+fig.update_layout(
+    showlegend=True,
+    width=width,
+    height=height,
+    margin=dict(l=0, r=0, t=0, b=0),
+    legend=dict(
+        title="Equal-sized quintiles of geographies",
+        x=0.06,
+        y=0.9,
+        xanchor="left",
+        yanchor="top",
+        font=dict(size=14),
+    ),
+    xaxis=dict(visible=False),
+    yaxis=dict(visible=False),
+)
+
+# Update the geos layout to focus on England and use a transverse mercator projection
+fig.update_geos(
+    projection_type="transverse mercator",
+    fitbounds="locations",
+    visible=False,
+)
+
+fig.show()
+```
+
+
+<div class="chart-title">Choropleth map with five series of sequential data</div>
+<div class="chart-subtitle">Rate of new certifications of visual impairment due to diabetic eye disease in persons aged 12 years and over, per 100,000 population</div>
+<div class="chart" aria-describedby="choropleth-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Data used to create this map is available to download from the [Fingertips Local Authority Health Profiles](https://fingertips.phe.org.uk/profile/health-profiles) produced by the Office for Health Improvement and Disparities.</div>
+
+<div class="chart-alt" id="choropleth-desc">
+The map shows the rate of new certifications of visual impairment (CVI) due to diabetic eye disease in persons aged 12 years and over by upper-tier local authority. The data has been broken down into five equal groups with the highest fifth of areas being in the category showing as darkest blue on the map, and areas with the lowest levels shown in the lightest blue.
+</div>
+
+## Heatmaps
+<!-- Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics -->
+
+A heatmap displays values in a grid of rows and columns, using colour intensity to show magnitude. In this example, we plot domestic energy price indices by fuel type and year.
+
+The [sequential colour palette](04-colour-palettes.qmd#sequential-palette) is used again here. This time, it's passed directly to Plotly's `colorscale` argument, which maps colour continuously across the full range of values — with a colour bar shown alongside the chart to act as a scale.
+
+```{python}
+# | eval: true
+# | output: false
+
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+
+import textwrap
+
+from afcharts.af_colours import get_af_colours
+from afcharts.pio_template import pio
+
+# Get the sequential colour palette
+sequential = get_af_colours("sequential", number_of_colours=5, include_grey=True)[::-1]
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
+
+df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=7, usecols="A:B,J:P")
+
+df = (
+    df[df["Quarter"] == "Jan to Mar"]
+    .set_index("Year")
+    .drop(columns=["Quarter"])
+    .dropna(how="all")
+)
+df.index = df.index.astype("string")
+
+df.columns = (
+    df.columns.str.replace("Real terms price indices: ", "")
+    .str.replace(r"(CPI 2025=100)?[ \\n]*\[Note [\d, ]+\]", "", regex=True)
+)
+
+for c in df.columns:
+    df[c] = pd.to_numeric(df[c], errors="coerce")
+
+fig = go.Figure()
+
+
+fig.add_trace(
+    go.Heatmap(
+        z=df.T,
+        x=df.index,
+        y=df.columns,
+        colorscale=sequential[1:],
+        colorbar=dict(title="CPI (2025 = 100)"),
+        hoverinfo="skip",
+    )
+)
+
+fig.update_layout(
+    height=600,
+    width=600,
+    xaxis=dict(
+        automargin=True,
+    ),
+)
+
+
+fig.show()
+```
+
+
+<div class="chart-title">Domestic energy price indices in real terms</div>
+<div class="chart-subtitle">Heat map of Quarterly consumer price indices of fuel components.</div>
+<div class="chart" aria-describedby="heatmap-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics</div>
+
+<div class="chart-alt" id="heatmap-desc">
+Heatmap displaying domestic energy price indices for the January–March quarter by year and fuel type. Values are encoded using a colour scale from light to dark to represent lower to higher index values, enabling comparison across fuels and years.
+</div>
+
+## Annotations
+
+Labelling your chart is often preferable to using a legend, as often this relies on a user matching the legend to the data using colour alone.
+
+You can add an annotation anywhere on a chart using the `fig.add_annotation()` method. This is demonstrated above in [Line chart with duo palette](#line-chart-with-duo-palette), which directly labels each line. Note that black text has been used for the labels, as this ensures sufficient contrast against the white background.
+
+To add value labels to bars in a bar chart, use the `text` argument of `go.Bar()`. In the example below, the population values are added as white text labels inside the bars.
+
+```{python}
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+# Filter for Americas in 2007 and get top 5 by population
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+
+top5 = df.nlargest(5, "pop")
+
+fig = go.Figure()
+
+x = top5["country"]
+y = top5["pop"] / 1e6  # millions
+
+fig.add_trace(
+    go.Bar(
+        x=x,
+        y=y,
+        text=round(y, 2),
+        textposition="inside",
+        textfont=dict(color="white")
+    )
+)
+
+# Update layout
+fig.update_layout(height=420)
+
+fig.show()
+
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="barchart-annotated-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="barchart-annotated-desc">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. White text labels are added inside each bar showing the population value in millions. Pale grey grid lines extend out from the y axis.
+</div>
+
+## Other customisations
+### Sorting a bar chart
+
+To control the order of bars in a bar chart, sort the data object before plotting. For Pandas data frames, you can use the `.sort_values()` method. Pass the name or list of names that you would like to sort by and specify whether ascending (True, default) or descending (False). In this below example, the data is sorted on `pop` and ascending is set to `True` so that the bars are displayed in ascending order of population.
+
+
+```{python}
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+# Filter for Americas in 2007 and get top 5 by population
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+
+top5 = df.nlargest(5, "pop").sort_values("pop", ascending=True)
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Bar(
+        x=top5["pop"],
+        y=top5["country"],
+        orientation="h",
+    )
+)
+
+# Update layout
+fig.update_layout(height=420)
+
+fig.show()
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="sortbar-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="sortbar-desc">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas, sorted in ascending order by population. Each bar is dark blue and labelled by country underneath. All text is black in a sans serif font. Pale grey grid lines extend out from the y axis.
+</div>
+
+### Adding a horizontal or vertical line
+
+To add a horizontal or vertical line across the whole plot, use `add_hline()` or `add_vline()` respectively. Annotating the line can be achieved using `annotation_text` argument. This can be useful to highlight a threshold or average level.  
+
+```{python}
+# | output: false
+
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("country == 'United Kingdom'")
+
+# Create figure
+fig = go.Figure()
+
+# Add a trace
+fig.add_trace(
+    go.Scatter(
+        x=df["year"],
+        y=df["lifeExp"],
+        mode="lines",
+        name="United Kingdom",
+        text=df["country"],
+    )
+)
+
+
+# Add a dotted horizontal line for 70 years of age
+fig.add_hline(
+    y=70,
+    line_dash="dash",  # dashed line
+    line_color="gray",  # gray color
+    annotation_text="Age 70",  # label
+    annotation_position="top right",
+    annotation_font_size=14,
+    annotation_font_color="black",
+)
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        range=[1950, 2010],
+    ),
+    yaxis=dict(
+        range=[0, 82],
+        tickmode="linear",
+        dtick=10,  # Show ticks every 10 units
+    ),
+    showlegend=False,
+    height=400,
+    margin=dict(r=40),
+)
+
+fig.show()
+
+```
+
+<div class="chart-title">Living Longer</div>
+<div class="chart-subtitle">Life expectancy in the United Kingdom 1952 to 2007</div>
+<div class="chart" aria-describedby="hline-desc">
+
+```{python}
+#| echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="hline-desc">
+This line chart uses the afcharts theme. There are pale grey grid lines extending from the y axis, and there is a thicker dark blue line representing the data. A dotted horizontal line has been added at 70 years of age, with an annotation to label it.
+</div>
+
+### Wrapping text
+
+If text is too long, it may be cut off or distort the dimensions of the chart. To avoid this, text can be wrapped to multiple lines using the `textwrap` module. The width argument controls how many characters are allowed on each line before wrapping. See the figure title below for an example.
+
+Alternatively, you can manually add line breaks by inserting `<br>` into the text string to control where the text is wrapped. See the y-axis label in the figure below for an example.
+
+```{python}
+# | output: false
+
+import textwrap
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("year == 2007 & continent == 'Americas'")
+
+top5 = df.nlargest(5, "pop")
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Bar(
+        x=top5["country"],
+        y=top5["pop"] / 1e6,
+    )
+)
+
+# Update layout
+fig.update_layout(
+    title="<br>".join(
+        textwrap.wrap(
+            "The U.S.A. is the most populous country in the Americas by a wide margin",
+            width=40,
+        )
+    ),  # Plotly does not support \n you must use a <br>
+    margin=dict(t=80),  # Increase top margin so the title is not clipped
+    yaxis=dict(title="Population<br>in millions"),  # Plotly does not support rotating axis labels
+    height=420,
+)
+
+fig.show()
+
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="textwrap-desc">
+
+```{python}
+# | echo: false
+
+fig.show()
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="textwrap-desc">
+In this bar chart image, the y-axis label and chart title text have been wrapped onto two lines so that all the text is visible without being cut off.
+</div>
+
+
+## Revert to Plotly default
+
+To revert to Plotly's default settings after applying the afcharts template:
+
+```{python}
+# | output: false
+
+from afcharts.pio_template import pio
+
+# Revert to plotly's default theme
+pio.templates.default = "plotly"
+```

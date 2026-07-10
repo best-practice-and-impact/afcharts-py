@@ -38,5 +38,3 @@ ytick.direction : out
 # LEGEND
 legend.frameon : False
 
-# FIGURE OUTPUT 
-figure.figsize : 6.4, 4.8
