@@ -18,16 +18,18 @@ The typical flow is:
 1. Create a **pre-release** on the release branch → the workflow publishes
    to TestPyPI and automatically verifies the package can be installed and
    imported.
-2. Once satisfied, merge the release branch into `main` and `dev`.
+2. Once satisfied, merge the release branch into `main` (regular merge
+   commit, not squash).
 3. Create a **full release** from `main` → the workflow publishes to PyPI
    (after confirming a matching version exists on TestPyPI).
+4. Sync `dev` by merging `main` into it.
 
 ```
-  Pre-release (release branch)       Full release (main)
-        │                                    │
-        ▼                                    ▼
-  ┌───────────┐  ✅ verified          ┌─────────────┐
-  │  TestPyPI │ ── merge to main ──►  │    PyPI     │
+  Pre-release (release branch)       Full release (main)         Sync
+        │                                    │                      │
+        ▼                                    ▼                      ▼
+  ┌───────────┐  ✅ verified          ┌─────────────┐       merge main
+  │  TestPyPI │ ── merge to main ──►  │    PyPI     │ ────► into dev
   └───────────┘                       └─────────────┘
     (automated                          (safety check
      install +                           confirms version
@@ -144,14 +146,15 @@ git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 ```
 
-### 7. Open pull requests
+### 7. Merge into main
 
-Open PRs from the release branch into **both** `main` and `dev`:
+Open a PR from the release branch into `main`:
 
 - `release/v1.2.0` → `main`
-- `release/v1.2.0` → `dev`
 
-Get them reviewed and merge both.
+Get it reviewed and **merge using a merge commit** (not squash). This
+preserves the commit references so that `main` and `dev` can stay in sync
+without force pushes.
 
 ### 8. Create a full release from main
 
@@ -181,6 +184,21 @@ python -c "import afcharts; print('Success!')"
 ```
 
 You can also check https://pypi.org/project/afcharts/ in your browser.
+
+### 10. Sync dev
+
+Merge `main` into `dev` to bring the version bump and release commit into
+the development branch:
+
+```bash
+git checkout dev && git pull origin dev
+git merge origin/main
+git push origin dev
+```
+
+This keeps `dev` in sync with `main` without requiring force pushes. Since
+the release branch originated from `dev`, this merge should be clean (no
+conflicts).
 
 ---
 
@@ -243,9 +261,14 @@ git push origin release/v1.2.0
 git add pyproject.toml && git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 
-# → Open PRs: release/v1.2.0 → main, release/v1.2.0 → dev
-# → Merge both PRs
+# → Open PR: release/v1.2.0 → main
+# → Merge with merge commit (NOT squash)
 
 # → Create full release from main (tag: v1.2.0, target: main)
 # → Workflow publishes to PyPI
+
+# Sync dev:
+git checkout dev && git pull origin dev
+git merge origin/main
+git push origin dev
 ```
