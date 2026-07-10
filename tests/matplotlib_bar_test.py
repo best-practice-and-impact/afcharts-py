@@ -15,7 +15,6 @@ def test_matplotlib_figure_creation():
     bars are rendered on an Axes.
     """
     with plt.style.context("afcharts.afcharts"):
-
         categories = ["A", "B", "C"]
         values = [10, 15, 20]
 
@@ -27,12 +26,12 @@ def test_matplotlib_figure_creation():
 
         plt.close(fig)
 
+
 def test_matplotlib_style_figure_size():
     """
-    Test that the afcharts style sets the default figure size to 6.4 x 4.8.
+    Test that the afcharts style does not override Matplotlib's default figure size (6.4 x 4.8).
     """
-    with plt.style.context('afcharts.afcharts'):
-
+    with plt.style.context("afcharts.afcharts"):
         fig = plt.figure()
 
         assert fig.get_figwidth() == 6.4
@@ -40,12 +39,12 @@ def test_matplotlib_style_figure_size():
 
         plt.close(fig)
 
+
 def test_matplotlib_style_y_gridlines_visible():
     """
     Test that the afcharts style enables y-axis gridlines.
     """
-    with plt.style.context('afcharts.afcharts'):
-
+    with plt.style.context("afcharts.afcharts"):
         fig, ax = plt.subplots()
 
         # Force the gridlines to be drawn to check their visibility
@@ -56,12 +55,12 @@ def test_matplotlib_style_y_gridlines_visible():
 
         plt.close(fig)
 
+
 def test_matplotlib_default_colour_applied():
     """
     Test that a bar chart uses the first AF colour (dark blue) from the style.
     """
-    with plt.style.context('afcharts.afcharts'):
-
+    with plt.style.context("afcharts.afcharts"):
         fig, ax = plt.subplots()
         ax.bar(["Stuff"], [10])
 
