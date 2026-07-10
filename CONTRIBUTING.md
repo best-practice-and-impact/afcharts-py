@@ -145,31 +145,11 @@ This should display `(afcharts)` at the start of your terminal prompt, showing t
 If you don't want to use `uv`, the package can be installed in developer (editable) mode from the root directory of the repository with:
 
 ```bash
-pip install -e . --group test --group dev
+pip install -e . --group dev --group test --group docs
 ```
 
 This assumes you already have a python virtual environment set up with your preferred tool (`conda`/`virtualenv`/`uv` etc.).
 
-### Testing
-
-To test your installation, run `pytest` to confirm all unit tests pass successfully in your environment:
-
-```bash
-pytest
-```
-
-See [docs/pytest_intro.md](docs/pytest_intro.md) for guidance on adding unit tests with `pytest`.
-
-### Reproduce the cookbook locally
-
-<details>
-You can now reproduce the book (requires quarto to be installed):
-
-```bash
-quarto preview ./docs/cookbook/
-```
-
-</details>
 
 ### Installing pre-commit hooks
 
@@ -216,3 +196,25 @@ Search for 'Default Formatter' and change it to 'ruff'
 ```
 
 </details>
+
+### Testing
+
+To test your installation, run `pytest` to confirm all unit tests pass successfully in your environment:
+
+```bash
+pytest
+```
+
+See [docs/pytest_intro.md](docs/pytest_intro.md) for guidance on adding unit tests with `pytest`.
+
+### Cookbook
+
+To render the cookbook locally (requires quarto to be installed):
+
+```bash
+quarto preview ./docs/cookbook/
+```
+
+## Release process
+
+To publish a new version of **afcharts** to PyPI, follow the steps in the [Release Guide](./docs/release-guide.md).
