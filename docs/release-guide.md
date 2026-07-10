@@ -122,8 +122,8 @@ your pre-release. Check that all three jobs succeeded:
 ### 5. Check TestPyPI
 
 Go to the [afcharts TestPyPI page](https://test.pypi.org/p/afcharts) and confirm that:
-- the new package version shows as a pre-release in 'Release history'
-- the project description is accurate and the images are displayed correctly
+1. the new package version shows as a pre-release in 'Release history'
+2. on clicking the pre-release version, the project description is accurate and the images are displayed correctly
 
 ### 6. Set the final version
 
