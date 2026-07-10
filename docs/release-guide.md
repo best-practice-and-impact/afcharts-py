@@ -75,7 +75,7 @@ git checkout -b release/v1.2.0
 ### 2. Bump the version number
 
 Update the `version` field in `pyproject.toml` to a **release candidate**
-version. This is needed because TestPyPI does not allow uploading the same
+version (`1.2.0rc1`). This is needed because TestPyPI does not allow uploading the same
 version twice — using RC versions lets you iterate if something goes wrong.
 
 ```toml
@@ -98,8 +98,8 @@ git push origin release/v1.2.0
 2. Click **Choose a tag** and type `v1.2.0rc1` (with "v" prefix) → select **Create new tag**
 3. **Target**: the `release/v1.2.0` branch
 4. **Title**: `afcharts 1.2.0rc1`
-5. **Description**: Brief summary and list of changes since previous release
-6. **Check the "Set as a pre-release" box** ← this is critical!
+5. **Description**: Brief summary (e.g. "Release candidate for v1.2.0") and list of changes since previous release
+6. ⚠️ **Check the "Set as a pre-release" box** ← this is critical ⚠️
 7. Click **Publish release**
 
 This triggers the workflow, which will:
@@ -119,7 +119,13 @@ your pre-release. Check that all three jobs succeeded:
 
 **If the verification failed**, see [Troubleshooting](#troubleshooting) below.
 
-### 5. Set the final version
+### 5. Check TestPyPI
+
+Go to the [afcharts TestPyPI page](https://test.pypi.org/p/afcharts) and confirm that:
+- the new package version shows as a pre-release in 'Release history'
+- the project description is accurate and the images are displayed correctly
+
+### 6. Set the final version
 
 Once you are satisfied with the RC, update `pyproject.toml` to the final
 version:
@@ -137,7 +143,7 @@ git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 ```
 
-### 6. Publish the final version to TestPyPI
+### 7. Publish the final version to TestPyPI
 
 Create another GitHub pre-release — this time with the final version number:
 
@@ -149,7 +155,7 @@ Create another GitHub pre-release — this time with the final version number:
 Wait for the workflow to complete and verify all jobs pass. This confirms
 the exact version that will go to PyPI installs correctly.
 
-### 7. Open pull requests
+### 8. Open pull requests
 
 Open PRs from the release branch into **both** `main` and `dev`:
 
@@ -158,10 +164,10 @@ Open PRs from the release branch into **both** `main` and `dev`:
 
 Get them reviewed and merge both **without squash merging** (or recreate the `v1.2.0` tag on `main` after merging). This ensures `main` and `dev` are in sync and that the tag you promote matches the code in `main`.
 
-### 8. Promote the pre-release to a full release
+### 9. Promote the pre-release to a full release
 
 1. Go to **Releases** on GitHub
-2. Find the `v1.2.0` pre-release you created in step 6
+2. Find the `v1.2.0` pre-release you created in step 7
 3. Click **Edit** (pencil icon)
 4. **Uncheck "Set as a pre-release"**
 5. Check **"Set as the latest release"**
@@ -173,7 +179,7 @@ This triggers the workflow again, which will:
 - Build the package
 - Publish `afcharts 1.2.0` to **PyPI**
 
-### 9. Verify the PyPI publication
+### 10. Verify the PyPI publication
 
 After the workflow completes, confirm the package is live:
 
@@ -205,7 +211,7 @@ The safety check queries TestPyPI for any version matching the base version
 number (e.g. for `1.2.0`, it looks for `1.2.0`, `1.2.0rc1`, `1.2.0rc2`,
 etc.). If it fails:
 
-- Ensure you completed steps 3–6 (publishing a pre-release to TestPyPI)
+- Ensure you completed steps 3–7 (publishing a pre-release to TestPyPI)
   before promoting to a full release.
 - Check https://test.pypi.org/project/afcharts/ to see which versions are
   available.
