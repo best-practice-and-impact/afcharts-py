@@ -149,8 +149,10 @@ Create another GitHub pre-release — this time with the final version number:
 
 1. **Releases** → **Draft a new release**
 2. Tag: `v1.2.0`, Target: `release/v1.2.0`
-3. **Check "Set as a pre-release"**
-4. Publish
+3. **Title**: `afcharts 1.2.0`
+4. **Description**: List of changes since previous release
+5. **Check "Set as a pre-release"**
+6. Publish
 
 Wait for the workflow to complete and verify all jobs pass. This confirms
 the exact version that will go to PyPI installs correctly.
