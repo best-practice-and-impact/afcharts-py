@@ -18,7 +18,7 @@ The typical flow is:
 1. Create a **pre-release** on the release branch → the workflow publishes
    to TestPyPI and automatically verifies the package can be installed and
    imported.
-2. Once satisfied, squash-merge the release branch into `main`.
+2. Once satisfied, merge the release branch into `main` and `dev`.
 3. Create a **full release** from `main` → the workflow publishes to PyPI
    (after confirming a matching version exists on TestPyPI).
 
@@ -27,8 +27,8 @@ The typical flow is:
         │                                    │
         ▼                                    ▼
   ┌───────────┐  ✅ verified          ┌─────────────┐
-  │  TestPyPI │ ── squash merge ──►   │    PyPI     │
-  └───────────┘    to main            └─────────────┘
+  │  TestPyPI │ ── merge to main ──►  │    PyPI     │
+  └───────────┘                       └─────────────┘
     (automated                          (safety check
      install +                           confirms version
      import test)                        exists on TestPyPI)
@@ -151,7 +151,7 @@ Open PRs from the release branch into **both** `main` and `dev`:
 - `release/v1.2.0` → `main`
 - `release/v1.2.0` → `dev`
 
-Get them reviewed and **squash-merge** both.
+Get them reviewed and merge both.
 
 ### 8. Create a full release from main
 
@@ -244,7 +244,7 @@ git add pyproject.toml && git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 
 # → Open PRs: release/v1.2.0 → main, release/v1.2.0 → dev
-# → Squash-merge both PRs
+# → Merge both PRs
 
 # → Create full release from main (tag: v1.2.0, target: main)
 # → Workflow publishes to PyPI
