@@ -18,23 +18,27 @@ The typical flow is:
 1. Create a **pre-release** on the release branch → the workflow publishes
    to TestPyPI and automatically verifies the package can be installed and
    imported.
-2. Once satisfied, merge the release branch into `main` (regular merge
-   commit, not squash).
+2. Once satisfied, merge the release branch into `main` and `dev` via
+   separate PRs.
 3. Create a **full release** from `main` → the workflow publishes to PyPI
    (after confirming a matching version exists on TestPyPI).
-4. Sync `dev` by merging `main` into it.
 
 ```
-  Pre-release (release branch)       Full release (main)         Sync
-        │                                    │                      │
-        ▼                                    ▼                      ▼
-  ┌───────────┐  ✅ verified          ┌─────────────┐       merge main
-  │  TestPyPI │ ── merge to main ──►  │    PyPI     │ ────► into dev
-  └───────────┘                       └─────────────┘
-    (automated                          (safety check
-     install +                           confirms version
-     import test)                        exists on TestPyPI)
+                              release/vX.Y.Z
+                              /             \
+  Pre-release (TestPyPI)     /               \   Full release (PyPI)
+        │                   /                 \       │
+        ▼                  ▼                   ▼      ▼
+  ┌───────────┐     merge commit    squash     ┌─────────────┐
+  │  TestPyPI │ ──── to main ────   to dev ─── │    PyPI     │
+  └───────────┘                                └─────────────┘
 ```
+
+> **Why different merge strategies?** Using a merge commit to `main` preserves
+> commit references in the graph, which allows git to track shared history
+> between `main` and `dev`. Squash merging to `dev` satisfies its "Require
+> linear history" branch protection rule. This combination keeps both branches
+> in sync without requiring force pushes.
 
 ### Safety checks
 
@@ -146,15 +150,16 @@ git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 ```
 
-### 7. Merge into main
+### 7. Merge into main and dev
 
-Open a PR from the release branch into `main`:
+Open **two PRs** from the release branch:
 
-- `release/v1.2.0` → `main`
+| PR | Merge strategy | Reason |
+|---|---|---|
+| `release/v1.2.0` → `main` | **Merge commit** | Preserves commit references for branch sync |
+| `release/v1.2.0` → `dev` | **Squash merge** | Satisfies dev's "Require linear history" rule |
 
-Get it reviewed and **merge using a merge commit** (not squash). This
-preserves the commit references so that `main` and `dev` can stay in sync
-without force pushes.
+Get both reviewed and merge them.
 
 ### 8. Create a full release from main
 
@@ -184,21 +189,6 @@ python -c "import afcharts; print('Success!')"
 ```
 
 You can also check https://pypi.org/project/afcharts/ in your browser.
-
-### 10. Sync dev
-
-Merge `main` into `dev` to bring the version bump and release commit into
-the development branch:
-
-```bash
-git checkout dev && git pull origin dev
-git merge origin/main
-git push origin dev
-```
-
-This keeps `dev` in sync with `main` without requiring force pushes. Since
-the release branch originated from `dev`, this merge should be clean (no
-conflicts).
 
 ---
 
@@ -261,14 +251,10 @@ git push origin release/v1.2.0
 git add pyproject.toml && git commit -m "build(release): bump version to 1.2.0"
 git push origin release/v1.2.0
 
-# → Open PR: release/v1.2.0 → main
-# → Merge with merge commit (NOT squash)
+# → Open PR: release/v1.2.0 → main  (merge commit)
+# → Open PR: release/v1.2.0 → dev   (squash merge)
+# → Merge both PRs
 
 # → Create full release from main (tag: v1.2.0, target: main)
 # → Workflow publishes to PyPI
-
-# Sync dev:
-git checkout dev && git pull origin dev
-git merge origin/main
-git push origin dev
 ```
