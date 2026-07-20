@@ -906,7 +906,9 @@ fig.update_geos(
     visible=False,
 )
 
-fig.show()
+fig.show(
+    config={"staticPlot": True} # Show figure as a static plot to avoid unintended interactivity
+)
 ```
 
 
@@ -915,9 +917,11 @@ fig.show()
 <div class="chart" aria-describedby="choropleth-desc">
 
 ```{python}
-#| echo: false
+# | echo: false
 
-fig.show()
+fig.show(
+    config={"staticPlot": True} # Show figure as a static plot to avoid unintended interactivity
+)
 
 ```
 
