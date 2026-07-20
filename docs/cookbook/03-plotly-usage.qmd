@@ -906,7 +906,9 @@ fig.update_geos(
     visible=False,
 )
 
-fig.show(config={"staticPlot": True})
+fig.show(
+    config={"staticPlot": True} # Show figure as a static plot to avoid unintended interactivity
+)
 ```
 
 
@@ -917,7 +919,9 @@ fig.show(config={"staticPlot": True})
 ```{python}
 # | echo: false
 
-fig.show(config={"staticPlot": True})
+fig.show(
+    config={"staticPlot": True} # Show figure as a static plot to avoid unintended interactivity
+)
 
 ```
 
