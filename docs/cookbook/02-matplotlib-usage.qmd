@@ -740,9 +740,7 @@ sequential_cmap = LinearSegmentedColormap.from_list("sequential", sequential_sli
 # Set default theme
 plt.style.use("afcharts.afcharts")
 
-DATA_URL = "https://assets.publishing.service.gov.uk/media/69f1caf7c42061e837e3abfb/table_211_213__8_.xlsx"
-
-df = pd.read_excel(DATA_URL, sheet_name="2.1.1", header=7, usecols="A:B,J:P")
+df = pd.read_csv("./data/heatmap_example.csv")
 
 df = (
     df[df["Quarter"] == "Jan to Mar"]
@@ -787,7 +785,7 @@ fig
 ```
 
 </div>
-<div class="chart-source">Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics</div>
+<div class="chart-source">Source: https://www.gov.uk/government/statistical-data-sets/monthly-domestic-energy-price-statistics, Data downloaded: 2026-09-18</div>
 
 <div class="chart-alt" id="heatmap-desc">
 Heatmap displaying domestic energy price indices for the January–March quarter by year and fuel type. Values are encoded using a colour scale from light to dark to represent lower to higher index values, enabling comparison across fuels and years.
