@@ -5,6 +5,8 @@
 .DS_Store
 
 # Data format
+*.csv
+!docs/cookbook/data/*.csv
 *.tsv
 *.xls
 *.xlsx
