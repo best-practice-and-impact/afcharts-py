@@ -66,7 +66,6 @@ df = gapminder()
 df = df[df["country"].isin(["United Kingdom", "China"])]
 
 # Make the figure shorter than the default (6.4, 4.8)
-# DELETE T HIS COMMENT LATER
 fig, ax = plt.subplots(figsize=(7, 4))
 
 for i, (country, data) in enumerate(df.groupby("country")):
