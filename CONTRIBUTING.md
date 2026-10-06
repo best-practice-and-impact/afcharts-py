@@ -2,7 +2,7 @@
 
 Thank you for considering contributing to this project! We welcome contributions from the community and are grateful for your support.
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners before making a change.
+When contributing to this repository, please first discuss the change you wish to make via GitHub Issues, email, or any other method with the owners before making a change.
 
 ## Community Guidelines
 
@@ -33,22 +33,24 @@ or `increment`.
 - We use the [Google](https://google.github.io/styleguide/pyguide.html#383-functions-and-methods)
 format for documenting features using docstrings.
 
+## Data visualisation best practice
+- Where possible, all `afcharts` functionality and cookbook guidance must align with official [Government Analysis Function data visualisation guidance](https://analysisfunction.civilservice.gov.uk/policy-store/?keyword=&area=data-visualisation)
+- If official guidance does not exist for a topic, it must be discussed with the package owners via GitHub Issues, email, or any other method before changes are made.
+
+
 ## Submitting Pull Requests
 
 We welcome pull requests! To submit a pull request:
 
 1. Branch from the `dev` branch.
-2. Update the README.md and other documentation with details of major changes
-to the interface, this includes new environment variables, useful file
-locations and container parameters.
-3. Ensure your code follows the coding standards outlined below.
-4. Write or update tests as needed.
+2. Ensure your code follows the coding standards outlined below.
+3. Update the README.md and other documentation as appropriate.
+4. Write or update tests as needed in the `tests/` folder.
 5. Ensure all tests pass.
-6. Ensure all pre-commit checks pass. See the instructions for installing and using pre-commit below
-7. Once you are ready for review please open a pull/merge request to the
+6. Ensure all pre-commit checks pass. See the instructions for installing and using pre-commit below.
+7. Once you are ready for review please open a pull request to the
 `dev` branch with a clear description of your changes and a title following the conventional-commit format (see below).
-8. You may merge the Pull/Merge Request in once you have the sign-off of two
-maintainers.
+8. You may merge the Pull Request into dev once it has been approved by at least one maintainer.
 
 ### Conventional commit PR titles
 
@@ -114,6 +116,19 @@ afcharts-py/
 
 ### Installing the `afcharts` package
 
+Developers should install `afcharts` in editable mode so that changes to the code will take effect without reinstalling the package. This can be done with either `pip` or `uv`.
+
+#### Installing with pip
+
+The package can be installed in developer (editable) mode from the root directory of the repository with:
+
+```bash
+pip install -e . --group dev --group test --group docs
+```
+
+This assumes you already have a python virtual environment set up with your preferred tool (`conda`/`virtualenv`/`uv` etc.).
+
+
 #### Installing with `uv`
 
 [`uv`](https://docs.astral.sh/uv/) is a powerful python package and virtual environement management tool that can be used as a stand in replacement for `pip`. It can be installed with `python -m pip install uv`. Familiar `pip` commands can be run with `uv pip <pip command>` e.g. `uv pip install matplotlib`, `uv pip list`.
@@ -140,16 +155,6 @@ This should display `(afcharts)` at the start of your terminal prompt, showing t
 
 `afcharts` will be installed in editable mode (like `pip install -e .`) so that changes to the code will take effect without reinstalling the package.
 
-#### Installing with pip
-
-If you don't want to use `uv`, the package can be installed in developer (editable) mode from the root directory of the repository with:
-
-```bash
-pip install -e . --group dev --group test --group docs
-```
-
-This assumes you already have a python virtual environment set up with your preferred tool (`conda`/`virtualenv`/`uv` etc.).
-
 
 ### Installing pre-commit hooks
 
@@ -159,7 +164,7 @@ Pre-commit hooks (configured in `.pre-commit-config.yaml`) run automated checks 
 - Format your code according to agreed formatting guidelines.
 - Check for common coding mistakes or deviations from best practices
 
-To activate the pre-commit hooks run (you only have to do this once):
+Pre-commit is installed as a dev dependency with afcharts. However, to activate the pre-commit hooks you must run (you only have to do this once):
 
 ```bash
 pre-commit install
@@ -173,26 +178,30 @@ pre-commit run --all-files
 
 Now, whenever you try to make a commit, the pre-commit hooks will run to lint and format the staged files.
 If your files are formatted or auto-fixed, stage (`git add .`) the automated formatting corrections and try committing again. If there are linting errors you may
-need to manually resolve these before committing again. In some *rare* circumstances you may need to make a commit that bypasses/fails the pre-commit hooks, in which case you can use:
-
-```bash
-git commit --no-verify -m 'feat(SCP-___): my commit message'
-```
+need to manually resolve these before committing again.
 
 </details>
 
 ### Ruff
 
 <details>
-Github actions automatically formats code using ruff.
+Ruff is installed as a dev dependency with afcharts.
 
-If you are using 'VS Code' IDE ensure that you change your formater in order to reduce style conflicts.
+Pre-commit and GitHub Actions automatically enforce Ruff linting rules. You can also run Ruff manually with these commands:
+
+```python
+ruff check                  # Lint files in the current directory.
+ruff check --fix            # Lint files in the current directory and fix any fixable errors.
+ruff check path/to/code/    # Lint files in `path/to/code`.
+```
+
+If you are using VS Code, it is recommended to install the Ruff extension to highlight Ruff linting issues in the editor. You may also want to change your default Python formatter to Ruff to reduce style conflicts:
 
 ```plain
 # Open the preferences
 'Ctrl+,'
 
-Search for 'Default Formatter' and change it to 'ruff'
+Search for '@lang:python Default Formatter' and change it to 'ruff'
 ```
 
 </details>
@@ -207,13 +216,17 @@ pytest
 
 See [docs/pytest_intro.md](docs/pytest_intro.md) for guidance on adding unit tests with `pytest`.
 
-### Cookbook
+### Quarto Cookbook
 
-To render the cookbook locally (requires quarto to be installed):
+The afcharts cookbook is a Quarto book. Install Quarto following [Get Started (quarto.org)](https://quarto.org/docs/get-started/). 
+
+To render the cookbook locally (requires Quarto to be installed):
 
 ```bash
 quarto preview ./docs/cookbook/
 ```
+
+This should open a browser showing the rendered cookbook.
 
 ## Release process
 
