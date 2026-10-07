@@ -120,18 +120,18 @@ Developers should install `afcharts` in editable mode so that changes to the cod
 
 #### Installing with pip
 
+First, set up a python virtual environment using your preferred tool (e.g. `venv`, `conda`, `uv` etc.).
+
 The package can be installed in developer (editable) mode from the root directory of the repository with:
 
 ```bash
 pip install -e . --group dev --group test --group docs
 ```
 
-This assumes you already have a python virtual environment set up with your preferred tool (`conda`/`virtualenv`/`uv` etc.).
-
 
 #### Installing with `uv`
 
-[`uv`](https://docs.astral.sh/uv/) is a powerful python package and virtual environement management tool that can be used as a stand in replacement for `pip`. It can be installed with `python -m pip install uv`. Familiar `pip` commands can be run with `uv pip <pip command>` e.g. `uv pip install matplotlib`, `uv pip list`.
+[`uv`](https://docs.astral.sh/uv/) is a powerful python package and virtual environment management tool that can be used as a stand in replacement for `pip`. It can be installed with `python -m pip install uv`. Familiar `pip` commands can be run with `uv pip <pip command>` e.g. `uv pip install matplotlib`, `uv pip list`.
 
 To create a virtual environment (in `./.venv`), install the recommended version of python and install the `afcharts` package and all it's dependencies run:
 
