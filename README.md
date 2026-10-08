@@ -16,10 +16,13 @@ Looking for the R version? Check out the [afcharts R package](https://best-pract
 ## Installation
 
 afcharts is available at the Python Package Index (PyPI):
+
 ```bash
 pip install afcharts
 ```
-or see the [alternative installation](https://best-practice-and-impact.github.io/afcharts-py/getting-started.html) instructions.
+
+See the [installation guide][getting-started] for more detailed instructions and
+for alternative installation methods.
 
 ## Usage
 
@@ -78,3 +81,6 @@ The afcharts python package is based on the
 Unless stated otherwise, the codebase is released under [the MIT License](LICENSE.md). This covers both the codebase and any sample code in the documentation.
 
 The documentation is [© Crown copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/) and available under the terms of the [Open Government 3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) licence.
+
+[getting-started]:
+    https://best-practice-and-impact.github.io/afcharts-py/01-getting-started.html
