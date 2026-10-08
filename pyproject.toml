@@ -28,10 +28,16 @@ classifiers = [
 requires-python = ">=3.10"
 
 dependencies = [ # required dependencies
-    "matplotlib>=3.10.3",
-    "plotly>=6.1.2",
     "typeguard>=4.4.4",
     'PyYAML >= 5.0',
+]
+
+[project.optional-dependencies]
+matplotlib = [
+    "matplotlib>=3.10.3",
+]
+plotly = [
+    "plotly>=6.1.2",
 ]
 
 [dependency-groups]
@@ -43,6 +49,8 @@ dev = [ # package developer dependencies
     "ruff>=0.6.2",       # Python linting/formatting tool combines black, flake8 etc. Run `ruff check --fix`/`ruff format`
     "pandas>=2.2.2",     # Used to manipulate tabular data
     "afcharts",          # Install current package in developer mode as workspace package
+    "matplotlib>=3.10.3",
+    "plotly>=6.1.2",
 ]
 test = [ # package unit testing dependencies
     "pandas>=2.2.2",       # Used to manipulate tabular data
