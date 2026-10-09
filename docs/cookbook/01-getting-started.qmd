@@ -25,7 +25,7 @@ pip install .
 uv sync
 ```
 
-### Optional Dependencies
+### Install Matplotlib or Plotly
 
 afcharts supports both Matplotlib and Plotly, but, as most users need only one,
 neither is installed by default.
