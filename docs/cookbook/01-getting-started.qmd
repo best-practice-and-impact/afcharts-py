@@ -30,8 +30,7 @@ uv sync
 afcharts supports both Matplotlib and Plotly, but, as most users need only one,
 neither is installed by default.
 
-You can install the library you need as an optional extra, either on the command
-line or in a file such as `pyproject.toml` or `requirements.txt`:
+You can install a compatible version of Matplotlib or Plotly with:
 
 ```bash
 # Matplotlib
@@ -39,9 +38,6 @@ pip install "afcharts[matplotlib]"
 
 # Plotly
 pip install "afcharts[plotly]"
-
-# Both
-pip install "afcharts[matplotlib,plotly]"
 ```
 
 ## Colours
