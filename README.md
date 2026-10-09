@@ -21,8 +21,18 @@ afcharts is available at the Python Package Index (PyPI):
 pip install afcharts
 ```
 
+To install a compatible version of Matplotlib or Plotly alongside afcharts, use:
+
+```bash
+# Matplotlib
+pip install "afcharts[matplotlib]"
+
+# Plotly
+pip install "afcharts[plotly]"
+```
+
 See the [installation guide][getting-started] for more detailed instructions and
-for alternative installation methods.
+alternative installation methods.
 
 ## Usage
 
