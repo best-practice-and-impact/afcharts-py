@@ -28,7 +28,7 @@ for alternative installation methods.
 
 Format any Matplotlib or Plotly chart in the Analysis Function style using the built-in style sheets.
 
-See the [Getting Started](https://best-practice-and-impact.github.io/afcharts-py/getting-started.html) guide for more options and the [cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for extensive examples.
+See the [Getting Started][getting-started] guide for more options and the [cookbook](https://best-practice-and-impact.github.io/afcharts-py/) for extensive examples.
 
 ### Matplotlib
 
