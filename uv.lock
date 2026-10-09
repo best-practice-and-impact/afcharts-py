@@ -27,18 +27,17 @@ plotly = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "afcharts" },
+    { name = "afcharts", extra = ["matplotlib", "plotly"] },
     { name = "ipython", version = "8.37.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "ipython", version = "9.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "matplotlib" },
     { name = "mypy" },
     { name = "pandas" },
-    { name = "plotly" },
     { name = "pre-commit" },
     { name = "ruff" },
     { name = "types-pyyaml" },
 ]
 docs = [
+    { name = "afcharts", extra = ["matplotlib", "plotly"] },
     { name = "geopandas", version = "1.1.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "geopandas", version = "1.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "ipykernel" },
@@ -48,6 +47,7 @@ docs = [
     { name = "requests" },
 ]
 test = [
+    { name = "afcharts", extra = ["matplotlib", "plotly"] },
     { name = "pandas" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -66,17 +66,16 @@ provides-extras = ["matplotlib", "plotly"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "afcharts", editable = "." },
+    { name = "afcharts", extras = ["matplotlib", "plotly"], editable = "." },
     { name = "ipython", specifier = ">=8.26.0" },
-    { name = "matplotlib", specifier = ">=3.10.3" },
     { name = "mypy", specifier = ">=1.15.0" },
     { name = "pandas", specifier = ">=2.2.2" },
-    { name = "plotly", specifier = ">=6.1.2" },
     { name = "pre-commit", specifier = ">=3.8.0" },
     { name = "ruff", specifier = ">=0.6.2" },
     { name = "types-pyyaml" },
 ]
 docs = [
+    { name = "afcharts", extras = ["matplotlib", "plotly"], editable = "." },
     { name = "geopandas" },
     { name = "ipykernel" },
     { name = "nbclient" },
@@ -85,6 +84,7 @@ docs = [
     { name = "requests" },
 ]
 test = [
+    { name = "afcharts", extras = ["matplotlib", "plotly"], editable = "." },
     { name = "pandas", specifier = ">=2.2.2" },
     { name = "pytest", specifier = ">=8.2.2" },
     { name = "pytest-cov", specifier = ">=5.0.0" },
