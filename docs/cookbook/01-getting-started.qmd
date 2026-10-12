@@ -25,6 +25,21 @@ pip install .
 uv sync
 ```
 
+### Install Matplotlib or Plotly
+
+afcharts supports both Matplotlib and Plotly, but, as most users need only one,
+neither is installed by default.
+
+You can install a compatible version of Matplotlib or Plotly with:
+
+```bash
+# Matplotlib
+pip install "afcharts[matplotlib]"
+
+# Plotly
+pip install "afcharts[plotly]"
+```
+
 ## Colours
 
 Use `get_af_colours()` to get a list of colours from any of the [Analysis Function colour palettes](https://analysisfunction.civilservice.gov.uk/policy-store/codes-for-accessible-colours/). For example:
