@@ -65,8 +65,8 @@ from plotly.express.data import gapminder
 df = gapminder()
 df = df[df["country"].isin(["United Kingdom", "China"])]
 
-# Make the figure wider than the default (6.4, 4.8)
-fig, ax = plt.subplots(figsize=(8.5, 4.8))
+# Make the figure shorter than the default (6.4, 4.8)
+fig, ax = plt.subplots(figsize=(7, 4))
 
 for i, (country, data) in enumerate(df.groupby("country")):
     plt.plot(data["year"], data["lifeExp"], label=country, color=duo[i])
