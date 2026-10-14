@@ -538,6 +538,84 @@ fig
 <div class="chart-alt" id="pie-desc">
 This pie chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by labels next to each segment. There is whitespace separating the segments from each other.</div>
 
+### Doughnut charts
+
+Doughnut charts are fundamentally the same as pie charts but are presented with a hole in the centre of the chart to resemble a doughnut instead of a pie.
+
+```{python}
+# | eval: true
+# | output: false
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
+
+from afcharts.af_colours import get_af_colours
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
+# Set default theme
+plt.style.use("afcharts.afcharts")
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder().query("continent == 'Europe' and year == 2007")
+
+# Create life expectancy groups
+df["lifeExpGrouped"] = pd.cut(
+    df["lifeExp"],
+    bins=[0, 75, float("inf")],
+    labels=["Under 75", "75 and over"]
+)
+
+# Count number of countries in each group
+group_counts = df["lifeExpGrouped"].value_counts().sort_index()
+
+fig = plt.figure()
+patches, labels, texts = plt.pie(
+    group_counts.values,
+    labels=group_counts.index,
+    autopct="%1.0f%%",
+    pctdistance=0.73,
+    colors=duo,
+    wedgeprops={"edgecolor": "white", "linewidth": 2},
+)
+
+# Draw circle to use for doughnut hole
+centre_circle = plt.Circle((0, 0), 0.50, fc='white')
+fig = plt.gcf()
+
+# Add circle onto the Pie chart
+fig.gca().add_artist(centre_circle)
+
+textcolours = ["white", "black"]
+
+# Set the text to contrasting colours
+for i, text in enumerate(texts):
+    text.set_color(textcolours[i])
+
+fig
+```
+
+<div class="chart-title">How life expectancy varies in Europe</div>
+<div class="chart-subtitle">Percentage of countries by life expectancy band, 2007</div>
+<div class="chart" aria-describedby="pie-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="pie-desc">
+This doughnut chart uses the afcharts theme, showing the proportions of European countries with a life expectancy under and over 75. The segment colours are from the Analysis Function categorical palette, with the smaller under 75 segment in dark blue, and the larger over 75 segment in orange. This is indicated by a legend to the right of the doughnut chart. There is whitespace separating the segments from each other.
+</div>
+
 ## Focus charts
 ```{python}
 # | eval: true
