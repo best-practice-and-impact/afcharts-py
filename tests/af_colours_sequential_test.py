@@ -32,6 +32,7 @@ def test_sequential_list_length(palette, colour_format, number_of_colours):
     result = get_af_colours(palette, colour_format, number_of_colours)
     assert len(result) == number_of_colours
 
+
 # Test invalid values
 @pytest.mark.parametrize(
     "palette, colour_format, number_of_colours",
@@ -49,6 +50,7 @@ def test_sequential_invalid_number_of_colours(palette, colour_format, number_of_
     """
     with pytest.raises(ValueError):
         get_af_colours(palette, colour_format, number_of_colours)
+
 
 # Test exact colour lists
 @pytest.mark.parametrize(
