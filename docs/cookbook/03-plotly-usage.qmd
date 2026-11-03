@@ -1086,6 +1086,97 @@ fig
 This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. White text labels are added inside each bar showing the population value in millions. Pale grey grid lines extend out from the y axis.
 </div>
 
+## Automatic line chart annotations
+
+Labelling your chart is often preferable to using a legend, as often this relies on a user matching the legend to the data using colour alone.
+
+You can add an annotation anywhere on a chart using the `fig.add_annotation()` method. This is demonstrated above in [Line chart with duo palette](#line-chart-with-duo-palette), which directly labels each line. As an alternative you can you use the afcharts function `plotly_chart_labelling.apply_chart_labels'`
+
+```{python}
+# | output: false
+
+import plotly.express as px
+import plotly.graph_objects as go
+
+from afcharts.pio_template import pio
+from afcharts.af_colours import get_af_colours
+from afcharts.plotly_chart_labelling import apply_chart_labels
+
+# Get the duo colour palette
+duo = get_af_colours("duo")
+
+# Set default theme
+pio.templates.default = "afcharts"
+
+# Load the gapminder dataset from plotly.express
+from plotly.express.data import gapminder
+
+df = gapminder()
+df = df[df["country"].isin(["United Kingdom", "China"])]
+
+# Create figure
+fig = go.Figure()
+
+# Add a trace for each continent
+for i, country in enumerate(df["country"].unique()):
+    df_country = df[df["country"] == country]
+
+    fig.add_trace(
+        go.Scatter(
+            x=df_country["year"],
+            y=df_country["lifeExp"],
+            mode="lines",
+            name=country,
+            text=df_country["country"],
+            line=dict(color=duo[i % len(duo)]),
+        )
+    )
+
+    # Add label at the last point
+    last_year = df_country["year"].max()
+    last_lifeExp = df_country[df_country["year"] == last_year]["lifeExp"].values[0]
+
+
+# Update layout
+fig.update_layout(
+    xaxis=dict(
+        showgrid=False,  # Hide x-axis grid lines
+        dtick=10,  # Show ticks every 10 units
+        range=[1950, 2010],
+    ),
+    yaxis=dict(
+        range=[0, 82],
+        tickmode="linear",
+        dtick=10,  # Show ticks every 10 units
+    ),
+    showlegend=False,
+    height=350,
+    margin=dict(r=120),
+)
+
+fig = apply_chart_labels(fig, include_end_values=True)
+
+fig.show()
+
+```
+
+<div class="chart-title">The U.S.A. is the most populous country in the Americas</div>
+<div class="chart-subtitle">Population of countries in the Americas (millions), 2007</div>
+<div class="chart" aria-describedby="barchart-annotated-desc">
+
+```{python}
+#| echo: false
+
+fig
+
+```
+
+</div>
+<div class="chart-source">Source: Gapminder</div>
+<div class="chart-alt" id="barchart-annotated-desc">
+This bar chart uses the afcharts theme, and shows the populations of the five most populous countries in the Americas. Each bar is dark blue and labelled by country underneath. White text labels are added inside each bar showing the population value in millions. Pale grey grid lines extend out from the y axis.
+</div>
+
 ## Other customisations
 ### Sorting a bar chart
 
