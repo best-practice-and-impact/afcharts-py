@@ -3,16 +3,16 @@ import plotly.graph_objects as go
 
 # TODO: auto adjust label position
 
-def add_line_end_labels(
+def apply_chart_labels(
     fig: go.Figure,
     *,
-    include_value: bool = False,
+    include_end_values: bool = False,
 ) -> go.Figure:
     """Add a label to the final valid point of each line trace.
 
     Args:
         fig: Plotly figure to update.
-        include_value: Include the final y value after the trace name.
+        include_end_values: Include the final y value after the trace name.
 
     Returns:
         The updated Plotly figure.
@@ -41,7 +41,7 @@ def add_line_end_labels(
         x, y = last_point
 
         label = str(trace.name or "")
-        if include_value:
+        if include_end_values:
             label = f"{label}: {y:g}" if label else f"{y:g}"
 
         fig.add_annotation(
